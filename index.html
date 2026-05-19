@@ -1942,9 +1942,11 @@ function openCertModal(editId){
       </div>
       <label style="font-size:.78rem;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:8px">持有成員（點選切換）</label>
       <div class="cert-modal-members">
-        ${CERT_MEMBERS_LIST.map(m=>`<div class="member-toggle ${row[m]?'active':''}" onclick="this.classList.toggle('active')" data-member="${m}" style="border-color:${CERT_COLORS[m]};${row[m]?'background:'+CERT_COLORS[m]+'22;color:'+CERT_COLORS[m]:''}">
-          ${m}
-        </div>`).join('')}
+        ${CERT_MEMBERS_LIST.map(m=>{
+          const active=row[m]?'active':'';
+          const bg=row[m]?`background:${CERT_COLORS[m]}22;border-color:${CERT_COLORS[m]};color:${CERT_COLORS[m]}`:`border-color:#CBD5E1;color:#64748B`;
+          return `<div class="member-toggle ${active}" onclick="toggleMember(this,'${CERT_COLORS[m]}')" data-member="${m}" style="${bg}">${m}</div>`;
+        }).join('')}
       </div>
       <div class="cert-modal-btns">
         ${isEdit?`<button class="btn-delete" onclick="deleteCert('${row.id}')">🗑 刪除</button>`:''}
@@ -1955,6 +1957,18 @@ function openCertModal(editId){
   </div>`;
 }
 
+function toggleMember(el, color){
+  el.classList.toggle('active');
+  if(el.classList.contains('active')){
+    el.style.background=color+'22';
+    el.style.borderColor=color;
+    el.style.color=color;
+  } else {
+    el.style.background='';
+    el.style.borderColor='#CBD5E1';
+    el.style.color='#64748B';
+  }
+}
 function closeCertModal(){document.getElementById('cert-modal-container').innerHTML='';}
 
 function saveCert(id,isEdit){
