@@ -10,6 +10,7 @@
 <script src="data-202602.js"></script>
 <script src="data-202603.js"></script>
 <script src="data-202604.js"></script>
+<script src="data-certs.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -137,6 +138,60 @@ tr:hover td{background:#F8FAFC}
 .next-card-body li:last-child{border:none}
 .next-card-body li::before{content:"→";color:#94A3B8;flex-shrink:0}
 
+/* ─── Cert Tab ─── */
+.cert-summary-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+.cert-stat{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 20px;display:flex;align-items:center;gap:14px}
+.cert-stat .cs-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.cert-stat .cs-val{font-size:1.6rem;font-weight:800;color:var(--text);line-height:1}
+.cert-stat .cs-lbl{font-size:.75rem;color:var(--subtle);margin-top:3px}
+.cert-charts-row{display:grid;grid-template-columns:1fr 1fr 1.4fr;gap:14px;margin-bottom:20px}
+.cert-chart-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px 18px}
+.cert-chart-card h4{font-size:.8rem;font-weight:700;color:var(--subtle);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px}
+.cert-alert-row{margin-bottom:16px}
+.cert-alert{background:#FFF7ED;border:1px solid #FED7AA;border-radius:10px;padding:12px 16px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px}
+.cert-alert.expired{background:#FEF2F2;border-color:#FECACA}
+.cert-alert-icon{font-size:18px;flex-shrink:0;margin-top:1px}
+.cert-alert-body strong{font-size:.88rem;color:#1E293B;display:block}
+.cert-alert-body span{font-size:.8rem;color:#64748B}
+.cert-table-wrap{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:auto}
+.cert-toolbar{display:flex;gap:10px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.cert-toolbar input,.cert-toolbar select{padding:7px 12px;border:1px solid var(--border);border-radius:8px;font-size:.83rem;background:#fff}
+.cert-toolbar input{flex:1;min-width:160px}
+.btn-cert-add{padding:7px 16px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-size:.83rem;font-weight:600;cursor:pointer}
+.btn-cert-export{padding:7px 14px;background:#0D9488;color:#fff;border:none;border-radius:8px;font-size:.83rem;font-weight:600;cursor:pointer}
+.btn-cert-reset{padding:7px 12px;background:#F1F5F9;color:#64748B;border:1px solid var(--border);border-radius:8px;font-size:.83rem;cursor:pointer}
+.cert-table{width:100%;border-collapse:collapse;font-size:.83rem}
+.cert-table th{background:#F8FAFC;padding:9px 10px;text-align:left;font-size:.75rem;font-weight:700;color:var(--subtle);text-transform:uppercase;letter-spacing:.04em;border-bottom:2px solid var(--border);white-space:nowrap;position:sticky;top:0;z-index:2}
+.cert-table td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:middle}
+.cert-table tr:hover td{background:#F8FAFC}
+.cert-table tr.st-expired td{background:#FEF2F2}
+.cert-table tr.st-expiring td{background:#FFF7ED}
+.cert-table tr.st-new td{background:#EFF6FF;color:#64748B}
+.code-badge{display:inline-block;padding:2px 8px;border-radius:5px;font-size:.78rem;font-weight:700;font-family:monospace}
+.cb-active{background:#DCFCE7;color:#16A34A}
+.cb-expiring{background:#FEF3C7;color:#D97706}
+.cb-expired{background:#FEE2E2;color:#DC2626}
+.cb-new{background:#DBEAFE;color:#2563EB}
+.cert-check{text-align:center;font-size:1rem}
+.cert-check.has{color:#16A34A}
+.cert-check.no{color:#E2E8F0}
+.cert-row-total{font-weight:800;color:#2563EB;text-align:center}
+/* Add/Edit Modal */
+.cert-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:flex;align-items:center;justify-content:center}
+.cert-modal{background:#fff;border-radius:14px;padding:28px 32px;width:680px;max-width:96vw;max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.cert-modal h3{font-size:1.1rem;font-weight:800;color:var(--text);margin-bottom:20px}
+.cert-modal-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.cert-modal label{font-size:.78rem;font-weight:600;color:var(--subtle);display:block;margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+.cert-modal input,.cert-modal select{width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-size:.88rem}
+.cert-modal input:focus,.cert-modal select:focus{outline:none;border-color:#2563EB;box-shadow:0 0 0 3px #DBEAFE}
+.cert-modal-members{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.member-toggle{display:flex;align-items:center;gap:6px;padding:6px 12px;border:2px solid var(--border);border-radius:999px;cursor:pointer;font-size:.85rem;font-weight:600;transition:.2s;user-select:none}
+.member-toggle.active{background:#DCFCE7;border-color:#16A34A;color:#16A34A}
+.cert-modal-btns{display:flex;gap:10px;justify-content:flex-end;margin-top:4px}
+.btn-save{padding:9px 22px;background:#2563EB;color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:.9rem}
+.btn-delete{padding:9px 18px;background:#FEE2E2;color:#DC2626;border:1px solid #FECACA;border-radius:8px;font-weight:700;cursor:pointer;font-size:.9rem}
+.btn-cancel{padding:9px 18px;background:#F1F5F9;color:#64748B;border:1px solid var(--border);border-radius:8px;font-weight:600;cursor:pointer;font-size:.9rem}
+
 /* ─── History ─── */
 .history-controls{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
 .history-controls select,.history-controls input[type=text]{padding:8px 12px;border:1px solid var(--border);border-radius:8px;font-size:.85rem}
@@ -222,6 +277,7 @@ tr:hover td{background:#F8FAFC}
   <button class="tab-btn" onclick="switchTab('history',this)">📈 歷史比較</button>
   <button class="tab-btn" onclick="switchTab('kpi',this);renderKPITab()">🎯 年度 KPI</button>
   <button class="tab-btn" onclick="switchTab('checklist',this);renderChecklistTab()">☑️ KPI 查核表</button>
+  <button class="tab-btn" onclick="switchTab('certs',this);renderCertTab()">🏅 認證追蹤</button>
 </nav>
 
 <main>
@@ -376,6 +432,59 @@ tr:hover td{background:#F8FAFC}
 <div id="tab-checklist" class="tab-panel">
   <div id="checklist-tab-content"></div>
 </div>
+
+<!-- ── TAB: Cert Tracker ─────────────────────────────────────── -->
+<div id="tab-certs" class="tab-panel">
+  <div id="cert-alerts"></div>
+  <div class="cert-summary-row" id="cert-summary-row"></div>
+  <div class="cert-charts-row">
+    <div class="cert-chart-card"><h4>📊 各成員認證數</h4><canvas id="cert-chart-person" height="180"></canvas></div>
+    <div class="cert-chart-card"><h4>🗂️ CSA 分類分佈</h4><canvas id="cert-chart-csa" height="180"></canvas></div>
+    <div class="cert-chart-card"><h4>📌 分類1 分佈（各成員堆疊）</h4><canvas id="cert-chart-cat1" height="180"></canvas></div>
+  </div>
+  <div class="cert-table-wrap">
+    <div class="cert-toolbar">
+      <input type="text" id="cert-search" placeholder="🔍 搜尋認證名稱 / 代號..." oninput="renderCertTable()">
+      <select id="cert-filter-csa" onchange="renderCertTable()">
+        <option value="">全部 CSA 分類</option>
+        <option>Cloud & AI Platforms</option>
+        <option>AI Business Solutions</option>
+        <option>Security</option>
+      </select>
+      <select id="cert-filter-status" onchange="renderCertTable()">
+        <option value="">全部狀態</option>
+        <option value="active">✅ 有效</option>
+        <option value="expiring">⚠️ 即將到期</option>
+        <option value="expired">❌ 已到期/汰換</option>
+        <option value="new">🆕 新認證</option>
+      </select>
+      <button class="btn-cert-add" onclick="openCertModal()">＋ 新增認證</button>
+      <button class="btn-cert-export" onclick="exportCertCSV()">⬇ 匯出 CSV</button>
+      <button class="btn-cert-reset" onclick="if(confirm('確定重置為預設資料？')){{resetCertData();renderCertTab();}}">↺ 重置</button>
+    </div>
+    <table class="cert-table" id="cert-table">
+      <thead>
+        <tr>
+          <th style="width:32px">#</th>
+          <th>認證名稱</th>
+          <th>代號</th>
+          <th>CSA 分類</th>
+          <th>分類 1</th>
+          <th>分類 2</th>
+          <th style="text-align:center">Allen</th>
+          <th style="text-align:center">Nick</th>
+          <th style="text-align:center">Lucas</th>
+          <th style="text-align:center">Aaron</th>
+          <th style="text-align:center">Bruno</th>
+          <th style="text-align:center">合計</th>
+          <th style="text-align:center">操作</th>
+        </tr>
+      </thead>
+      <tbody id="cert-tbody"></tbody>
+    </table>
+  </div>
+</div>
+<div id="cert-modal-container"></div>
 
 </main>
 
@@ -1665,6 +1774,241 @@ function renderChecklistTab(){
 
   html+=`</div>`;
   document.getElementById('checklist-tab-content').innerHTML=html;
+}
+
+// Start
+init();
+
+// ─────────────────────────────────────────────────────────────
+// CERT TAB
+// ─────────────────────────────────────────────────────────────
+const CERT_COLORS = {Allen:'#3B82F6',Nick:'#22C55E',Lucas:'#F59E0B',Aaron:'#A855F7',Bruno:'#EF4444'};
+let certCharts={};
+
+function getCertStatusLabel(s){
+  return {active:'✅ 有效',expiring:'⚠️ 即將汰換',expired:'❌ 已汰換/到期',new:'🆕 取代方案'}[s]||s;
+}
+
+function renderCertTab(){
+  const data=loadCertData();
+  renderCertAlerts(data);
+  renderCertSummary(data);
+  renderCertCharts(data);
+  renderCertTable();
+}
+
+function renderCertAlerts(data){
+  const today=new Date();
+  const expiring=data.filter(r=>{
+    const s=getCertStatus(r);
+    return (s==='expiring'||s==='expired') && Object.values(r).some((v,i)=>typeof v==='number'&&v>0&&i>6);
+  });
+  const el=document.getElementById('cert-alerts');
+  if(!expiring.length){el.innerHTML='';return;}
+  el.innerHTML='<div style="margin-bottom:14px">'+expiring.map(r=>{
+    const s=getCertStatus(r);
+    const holders=CERT_MEMBERS_LIST.filter(m=>r[m]>0).join('、');
+    const isExp=s==='expired';
+    return `<div class="cert-alert${isExp?' expired':''}">
+      <div class="cert-alert-icon">${isExp?'❌':'⚠️'}</div>
+      <div class="cert-alert-body">
+        <strong>${r.name}（${r.code}）${isExp?'— 已汰換':'— 即將汰換：'+r.expiry}</strong>
+        <span>持有成員：${holders||'—'}　　${r.note?'備註：'+r.note:''}</span>
+      </div>
+    </div>`;
+  }).join('')+'</div>';
+}
+
+function renderCertSummary(data){
+  const active=data.filter(r=>CERT_MEMBERS_LIST.some(m=>r[m]>0));
+  const total=active.reduce((s,r)=>s+CERT_MEMBERS_LIST.reduce((a,m)=>a+(r[m]||0),0),0);
+  const expiring=data.filter(r=>getCertStatus(r)==='expiring'&&CERT_MEMBERS_LIST.some(m=>r[m]>0)).length;
+  const expired=data.filter(r=>getCertStatus(r)==='expired').length;
+  const people=CERT_MEMBERS_LIST.filter(m=>data.some(r=>r[m]>0)).length;
+  document.getElementById('cert-summary-row').innerHTML=`
+    <div class="cert-stat"><div class="cs-icon" style="background:#DBEAFE">🏅</div><div><div class="cs-val">${total}</div><div class="cs-lbl">持有認證總數</div></div></div>
+    <div class="cert-stat"><div class="cs-icon" style="background:#DCFCE7">👥</div><div><div class="cs-val">${people}</div><div class="cs-lbl">持有認證成員</div></div></div>
+    <div class="cert-stat"><div class="cs-icon" style="background:#FEF3C7">⚠️</div><div><div class="cs-val" style="color:#D97706">${expiring}</div><div class="cs-lbl">即將汰換認證</div></div></div>
+    <div class="cert-stat"><div class="cs-icon" style="background:#FEE2E2">❌</div><div><div class="cs-val" style="color:#DC2626">${expired}</div><div class="cs-lbl">已汰換 / 過期</div></div></div>`;
+}
+
+function renderCertCharts(data){
+  // Destroy existing
+  Object.values(certCharts).forEach(c=>{try{c.destroy();}catch(e){}});
+  certCharts={};
+
+  // 1. Per person bar
+  const personTotals=CERT_MEMBERS_LIST.map(m=>data.reduce((s,r)=>s+(r[m]||0),0));
+  certCharts.person=new Chart(document.getElementById('cert-chart-person'),{
+    type:'bar',
+    data:{labels:CERT_MEMBERS_LIST,datasets:[{data:personTotals,backgroundColor:CERT_MEMBERS_LIST.map(m=>CERT_COLORS[m]),borderRadius:6}]},
+    options:{plugins:{legend:{display:false},datalabels:{anchor:'end',align:'end',font:{size:11,weight:'bold'},color:'#1E293B'}},scales:{y:{beginAtZero:true,ticks:{precision:0}},x:{ticks:{font:{size:11}}}},responsive:true,maintainAspectRatio:false},
+    plugins:[ChartDataLabels]
+  });
+
+  // 2. CSA donut
+  const csaMap={};
+  data.forEach(r=>{
+    if(!r.csa) return;
+    const n=CERT_MEMBERS_LIST.reduce((s,m)=>s+(r[m]||0),0);
+    if(n>0) csaMap[r.csa]=(csaMap[r.csa]||0)+n;
+  });
+  const csaLabels=Object.keys(csaMap);
+  const csaColors=['#3B82F6','#22C55E','#EF4444','#F59E0B','#A855F7'];
+  certCharts.csa=new Chart(document.getElementById('cert-chart-csa'),{
+    type:'doughnut',
+    data:{labels:csaLabels,datasets:[{data:csaLabels.map(k=>csaMap[k]),backgroundColor:csaColors,borderWidth:2}]},
+    options:{plugins:{legend:{position:'bottom',labels:{font:{size:10},padding:8}},datalabels:{formatter:(v,ctx)=>v>0?v:'',font:{size:11,weight:'bold'},color:'#fff'}},responsive:true,maintainAspectRatio:false,cutout:'55%'},
+    plugins:[ChartDataLabels]
+  });
+
+  // 3. Cat1 stacked bar per person
+  const cat1Set=[...new Set(data.filter(r=>r.cat1).map(r=>r.cat1))];
+  const cat1Colors=['#3B82F6','#22C55E','#F59E0B','#A855F7','#EF4444','#14B8A6','#EC4899','#6366F1'];
+  const cat1Datasets=cat1Set.map((cat,i)=>({
+    label:cat,
+    data:CERT_MEMBERS_LIST.map(m=>data.filter(r=>r.cat1===cat).reduce((s,r)=>s+(r[m]||0),0)),
+    backgroundColor:cat1Colors[i%cat1Colors.length],
+    borderRadius:3,stack:'a'
+  }));
+  certCharts.cat1=new Chart(document.getElementById('cert-chart-cat1'),{
+    type:'bar',
+    data:{labels:CERT_MEMBERS_LIST,datasets:cat1Datasets},
+    options:{plugins:{legend:{position:'bottom',labels:{font:{size:9},padding:6,boxWidth:10}},datalabels:{display:ctx=>ctx.dataset.data[ctx.dataIndex]>0,formatter:v=>v,font:{size:9,weight:'bold'},color:'#fff'}},scales:{x:{stacked:true,ticks:{font:{size:11}}},y:{stacked:true,beginAtZero:true,ticks:{precision:0}}},responsive:true,maintainAspectRatio:false},
+    plugins:[ChartDataLabels]
+  });
+}
+
+function renderCertTable(){
+  const data=loadCertData();
+  const q=(document.getElementById('cert-search')?.value||'').toLowerCase();
+  const filterCSA=document.getElementById('cert-filter-csa')?.value||'';
+  const filterStatus=document.getElementById('cert-filter-status')?.value||'';
+  let rows=data;
+  if(q) rows=rows.filter(r=>r.name.toLowerCase().includes(q)||r.code.toLowerCase().includes(q));
+  if(filterCSA) rows=rows.filter(r=>r.csa===filterCSA);
+  if(filterStatus) rows=rows.filter(r=>getCertStatus(r)===filterStatus);
+
+  const cbClass={active:'cb-active',expiring:'cb-expiring',expired:'cb-expired',new:'cb-new'};
+  const trClass={active:'',expiring:'st-expiring',expired:'st-expired',new:'st-new'};
+  document.getElementById('cert-tbody').innerHTML=rows.map((r,i)=>{
+    const s=getCertStatus(r);
+    const total=CERT_MEMBERS_LIST.reduce((a,m)=>a+(r[m]||0),0);
+    const memberCells=CERT_MEMBERS_LIST.map(m=>
+      `<td class="cert-check ${r[m]?'has':'no'}">${r[m]?'●':'○'}</td>`
+    ).join('');
+    return `<tr class="${trClass[s]}" ondblclick="openCertModal('${r.id}')">
+      <td style="color:#94A3B8;font-size:.75rem">${i+1}</td>
+      <td><span style="font-weight:600">${r.name}</span>${r.note?`<span style="font-size:.73rem;color:#94A3B8;margin-left:6px">${r.note}</span>`:''}</td>
+      <td><span class="code-badge ${cbClass[s]}">${r.code}</span>${r.expiry&&r.expiry!=='expired'?`<span style="font-size:.72rem;color:#D97706;margin-left:4px">${r.expiry}</span>`:''}</td>
+      <td style="font-size:.8rem;color:#64748B">${r.csa||'—'}</td>
+      <td style="font-size:.8rem">${r.cat1||'—'}</td>
+      <td style="font-size:.75rem;color:#94A3B8;max-width:140px;white-space:normal">${r.cat2||'—'}</td>
+      ${memberCells}
+      <td class="cert-row-total">${total||'—'}</td>
+      <td style="text-align:center"><button onclick="openCertModal('${r.id}')" style="background:none;border:none;cursor:pointer;color:#64748B;font-size:.85rem">✏️</button></td>
+    </tr>`;
+  }).join('');
+}
+
+function openCertModal(editId){
+  const data=loadCertData();
+  const isEdit=!!editId;
+  const row=isEdit?{...data.find(r=>r.id===editId)}:{
+    id:'CR'+String(Date.now()).slice(-6),
+    name:'',code:'',expiry:'',csa:'',cat1:'',cat2:'',note:'',
+    Allen:0,Nick:0,Lucas:0,Aaron:0,Bruno:0
+  };
+  document.getElementById('cert-modal-container').innerHTML=`
+  <div class="cert-modal-overlay" onclick="if(event.target===this)closeCertModal()">
+    <div class="cert-modal">
+      <h3>${isEdit?'✏️ 編輯認證':'＋ 新增認證'}</h3>
+      <div class="cert-modal-grid">
+        <div style="grid-column:1/-1"><label>認證名稱</label><input id="cm-name" value="${row.name}" placeholder="例：Azure AI Engineer Associate"></div>
+        <div><label>代號</label><input id="cm-code" value="${row.code}" placeholder="例：AI-102"></div>
+        <div><label>汰換日期（可留空）</label><input id="cm-expiry" value="${row.expiry==='expired'?'':row.expiry}" placeholder="YYYY-MM-DD 或 expired"></div>
+        <div><label>CSA 分類</label>
+          <select id="cm-csa">
+            <option value="">—</option>
+            <option ${row.csa==='Cloud & AI Platforms'?'selected':''}>Cloud & AI Platforms</option>
+            <option ${row.csa==='AI Business Solutions'?'selected':''}>AI Business Solutions</option>
+            <option ${row.csa==='Security'?'selected':''}>Security</option>
+          </select>
+        </div>
+        <div><label>分類 1</label><input id="cm-cat1" value="${row.cat1}" placeholder="例：Data & AI"></div>
+        <div><label>分類 2</label><input id="cm-cat2" value="${row.cat2}" placeholder="例：Infrastructure"></div>
+        <div><label>備註</label><input id="cm-note" value="${row.note}" placeholder="例：取代 AZ-204"></div>
+      </div>
+      <label style="font-size:.78rem;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:.04em;display:block;margin-bottom:8px">持有成員（點選切換）</label>
+      <div class="cert-modal-members">
+        ${CERT_MEMBERS_LIST.map(m=>`<div class="member-toggle ${row[m]?'active':''}" onclick="this.classList.toggle('active')" data-member="${m}" style="border-color:${CERT_COLORS[m]};${row[m]?'background:'+CERT_COLORS[m]+'22;color:'+CERT_COLORS[m]:''}">
+          ${m}
+        </div>`).join('')}
+      </div>
+      <div class="cert-modal-btns">
+        ${isEdit?`<button class="btn-delete" onclick="deleteCert('${row.id}')">🗑 刪除</button>`:''}
+        <button class="btn-cancel" onclick="closeCertModal()">取消</button>
+        <button class="btn-save" onclick="saveCert('${row.id}',${isEdit})">💾 儲存</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function closeCertModal(){document.getElementById('cert-modal-container').innerHTML='';}
+
+function saveCert(id,isEdit){
+  const data=loadCertData();
+  const members={};
+  document.querySelectorAll('.member-toggle').forEach(el=>{
+    members[el.dataset.member]=el.classList.contains('active')?1:0;
+  });
+  const row={
+    id,
+    name:document.getElementById('cm-name').value.trim(),
+    code:document.getElementById('cm-code').value.trim(),
+    expiry:document.getElementById('cm-expiry').value.trim(),
+    csa:document.getElementById('cm-csa').value,
+    cat1:document.getElementById('cm-cat1').value.trim(),
+    cat2:document.getElementById('cm-cat2').value.trim(),
+    note:document.getElementById('cm-note').value.trim(),
+    ...members
+  };
+  if(!row.name||!row.code){alert('認證名稱與代號為必填');return;}
+  if(isEdit){
+    const idx=data.findIndex(r=>r.id===id);
+    if(idx>=0) data[idx]=row;
+  } else {
+    data.push(row);
+  }
+  saveCertData(data);
+  closeCertModal();
+  renderCertTab();
+}
+
+function deleteCert(id){
+  if(!confirm('確定刪除此認證？')) return;
+  const data=loadCertData().filter(r=>r.id!==id);
+  saveCertData(data);
+  closeCertModal();
+  renderCertTab();
+}
+
+function exportCertCSV(){
+  const data=loadCertData();
+  const header=['認證名稱','代號','汰換日期','CSA分類','分類1','分類2',...CERT_MEMBERS_LIST,'合計','備註','狀態'];
+  const rows=data.map(r=>{
+    const total=CERT_MEMBERS_LIST.reduce((a,m)=>a+(r[m]||0),0);
+    return [
+      `"${r.name}"`,r.code,r.expiry,r.csa,r.cat1,`"${r.cat2}"`,
+      ...CERT_MEMBERS_LIST.map(m=>r[m]||0),
+      total,`"${r.note}"`,getCertStatusLabel(getCertStatus(r))
+    ];
+  });
+  const csv='﻿'+[header,...rows].map(r=>r.join(',')).join('\n');
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));
+  a.download='KS010S_認證追蹤_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
 }
 
 // Start
