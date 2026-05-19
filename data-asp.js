@@ -62,19 +62,37 @@ const PARTNER_DATA_DEFAULT = {
 };
 
 function loadPartnerData(){
-  const s=localStorage.getItem('ks_partner_data');
-  const d=s?JSON.parse(s):JSON.parse(JSON.stringify(PARTNER_DATA_DEFAULT));
+  let d;
+  try{
+    const s=localStorage.getItem('ks_partner_data');
+    d=s?JSON.parse(s):JSON.parse(JSON.stringify(PARTNER_DATA_DEFAULT));
+  }catch(e){d=JSON.parse(JSON.stringify(PARTNER_DATA_DEFAULT));}
   // 自動修正舊名稱
   if(d.subtitle) d.subtitle=d.subtitle.replace(/展基數位/g,'展碁國際');
   if(d.title)    d.title=d.title.replace(/展基數位/g,'展碁國際');
+  // 確保必要陣列欄位存在（防止舊 localStorage 殘存資料破壞 .map()）
+  if(!Array.isArray(d.specializations))      d.specializations=PARTNER_DATA_DEFAULT.specializations.map(x=>({...x}));
+  if(!d.solutionDesignations||!Array.isArray(d.solutionDesignations.items))
+    d.solutionDesignations=JSON.parse(JSON.stringify(PARTNER_DATA_DEFAULT.solutionDesignations));
+  if(!Array.isArray(d.partnerCards))         d.partnerCards=PARTNER_DATA_DEFAULT.partnerCards.map(x=>({...x}));
+  delete d.aspImages; // 清除舊版殘存欄位
   return d;
 }
 function savePartnerData(d){localStorage.setItem('ks_partner_data',JSON.stringify(d));}
 function resetPartnerData(){localStorage.removeItem('ks_partner_data');}
 
 function loadAspData(){
-  const s=localStorage.getItem('ks_asp_data');
-  return s?JSON.parse(s):JSON.parse(JSON.stringify(ASP_DATA_DEFAULT));
+  let d;
+  try{
+    const s=localStorage.getItem('ks_asp_data');
+    d=s?JSON.parse(s):JSON.parse(JSON.stringify(ASP_DATA_DEFAULT));
+  }catch(e){d=JSON.parse(JSON.stringify(ASP_DATA_DEFAULT));}
+  // 確保每個 ASP key 下的 certs / refs 是陣列
+  Object.values(d).forEach(asp=>{
+    if(!Array.isArray(asp.certs)) asp.certs=[];
+    if(!Array.isArray(asp.refs))  asp.refs=[];
+  });
+  return d;
 }
 function saveAspData(d){localStorage.setItem('ks_asp_data',JSON.stringify(d));}
 function resetAspData(){localStorage.removeItem('ks_asp_data');}

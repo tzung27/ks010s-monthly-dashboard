@@ -2235,10 +2235,19 @@ function openCertModal(editId){
 
 // ════════════ ASP 專長 JS ════════════
 function renderAspTab(){
-  const aspData=loadAspData();
-  const partnerHtml=renderPartnerSection();
-  const cardsHtml=Object.entries(aspData).map(([key,asp])=>renderAspCard(key,asp)).join('');
-  document.getElementById('asp-content').innerHTML=partnerHtml+cardsHtml;
+  try{
+    const aspData=loadAspData();
+    const partnerHtml=renderPartnerSection();
+    const cardsHtml=Object.entries(aspData).map(([key,asp])=>renderAspCard(key,asp)).join('');
+    document.getElementById('asp-content').innerHTML=partnerHtml+cardsHtml;
+  }catch(err){
+    document.getElementById('asp-content').innerHTML=
+      `<div style="margin:32px;padding:20px;background:#FEF2F2;border:1px solid #FCA5A5;border-radius:12px;color:#991B1B;font-family:monospace;font-size:.85rem">
+        <strong>⚠️ ASP 渲染錯誤（請截圖回報）：</strong><br>${err.message}<br><br>
+        <pre style="white-space:pre-wrap">${err.stack||''}</pre>
+        <button onclick="resetAspData();resetPartnerData();renderAspTab()" style="margin-top:12px;padding:8px 16px;background:#DC2626;color:#fff;border:none;border-radius:8px;cursor:pointer">🔄 清除快取重試</button>
+      </div>`;
+  }
 }
 
 /* ── Partner Section ── */
