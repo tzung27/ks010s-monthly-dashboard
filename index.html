@@ -11,6 +11,8 @@
 <script src="data-202603.js"></script>
 <script src="data-202604.js"></script>
 <script src="data-certs.js"></script>
+<script src="data-asp.js"></script>
+<script src="data-iur.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -155,6 +157,209 @@ tr:hover td{background:#F8FAFC}
 .cert-alert-body strong{font-size:.88rem;color:#1E293B;display:block}
 .cert-alert-body span{font-size:.8rem;color:#64748B}
 .cert-table-wrap{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:auto}
+/* ── Partner Section ── */
+.partner-wrap{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:28px 32px 24px;margin-bottom:22px}
+.partner-header{margin-bottom:20px}
+.partner-title{font-size:1.35rem;font-weight:800;color:#1E3A5F;margin-bottom:6px;outline:none}
+.partner-title:focus,.partner-subtitle:focus{background:#EFF6FF;border-radius:4px}
+.partner-subtitle{font-size:.85rem;color:#64748B;outline:none;display:block;margin-bottom:0}
+.partner-timeline{position:relative;display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:start;padding-top:28px}
+.partner-tl-line{position:absolute;top:10px;left:0;right:0;height:3px;background:#1E3A5F;z-index:0}
+.partner-tl-dot{width:20px;height:20px;border-radius:50%;background:#1E3A5F;border:3px solid #fff;box-shadow:0 0 0 2px #1E3A5F;position:absolute;top:0;z-index:2;display:flex;align-items:center;justify-content:center;font-size:.7rem}
+.partner-tl-dot-l{left:calc(25% - 10px)}
+.partner-tl-dot-r{right:calc(25% - 10px)}
+.partner-col{padding:0 12px}
+.partner-col-center{display:flex;gap:16px;justify-content:center;padding:0 12px}
+.partner-col-label{font-size:1rem;font-weight:800;color:#1E3A5F;margin-bottom:4px}
+.partner-col-desc{font-size:.78rem;color:#64748B;margin-bottom:10px;outline:none}
+.partner-col-desc:focus{background:#EFF6FF;border-radius:4px}
+.partner-spec-list,.partner-sd-list{list-style:none;padding:0;margin:0 0 10px}
+.partner-spec-list li,.partner-sd-list li{display:flex;align-items:center;gap:6px;font-size:.82rem;color:#DC2626;padding:3px 0;font-weight:500}
+.partner-sd-list li.done{color:#2563EB}
+.partner-sd-list li.miss{color:#94A3B8;text-decoration:line-through}
+.partner-li-text{flex:1;outline:none;border-radius:3px;padding:1px 3px}
+.partner-li-text:focus{background:#FFF7ED}
+.partner-li-del{background:none;border:none;cursor:pointer;color:#CBD5E1;font-size:.85rem;padding:0 2px;line-height:1;opacity:0;transition:opacity .15s}
+li:hover .partner-li-del{opacity:1}
+.partner-add-btn{font-size:.75rem;color:#2563EB;background:none;border:1px dashed #93C5FD;border-radius:6px;padding:3px 10px;cursor:pointer;margin-top:4px}
+.partner-add-btn:hover{background:#EFF6FF}
+/* MS Card */
+.ms-card{width:148px;border:1px solid #E2E8F0;border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.08);cursor:pointer;transition:box-shadow .2s,transform .15s;position:relative}
+.ms-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.15);transform:translateY(-2px)}
+.ms-card-top{padding:12px 12px 8px;background:#fff}
+.ms-logo{display:grid;grid-template-columns:1fr 1fr;gap:2px;width:26px;margin-bottom:6px}
+.ms-logo div{width:12px;height:12px}
+.ms-card-brand{font-size:.72rem;font-weight:700;color:#737373;line-height:1.2}
+.ms-card-area{font-size:.88rem;font-weight:700;color:#1a1a1a;margin-top:1px}
+.ms-card-sub{font-size:.75rem;color:#737373}
+.ms-card-bot{background:#1a1a1a;padding:8px 10px;color:#fff}
+.ms-card-bot-label{font-size:.65rem;color:#aaa;text-transform:uppercase;letter-spacing:.04em}
+.ms-card-bot-text{font-size:.72rem;color:#fff;font-weight:600;margin-top:2px;line-height:1.3}
+.ms-card-del{position:absolute;top:4px;right:4px;background:#fff;border:1px solid #E2E8F0;border-radius:50%;width:18px;height:18px;font-size:.65rem;cursor:pointer;display:none;align-items:center;justify-content:center;color:#DC2626;z-index:3}
+.ms-card:hover .ms-card-del{display:flex}
+.ms-card-add{width:148px;border:2px dashed #CBD5E1;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;cursor:pointer;color:#94A3B8;font-size:.8rem;min-height:120px;transition:background .15s,border-color .15s}
+.ms-card-add:hover{background:#F8FAFC;border-color:#93C5FD;color:#2563EB}
+/* Partner Modal */
+.partner-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;display:flex;align-items:center;justify-content:center}
+.partner-modal{background:#fff;border-radius:14px;padding:28px;width:380px;max-width:95vw;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.partner-modal h3{font-size:1rem;font-weight:700;color:#1E3A5F;margin-bottom:18px}
+.partner-modal label{font-size:.78rem;font-weight:600;color:#64748B;display:block;margin-bottom:4px;margin-top:12px}
+.partner-modal input{width:100%;padding:8px 10px;border:1px solid #CBD5E1;border-radius:7px;font-size:.85rem;box-sizing:border-box}
+.partner-modal-btns{display:flex;gap:8px;justify-content:flex-end;margin-top:20px}
+/* ── ASP 專長 ── */
+.asp-card{background:var(--card);border-radius:14px;box-shadow:var(--shadow);margin-bottom:22px;overflow:hidden}
+.asp-card-header{display:flex;align-items:center;justify-content:space-between;padding:20px 28px;gap:12px}
+.asp-copilot{background:linear-gradient(135deg,#1E3A5F 0%,#2563EB 100%)}
+.asp-security{background:linear-gradient(135deg,#1a2744 0%,#7C3AED 100%)}
+.asp-header-left{display:flex;align-items:center;gap:16px}
+.asp-icon{font-size:2.2rem;filter:drop-shadow(0 2px 4px rgba(0,0,0,.3))}
+.asp-title{font-size:1.3rem;font-weight:800;color:#fff;letter-spacing:.02em}
+.asp-subtitle{font-size:.8rem;color:rgba(255,255,255,.75);margin-top:2px}
+.asp-header-right{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.asp-deadline{font-size:.8rem;color:rgba(255,255,255,.8);background:rgba(255,255,255,.15);padding:4px 12px;border-radius:20px}
+.asp-overall-badge{font-size:.88rem;font-weight:700;padding:6px 16px;border-radius:20px}
+.asp-overall-badge.done{background:#DCFCE7;color:#16A34A}
+.asp-overall-badge.warn{background:#FEF3C7;color:#D97706}
+.asp-card-body{display:grid;grid-template-columns:1fr 340px;gap:0}
+.asp-section{padding:24px 28px}
+.asp-section+.asp-section{border-left:1px solid #F1F5F9}
+.asp-ref-section{background:#F8FAFC}
+.asp-section-title{font-size:.82rem;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.07em;margin-bottom:16px}
+.asp-cert-block{margin-bottom:18px}
+.asp-cert-header{display:flex;align-items:center;gap:8px;margin-bottom:7px;flex-wrap:wrap}
+.asp-cert-code{background:#EFF6FF;color:#2563EB;font-size:.75rem;font-weight:700;font-family:monospace;padding:2px 8px;border-radius:5px;white-space:nowrap}
+.asp-cert-name{font-size:.83rem;color:#334155;flex:1;min-width:0}
+.asp-cert-stat{font-size:.8rem;font-weight:700;white-space:nowrap}
+.asp-cert-stat.done{color:#16A34A}
+.asp-cert-stat.warn{color:#D97706}
+.asp-progress-bar{height:8px;background:#E2E8F0;border-radius:99px;overflow:hidden;margin-bottom:8px}
+.asp-progress-fill{height:100%;border-radius:99px;transition:width .6s ease}
+.asp-member-grid{display:flex;flex-wrap:wrap;gap:5px}
+.asp-mchip{font-size:.72rem;padding:3px 10px;border-radius:12px;font-weight:600;border:none;cursor:pointer;transition:transform .1s,opacity .1s;user-select:none}
+.asp-mchip:hover{transform:scale(1.08);opacity:.85}
+.asp-mchip:active{transform:scale(.95)}
+.asp-mchip.done{background:#DCFCE7;color:#16A34A}
+.asp-mchip.miss{background:#FEE2E2;color:#DC2626}
+.asp-ref-status.warn-big{display:flex;align-items:center;gap:12px;background:#FFF7ED;border:1px solid #FED7AA;border-radius:10px;padding:14px 16px;margin-bottom:16px}
+.asp-ref-dot.gray{background:#94A3B8}
+.asp-overall-badge.danger{background:#FEE2E2;color:#DC2626}
+.asp-dl-editable{border-bottom:1px dashed rgba(255,255,255,.6);outline:none;cursor:text;min-width:80px;display:inline-block;transition:background .15s;border-radius:3px;padding:0 2px}
+.asp-dl-editable:hover,.asp-dl-editable:focus{background:rgba(255,255,255,.18);border-bottom-color:#fff}
+.asp-dl-editable-body{border-bottom-color:#94A3B8;color:#334155}
+.asp-dl-editable-body:hover,.asp-dl-editable-body:focus{background:#EFF6FF;border-bottom-color:#2563EB}
+.asp-dl-sub[contenteditable]{outline:none;cursor:text;border-radius:3px;padding:1px 3px}
+.asp-dl-sub[contenteditable]:hover,.asp-dl-sub[contenteditable]:focus{background:#EFF6FF}
+.asp-note{font-size:.78rem;color:#64748B;background:#F8FAFC;border-left:3px solid #CBD5E1;padding:8px 12px;border-radius:0 6px 6px 0;margin-top:4px}
+.asp-gap-box{margin-top:16px;background:#FFF7ED;border:1px solid #FED7AA;border-radius:10px;padding:14px}
+.asp-gap-title{font-size:.78rem;font-weight:700;color:#92400E;margin-bottom:10px}
+.asp-gap-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.asp-gap-item{display:flex;align-items:center;gap:8px;background:#fff;border-radius:7px;padding:7px 10px;border:1px solid #FED7AA}
+.asp-gap-name{font-weight:700;font-size:.8rem;color:#334155;min-width:36px}
+.asp-gap-cert{font-size:.75rem;color:#D97706;font-family:monospace;font-weight:600}
+.asp-ref-status{display:flex;align-items:center;gap:12px;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:14px 16px;margin-bottom:16px}
+.asp-ref-icon{font-size:1.8rem}
+.asp-ref-label{font-size:1rem;font-weight:800;color:#16A34A}
+.asp-ref-list{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.asp-ref-item{display:flex;align-items:center;gap:8px;font-size:.8rem;color:#475569}
+.asp-ref-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.asp-ref-dot.green{background:#22C55E}
+.asp-ref-who{margin-left:auto;background:#E0F2FE;color:#0369A1;font-size:.72rem;font-weight:700;padding:1px 7px;border-radius:10px;white-space:nowrap}
+.asp-ref-date{font-size:.72rem;color:#94A3B8;white-space:nowrap}
+.asp-deadline-box{display:flex;align-items:flex-start;gap:10px;background:#FFF;border:1px solid #E2E8F0;border-radius:10px;padding:14px}
+.asp-dl-icon{font-size:1.4rem;flex-shrink:0}
+.asp-dl-title{font-size:.85rem;font-weight:700;color:#334155;margin-bottom:3px}
+.asp-dl-sub{font-size:.76rem;color:#64748B;line-height:1.5}
+@media(max-width:900px){.asp-card-body{grid-template-columns:1fr}.asp-section+.asp-section{border-left:none;border-top:1px solid #F1F5F9}}
+/* ── IUR 內部使用權 ── */
+.iur-section{background:var(--card);border-radius:14px;box-shadow:var(--shadow);padding:22px 26px;margin-bottom:20px}
+.iur-section-title{font-size:.95rem;font-weight:800;color:#1E3A5F;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.iur-section-title .iur-total-badge{font-size:.8rem;font-weight:700;background:#FEF3C7;color:#D97706;border:1px solid #FDE68A;padding:3px 12px;border-radius:20px;margin-left:auto}
+/* Azure Cards */
+.iur-azure-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.iur-azure-card{border-radius:12px;padding:18px 20px;position:relative;transition:box-shadow .2s}
+.iur-azure-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.12)}
+.iur-azure-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.iur-azure-label{font-size:.9rem;font-weight:700;color:#1E3A5F}
+.iur-azure-icon{font-size:1.6rem;opacity:.7}
+.iur-azure-usd{font-size:1.8rem;font-weight:900;color:#1E3A5F;margin-bottom:6px;outline:none}
+.iur-azure-usd:focus{background:rgba(255,255,255,.6);border-radius:4px}
+.iur-azure-desc{font-size:.76rem;color:#64748B;outline:none;line-height:1.5}
+.iur-azure-desc:focus{background:rgba(255,255,255,.6);border-radius:4px}
+.iur-azure-del{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.7);border:none;border-radius:50%;width:20px;height:20px;font-size:.7rem;cursor:pointer;display:none;align-items:center;justify-content:center;color:#DC2626}
+.iur-azure-card:hover .iur-azure-del{display:flex}
+/* Product Stats */
+.iur-stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:14px}
+.iur-stat-group{background:#F8FAFC;border-radius:10px;padding:14px 16px;border:1px solid #E2E8F0}
+.iur-stat-group-title{font-size:.78rem;font-weight:700;color:#475569;margin-bottom:10px}
+.iur-stat-big{font-size:2rem;font-weight:900;color:#1E3A5F;line-height:1}
+.iur-stat-big-sub{font-size:.72rem;color:#64748B;margin-top:2px;margin-bottom:8px}
+.iur-stat-desc{font-size:.73rem;color:#64748B;margin-top:8px;line-height:1.4}
+.iur-stat-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid #F1F5F9;font-size:.8rem}
+.iur-stat-row:last-child{border-bottom:none}
+.iur-stat-row-name{color:#475569;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.iur-stat-row-qty{font-weight:700;color:#1E3A5F;flex-shrink:0;margin-left:8px}
+.iur-stat-two{display:flex;gap:16px;margin-bottom:4px}
+.iur-stat-two-item{flex:1}
+.iur-stat-num{font-size:1.7rem;font-weight:900;color:#1E3A5F}
+.iur-stat-label{font-size:.7rem;color:#64748B;font-weight:600}
+/* Copilot */
+.iur-copilot-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:4px}
+.iur-copilot-item{background:#F8FAFC;border-radius:10px;padding:14px;text-align:center;border:1px solid #E2E8F0;position:relative}
+.iur-copilot-item:hover .iur-edit-btn{opacity:1}
+.iur-copilot-num{font-size:1.6rem;font-weight:900;color:#1E3A5F}
+.iur-copilot-icon{font-size:1.3rem;margin-bottom:2px}
+.iur-copilot-label{font-size:.76rem;color:#475569;font-weight:600}
+/* Table */
+.iur-table-toolbar{display:flex;gap:10px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+.iur-table-wrap{overflow-x:auto}
+.iur-table{width:100%;border-collapse:collapse;font-size:.82rem}
+.iur-table th{background:#F1F5F9;color:#475569;font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:.04em;padding:8px 12px;text-align:left;white-space:nowrap;position:sticky;top:0}
+.iur-table td{padding:8px 12px;border-bottom:1px solid #F1F5F9;vertical-align:middle}
+.iur-table tr:hover td{background:#F8FAFC}
+.iur-table .iur-cat-badge{font-size:.7rem;padding:2px 8px;border-radius:10px;font-weight:600;white-space:nowrap}
+.iur-cat-teams{background:#DBEAFE;color:#1D4ED8}
+.iur-cat-m365{background:#EDE9FE;color:#6D28D9}
+.iur-cat-dynamics{background:#DCFCE7;color:#15803D}
+.iur-cat-security{background:#FEE2E2;color:#DC2626}
+.iur-cat-powerplatform{background:#FEF3C7;color:#B45309}
+.iur-cat-copilot{background:#F0ABFC;color:#86198F}
+.iur-cat-other{background:#F1F5F9;color:#475569}
+.iur-cat-sandbox{background:#E0E7FF;color:#4338CA}
+.iur-qty-cell{font-weight:700;color:#1E3A5F;text-align:right}
+.iur-price-cell{text-align:right;color:#64748B;font-size:.8rem}
+.iur-subtotal-cell{text-align:right;font-weight:600;color:#1E3A5F;font-size:.82rem}
+.iur-row-core td{background:#EFF6FF}
+.iur-row-core:hover td{background:#DBEAFE}
+.iur-total-row td{background:#1E3A5F;color:#fff;font-weight:700;font-size:.83rem}
+.iur-total-row .iur-qty-cell,.iur-total-row .iur-subtotal-cell{color:#FCD34D}
+.iur-core-highlight{border:2px solid #2563EB !important;background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%) !important;position:relative}
+.iur-core-highlight::before{content:'★ 核心';position:absolute;top:-1px;right:10px;background:#2563EB;color:#fff;font-size:.65rem;font-weight:700;padding:1px 8px;border-radius:0 0 6px 6px}
+.iur-stat-amount{font-size:.82rem;font-weight:700;color:#2563EB;margin:6px 0 2px;background:#DBEAFE;border-radius:6px;padding:3px 8px;display:inline-block}
+.iur-highlight-amount{font-size:.9rem;background:#2563EB;color:#fff;padding:4px 12px}
+.iur-stat-mini-amt{font-size:.68rem;color:#3B82F6;font-weight:600;margin-top:1px}
+.iur-edit-btn{background:none;border:none;cursor:pointer;color:#94A3B8;font-size:.85rem;padding:2px 5px;opacity:0;transition:opacity .15s}
+tr:hover .iur-edit-btn{opacity:1}
+/* IUR Modal */
+.iur-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;display:flex;align-items:center;justify-content:center}
+.iur-modal{background:#fff;border-radius:14px;padding:28px;width:420px;max-width:95vw;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.iur-modal h3{font-size:1rem;font-weight:700;color:#1E3A5F;margin-bottom:18px}
+.iur-modal label{font-size:.78rem;font-weight:600;color:#64748B;display:block;margin-bottom:4px;margin-top:12px}
+.iur-modal input,.iur-modal select{width:100%;padding:8px 10px;border:1px solid #CBD5E1;border-radius:7px;font-size:.85rem;box-sizing:border-box}
+.iur-modal-btns{display:flex;gap:8px;justify-content:flex-end;margin-top:20px}
+/* ── Cert Timeline ── */
+.cert-timeline-wrap{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 28px 28px;margin-bottom:20px}
+.cert-timeline-wrap h4{font-size:.88rem;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.cert-timeline-subtitle{font-size:.8rem;color:#94A3B8;margin-bottom:22px}
+.cert-tl-container{position:relative;overflow-x:auto;padding-bottom:4px}
+.cert-tl-track{display:flex;align-items:flex-start;gap:0;min-width:max-content;position:relative;padding-top:20px}
+.cert-tl-line{position:absolute;top:20px;left:40px;right:40px;height:2px;background:#CBD5E1;z-index:0}
+.cert-tl-group{display:flex;flex-direction:column;align-items:center;min-width:160px;max-width:200px;padding:0 16px;position:relative;z-index:1}
+.cert-tl-dot{width:12px;height:12px;border-radius:50%;background:#1E3A5F;border:2px solid #fff;box-shadow:0 0 0 2px #1E3A5F;flex-shrink:0;margin-bottom:12px}
+.cert-tl-cat{font-size:.78rem;font-weight:700;color:#1E3A5F;text-align:center;line-height:1.35;margin-bottom:10px;white-space:pre-line}
+.cert-tl-items{list-style:none;padding:0;margin:0;text-align:left;width:100%}
+.cert-tl-items li{font-size:.77rem;color:#475569;padding:2px 0 2px 12px;position:relative}
+.cert-tl-items li::before{content:'•';position:absolute;left:2px;color:#94A3B8}
+.cert-tl-items li span.tl-count{color:#2563EB;font-weight:700}
 .cert-toolbar{display:flex;gap:10px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--border);flex-wrap:wrap}
 .cert-toolbar input,.cert-toolbar select{padding:7px 12px;border:1px solid var(--border);border-radius:8px;font-size:.83rem;background:#fff}
 .cert-toolbar input{flex:1;min-width:160px}
@@ -279,6 +484,8 @@ tr:hover td{background:#F8FAFC}
   <button class="tab-btn" onclick="switchTab('kpi',this);renderKPITab()">🎯 年度 KPI</button>
   <button class="tab-btn" onclick="switchTab('checklist',this);renderChecklistTab()">☑️ KPI 查核表</button>
   <button class="tab-btn" onclick="switchTab('certs',this);renderCertTab()">🏅 認證追蹤</button>
+  <button class="tab-btn" onclick="switchTab('asp',this);renderAspTab()">🎯 ASP 專長</button>
+  <button class="tab-btn" onclick="switchTab('iur',this);renderIurTab()">📦 內部使用權</button>
 </nav>
 
 <main>
@@ -443,6 +650,14 @@ tr:hover td{background:#F8FAFC}
     <div class="cert-chart-card"><h4>🗂️ CSA 分類分佈</h4><canvas id="cert-chart-csa"></canvas></div>
     <div class="cert-chart-card"><h4>📌 分類1 分佈（各成員堆疊）</h4><canvas id="cert-chart-cat1"></canvas></div>
   </div>
+  <div class="cert-timeline-wrap">
+    <h4>🗺️ 認證分佈地圖</h4>
+    <div class="cert-timeline-subtitle">涵蓋 Azure、基礎架構、資料與AI、資安、Power Platform 與現代工作等關鍵領域。</div>
+    <div class="cert-tl-container">
+      <div class="cert-tl-line"></div>
+      <div class="cert-tl-track" id="cert-tl-track"></div>
+    </div>
+  </div>
   <div class="cert-table-wrap">
     <div class="cert-toolbar">
       <input type="text" id="cert-search" placeholder="🔍 搜尋認證名稱 / 代號..." oninput="renderCertTable()">
@@ -486,6 +701,19 @@ tr:hover td{background:#F8FAFC}
   </div>
 </div>
 <div id="cert-modal-container"></div>
+
+<!-- ════════════ ASP 專長分頁（動態渲染）════════════ -->
+<div id="tab-asp" class="tab-panel">
+  <div id="asp-content"></div>
+</div><!-- end tab-asp -->
+
+<div id="cert-modal-container"></div>
+
+<!-- ════════════ IUR 分頁 ════════════ -->
+<div id="tab-iur" class="tab-panel">
+  <div id="iur-content"></div>
+</div>
+<div id="iur-modal-container"></div>
 
 </main>
 
@@ -1795,7 +2023,49 @@ function renderCertTab(){
   renderCertAlerts(data);
   renderCertSummary(data);
   renderCertCharts(data);
+  renderCertTimeline(data);
   renderCertTable();
+}
+
+function renderCertTimeline(data){
+  const el=document.getElementById('cert-tl-track');
+  if(!el) return;
+
+  // CSA 縮寫
+  const csaShort={'Cloud & AI Platforms':'CAIP','AI Business Solutions':'AIBS','Security':'Security'};
+  // cat1 顯示名稱
+  const catLabel={'Infra':'Infrastructure','Data & AI':'Data and AI','Digital & Apps':'Digital & App Innovation',
+    'Modern Work':'Modern Work','Power Platform':'Power Platform','Security':'Security',
+    'Dynamics 365/Data & AI':'Dynamics 365 / Data & AI'};
+
+  // 群組鍵：csa + cat1（只含有人持有且非取代方案）
+  const active=data.filter(r=>getCertStatus(r)!=='new' && CERT_MEMBERS_LIST.some(m=>r[m]>0));
+  const groups={};
+  active.forEach(r=>{
+    const prefix=csaShort[r.csa]||r.csa;
+    const cl=catLabel[r.cat1]||r.cat1||'其他';
+    const key= prefix==='Security' ? 'Security' : `${prefix} - ${cl}`;
+    if(!groups[key]) groups[key]=[];
+    const total=CERT_MEMBERS_LIST.reduce((a,m)=>a+(r[m]||0),0);
+    groups[key].push({code:r.code, total});
+  });
+
+  // 固定排序順序
+  const ORDER=['CAIP - Infrastructure','CAIP - Data and AI','CAIP - Digital & App Innovation',
+    'Security','AIBS - Modern Work','AIBS - Power Platform','AIBS - Business Applications','AIBS - Dynamics 365 / Data & AI'];
+  const keys=ORDER.filter(k=>groups[k]).concat(Object.keys(groups).filter(k=>!ORDER.includes(k)));
+
+  el.innerHTML=keys.map(key=>{
+    const items=groups[key].sort((a,b)=>b.total-a.total);
+    const listHtml=items.map(i=>`<li>${i.code} <span class="tl-count">x${i.total}</span></li>`).join('');
+    // 換行：在 " - " 後加換行
+    const label=key.replace(' - ','\n');
+    return `<div class="cert-tl-group">
+      <div class="cert-tl-dot"></div>
+      <div class="cert-tl-cat">${label}</div>
+      <ul class="cert-tl-items">${listHtml}</ul>
+    </div>`;
+  }).join('');
 }
 
 function renderCertAlerts(data){
@@ -1957,6 +2227,548 @@ function openCertModal(editId){
   </div>`;
 }
 
+// ════════════ ASP 專長 JS ════════════
+function renderAspTab(){
+  const aspData=loadAspData();
+  const partnerHtml=renderPartnerSection();
+  const cardsHtml=Object.entries(aspData).map(([key,asp])=>renderAspCard(key,asp)).join('');
+  document.getElementById('asp-content').innerHTML=partnerHtml+cardsHtml;
+}
+
+/* ── Partner Section ── */
+function renderPartnerSection(){
+  const d=loadPartnerData();
+  const specHtml=d.specializations.map(s=>`
+    <li>
+      <span>•</span>
+      <span class="partner-li-text" contenteditable="true" data-id="${s.id}" onblur="saveSpecText(this)">${s.text}</span>
+      <button class="partner-li-del" onclick="delSpec('${s.id}')">✕</button>
+    </li>`).join('');
+  const doneCount=d.solutionDesignations.items.filter(i=>i.done).length;
+  const sdHtml=d.solutionDesignations.items.map(i=>`
+    <li class="${i.done?'done':'miss'}">
+      <span style="cursor:pointer" onclick="toggleSD('${i.id}')">${i.done?'●':'○'}</span>
+      <span class="partner-li-text" contenteditable="true" data-id="${i.id}" onblur="saveSDText(this)">${i.text}</span>
+      <button class="partner-li-del" onclick="delSD('${i.id}')">✕</button>
+    </li>`).join('');
+  const cardsHtml=d.partnerCards.map(c=>`
+    <div class="ms-card" ondblclick="editPartnerCard('${c.id}')">
+      <button class="ms-card-del" onclick="delPartnerCard('${c.id}')">✕</button>
+      <div class="ms-card-top">
+        <div class="ms-logo">
+          <div style="background:#F25022"></div><div style="background:#7FBA00"></div>
+          <div style="background:#00A4EF"></div><div style="background:#FFB900"></div>
+        </div>
+        <div class="ms-card-brand">Microsoft<br>Solutions Partner</div>
+        <div class="ms-card-area">${c.area}</div>
+        <div class="ms-card-sub">${c.sub}</div>
+      </div>
+      <div class="ms-card-bot">
+        <div class="ms-card-bot-label">Specialist</div>
+        <div class="ms-card-bot-text">${c.specialist}</div>
+      </div>
+    </div>`).join('');
+  const imagesHtml=d.aspImages.map(img=>`
+    <div class="asp-img-item">
+      <img src="${img.dataUrl}" alt="${img.name}" title="${img.name}">
+      <button class="asp-img-del" onclick="delAspImage('${img.id}')">✕</button>
+    </div>`).join('');
+  return `<div class="partner-wrap">
+    <div class="partner-header">
+      <div class="partner-title" contenteditable="true" onblur="savePartnerField('title',this.innerText)">${d.title}</div>
+      <span class="partner-subtitle" contenteditable="true" onblur="savePartnerField('subtitle',this.innerText)">${d.subtitle}</span>
+    </div>
+    <div style="position:relative">
+      <div class="partner-tl-line"></div>
+      <div class="partner-tl-dot partner-tl-dot-l">🎯</div>
+      <div class="partner-tl-dot partner-tl-dot-r">🏅</div>
+      <div class="partner-timeline">
+        <div class="partner-col">
+          <div class="partner-col-label">${d.specializations.length} Specializations</div>
+          <div class="partner-col-desc" contenteditable="true" onblur="savePartnerField('specDesc',this.innerText)">${d.specDesc||'在特定技術領域的卓越能力與實施經驗。'}</div>
+          <ul class="partner-spec-list">${specHtml}</ul>
+          <button class="partner-add-btn" onclick="addSpec()">＋ 新增</button>
+        </div>
+        <div class="partner-col-center">
+          ${cardsHtml}
+          <div class="ms-card-add" onclick="editPartnerCard(null)">
+            <span style="font-size:1.4rem">＋</span>
+            <span>新增卡片</span>
+          </div>
+        </div>
+        <div class="partner-col">
+          <div class="partner-col-label">${doneCount}/${d.solutionDesignations.total} Solution Designations</div>
+          <div class="partner-col-desc" contenteditable="true" onblur="savePartnerField('sdDesc',this.innerText)">${d.sdDesc||'多個關鍵解決方案領域擁有廣泛且深入的專業知識。'}</div>
+          <ul class="partner-sd-list">${sdHtml}</ul>
+          <button class="partner-add-btn" onclick="addSD()">＋ 新增</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="partner-modal-container"></div>`;
+}
+
+function savePartnerField(field, val){
+  const d=loadPartnerData(); d[field]=val.trim(); savePartnerData(d); refreshPartner();
+}
+function saveSpecText(el){
+  const d=loadPartnerData();
+  const s=d.specializations.find(x=>x.id===el.dataset.id);
+  if(s){s.text=el.innerText.trim();savePartnerData(d);}
+}
+function saveSDText(el){
+  const d=loadPartnerData();
+  const s=d.solutionDesignations.items.find(x=>x.id===el.dataset.id);
+  if(s){s.text=el.innerText.trim();savePartnerData(d);}
+}
+function addSpec(){
+  const d=loadPartnerData();
+  d.specializations.push({id:'sp'+Date.now(),text:'新增項目'});
+  savePartnerData(d); refreshPartner();
+}
+function delSpec(id){
+  const d=loadPartnerData();
+  d.specializations=d.specializations.filter(s=>s.id!==id);
+  savePartnerData(d); refreshPartner();
+}
+function toggleSD(id){
+  const d=loadPartnerData();
+  const s=d.solutionDesignations.items.find(x=>x.id===id);
+  if(s){s.done=!s.done;savePartnerData(d);refreshPartner();}
+}
+function addSD(){
+  const d=loadPartnerData();
+  d.solutionDesignations.items.push({id:'sd'+Date.now(),text:'新項目',done:true});
+  savePartnerData(d); refreshPartner();
+}
+function delSD(id){
+  const d=loadPartnerData();
+  d.solutionDesignations.items=d.solutionDesignations.items.filter(s=>s.id!==id);
+  savePartnerData(d); refreshPartner();
+}
+function delPartnerCard(id){
+  const d=loadPartnerData();
+  d.partnerCards=d.partnerCards.filter(c=>c.id!==id);
+  savePartnerData(d); refreshPartner();
+}
+function editPartnerCard(id){
+  const d=loadPartnerData();
+  const c=id?d.partnerCards.find(x=>x.id===id):{id:'pc'+Date.now(),area:'',sub:'',specialist:''};
+  const isEdit=!!id;
+  document.getElementById('partner-modal-container').innerHTML=`
+    <div class="partner-modal-overlay" onclick="if(event.target===this)closePartnerModal()">
+      <div class="partner-modal">
+        <h3>${isEdit?'✏️ 編輯':'＋ 新增'}合作夥伴卡片</h3>
+        <label>領域名稱（Area）</label>
+        <input id="pm-area" value="${c.area}" placeholder="例：Data & AI">
+        <label>副標題（Sub）</label>
+        <input id="pm-sub" value="${c.sub}" placeholder="例：Azure">
+        <label>Specialist 名稱</label>
+        <input id="pm-spec" value="${c.specialist}" placeholder="例：AI Platform on Microsoft Azure">
+        <div class="partner-modal-btns">
+          ${isEdit?`<button class="btn-delete" onclick="delPartnerCard('${id}');closePartnerModal()">🗑 刪除</button>`:''}
+          <button class="btn-cancel" onclick="closePartnerModal()">取消</button>
+          <button class="btn-save" onclick="savePartnerCard('${c.id}',${isEdit})">💾 儲存</button>
+        </div>
+      </div>
+    </div>`;
+}
+function savePartnerCard(id, isEdit){
+  const d=loadPartnerData();
+  const obj={id, area:document.getElementById('pm-area').value.trim(), sub:document.getElementById('pm-sub').value.trim(), specialist:document.getElementById('pm-spec').value.trim()};
+  if(isEdit){const i=d.partnerCards.findIndex(c=>c.id===id);if(i>=0)d.partnerCards[i]=obj;}
+  else{d.partnerCards.push(obj);}
+  savePartnerData(d); closePartnerModal(); refreshPartner();
+}
+function closePartnerModal(){
+  const el=document.getElementById('partner-modal-container');
+  if(el)el.innerHTML='';
+}
+function refreshPartner(){
+  const container=document.getElementById('asp-content');
+  if(!container)return;
+  // 只更新 partner-wrap，保留 ASP cards
+  const tmp=document.createElement('div');
+  tmp.innerHTML=renderPartnerSection();
+  const existing=container.querySelector('.partner-wrap');
+  if(existing){existing.replaceWith(tmp.firstElementChild);const mc=tmp.querySelector('#partner-modal-container');if(mc)container.querySelector('#partner-modal-container')&&container.querySelector('#partner-modal-container').replaceWith(mc);}
+  else{container.insertBefore(tmp.firstElementChild,container.firstChild);}
+}
+
+function renderAspCard(key,asp){
+  // 計算整體進度
+  let totalDone=0,totalReq=0;
+  asp.certs.forEach(c=>{
+    const done=Object.values(c.members).reduce((a,v)=>a+v,0);
+    totalDone+=done; totalReq+=c.required;
+  });
+  const pct=totalReq?Math.round(totalDone/totalReq*100):0;
+  const allDone=pct>=100;
+  const badgeClass=pct>=90?'done':pct>=60?'warn':'danger';
+  const badgeIcon=pct>=90?'✅':pct>=60?'⚠️':'🔴';
+
+  // 缺口
+  const gaps={};
+  asp.certs.forEach(c=>{
+    Object.entries(c.members).forEach(([m,v])=>{
+      if(!v){if(!gaps[m])gaps[m]=[];gaps[m].push(c.code);}
+    });
+  });
+  const gapEntries=Object.entries(gaps);
+
+  const certsHtml=asp.certs.map(c=>{
+    const done=Object.values(c.members).reduce((a,v)=>a+v,0);
+    const fillPct=Math.round(done/c.required*100);
+    const statClass=done===c.required?'done':'warn';
+    const barColor=done===c.required?'#22C55E':fillPct>=60?'#F59E0B':'#EF4444';
+    const statIcon=done===c.required?'✅':'⚠️';
+    const chipsHtml=Object.entries(c.members).map(([m,v])=>
+      `<button class="asp-mchip ${v?'done':'miss'}" onclick="toggleAspMember('${key}','${c.id}','${m}')" title="點擊切換">${m} ${v?'✓':'✗'}</button>`
+    ).join('');
+    return `<div class="asp-cert-block">
+      <div class="asp-cert-header">
+        <span class="asp-cert-code">${c.code}</span>
+        <span class="asp-cert-name">${c.name}</span>
+        <span class="asp-cert-stat ${statClass}">${done} / ${c.required} ${statIcon}</span>
+      </div>
+      <div class="asp-progress-bar"><div class="asp-progress-fill" style="width:${fillPct}%;background:${barColor}"></div></div>
+      <div class="asp-member-grid">${chipsHtml}</div>
+    </div>`;
+  }).join('');
+
+  const gapHtml=gapEntries.length?`
+    <div class="asp-gap-box">
+      <div class="asp-gap-title">🎯 待補缺口一覽</div>
+      <div class="asp-gap-grid">
+        ${gapEntries.map(([m,codes])=>`<div class="asp-gap-item"><span class="asp-gap-name">${m}</span><span class="asp-gap-cert">${codes.join(' / ')}</span></div>`).join('')}
+      </div>
+    </div>`:'<div class="asp-note" style="background:#F0FDF4;border-color:#86EFAC;color:#166534">🎉 所有成員認證均已完成！</div>';
+
+  const refsAllDone=asp.refs.every(r=>r.done);
+  const refsBadge=refsAllDone
+    ?`<div class="asp-ref-status done-big"><div class="asp-ref-icon">✅</div><div class="asp-ref-label">已 100% 完成</div></div>`
+    :`<div class="asp-ref-status warn-big"><div class="asp-ref-icon">⏳</div><div class="asp-ref-label">進行中</div></div>`;
+  const refsHtml=asp.refs.map(r=>
+    `<div class="asp-ref-item"><span class="asp-ref-dot ${r.done?'green':'gray'}"></span><span>${r.name}</span><span class="asp-ref-who">${r.who}</span><span class="asp-ref-date">${r.date}</span></div>`
+  ).join('');
+
+  // 缺口說明文字
+  const noteText=gapEntries.length
+    ?`⚡ ${gapEntries.map(([m,c])=>`${m} 缺 ${c.join('、')}`).join('；')}。`
+    :'✅ 所有認證均已達標。';
+
+  return `<div class="asp-card">
+    <div class="asp-card-header ${asp.theme}">
+      <div class="asp-header-left">
+        <div class="asp-icon">${asp.icon}</div>
+        <div>
+          <div class="asp-title">${asp.label}</div>
+          <div class="asp-subtitle">${asp.subtitle}</div>
+        </div>
+      </div>
+      <div class="asp-header-right">
+        <div class="asp-deadline">📅 截止日：<span class="asp-dl-editable" contenteditable="true" data-aspkey="${key}" onblur="saveAspDeadline(this)" onkeydown="if(event.key==='Enter'){this.blur();return false}">${asp.deadline}</span></div>
+        <div class="asp-overall-badge ${badgeClass}">${badgeIcon} 整體進度 ${pct}%</div>
+      </div>
+    </div>
+    <div class="asp-card-body">
+      <div class="asp-section">
+        <div class="asp-section-title">📋 認證完成狀況</div>
+        ${certsHtml}
+        <div class="asp-note">${noteText}</div>
+        ${gapHtml}
+      </div>
+      <div class="asp-section asp-ref-section">
+        <div class="asp-section-title">🏆 客戶推薦資料</div>
+        ${refsBadge}
+        <div class="asp-ref-list">${refsHtml}</div>
+        <div class="asp-deadline-box">
+          <div class="asp-dl-icon">📅</div>
+          <div>
+            <div class="asp-dl-title">最終截止日：<span class="asp-dl-editable asp-dl-editable-body" contenteditable="true" data-aspkey="${key}" onblur="saveAspDeadline(this)" onkeydown="if(event.key==='Enter'){this.blur();return false}">${asp.deadline}</span></div>
+            <div class="asp-dl-sub" contenteditable="true" data-aspkey="${key}" onblur="saveAspDlNote(this)">${asp.dlNote}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function saveAspDeadline(el){
+  const key=el.dataset.aspkey;
+  const val=el.innerText.trim();
+  if(!val) return;
+  const data=loadAspData();
+  data[key].deadline=val;
+  saveAspData(data);
+  // 同步更新同一張 card 內的另一個截止日欄位（不重繪避免游標跳動）
+  document.querySelectorAll(`.asp-dl-editable[data-aspkey="${key}"]`).forEach(e=>{if(e!==el)e.innerText=val;});
+}
+
+function saveAspDlNote(el){
+  const key=el.dataset.aspkey;
+  const val=el.innerText.trim();
+  const data=loadAspData();
+  data[key].dlNote=val;
+  saveAspData(data);
+}
+
+function toggleAspMember(aspKey, certId, member){
+  const data=loadAspData();
+  const cert=data[aspKey].certs.find(c=>c.id===certId);
+  if(!cert)return;
+  cert.members[member]=cert.members[member]?0:1;
+  saveAspData(data);
+  renderAspTab();
+}
+
+// ════════════ end ASP JS ════════════
+
+// ════════════ IUR 內部使用權 JS ════════════
+const IUR_CAT_LABELS={'teams':'Teams','m365':'M365','dynamics':'Dynamics 365','security':'Security','powerplatform':'Power Platform','copilot':'Copilot','other':'其他','sandbox':'Partner Sandbox'};
+const IUR_CORE_CATS=['teams','m365'];
+
+function ntdFmt(n){return n?'$'+Math.round(n).toLocaleString():'—';}
+
+function renderIurTab(){
+  const azure=loadIurAzure();
+  const prods=loadIurProducts();
+  const settings=loadIurSettings();
+  document.getElementById('iur-content').innerHTML=
+    renderIurAzure(azure)+renderIurStats(prods,settings)+renderIurTable(prods,settings);
+}
+
+/* ── Azure 預算 ── */
+function renderIurAzure(azure){
+  const total=azure.reduce((s,a)=>s+Number(a.usd),0);
+  const cards=azure.map(a=>`
+    <div class="iur-azure-card" style="background:${a.color}">
+      <button class="iur-azure-del" onclick="delIurAzure('${a.id}')">✕</button>
+      <div class="iur-azure-card-top">
+        <div class="iur-azure-label" contenteditable="true" onblur="saveIurAzureField('${a.id}','label',this.innerText)">${a.label}</div>
+        <div class="iur-azure-icon">${a.icon}</div>
+      </div>
+      <div class="iur-azure-usd" contenteditable="true" onblur="saveIurAzureUsd('${a.id}',this.innerText)">${Number(a.usd).toLocaleString()} USD</div>
+      <div class="iur-azure-desc" contenteditable="true" onblur="saveIurAzureField('${a.id}','desc',this.innerText)">${a.desc}</div>
+    </div>`).join('');
+  const addCard=`<div class="iur-azure-card" style="background:#F8FAFC;border:2px dashed #CBD5E1;display:flex;align-items:center;justify-content:center;cursor:pointer;min-height:100px;border-radius:12px" onclick="openIurAzureModal(null)">
+    <span style="color:#94A3B8;font-size:.85rem">＋ 新增預算項目</span></div>`;
+  return `<div class="iur-section">
+    <div class="iur-section-title">💰 Azure 點數分配與專案預算 (USD)
+      <span class="iur-total-badge">Total：${total.toLocaleString()} USD</span>
+    </div>
+    <div class="iur-azure-grid">${cards}${addCard}</div>
+  </div>`;
+}
+
+/* ── 產品統計卡 ── */
+function renderIurStats(prods, settings){
+  const rate=Number(settings.exchangeRate)||32;
+  const sumQty=(cat)=>prods.filter(p=>p.cat===cat).reduce((s,p)=>s+Number(p.qty),0);
+  const sumNtd=(cat)=>prods.filter(p=>p.cat===cat).reduce((s,p)=>s+Number(p.qty)*Number(p.price||0),0);
+  const items=(cat)=>prods.filter(p=>p.cat===cat);
+
+  const teamsTotal=sumQty('teams'), teamsNtd=sumNtd('teams');
+  const m365Total=sumQty('m365'),   m365Ntd=sumNtd('m365');
+  const coreNtd=teamsNtd+m365Ntd;
+  const coreHighlight=coreNtd>0?`<div class="iur-stat-amount iur-highlight-amount">${ntdFmt(coreNtd)} <span>/ 月</span></div>`:'';
+
+  const dynTotal=sumQty('dynamics'), dynNtd=sumNtd('dynamics');
+  const dynAmountHtml=dynNtd?`<div class="iur-stat-amount">${ntdFmt(dynNtd)} <span>/ 月</span></div>`:'';
+
+  const secRows=items('security').map(p=>{
+    const sub=Number(p.qty)*Number(p.price||0);
+    return `<div class="iur-stat-row"><span class="iur-stat-row-name">${p.name}</span><span class="iur-stat-row-qty">${Number(p.qty).toLocaleString()}${sub?`<br><small style="color:#94A3B8;font-weight:400">${ntdFmt(sub)}</small>`:''}</span></div>`;
+  }).join('');
+  const ppRows=items('powerplatform').map(p=>{
+    const sub=Number(p.qty)*Number(p.price||0);
+    return `<div class="iur-stat-row"><span class="iur-stat-row-name">${p.name.replace('Power ','')}</span><span class="iur-stat-row-qty">${Number(p.qty).toLocaleString()}${sub?`<br><small style="color:#94A3B8;font-weight:400">${ntdFmt(sub)}</small>`:''}</span></div>`;
+  }).join('');
+  const copilotItems=items('copilot');
+  const copilotCards=copilotItems.map(p=>{
+    const short=p.name.replace('Microsoft 365 Copilot for ','').replace('Microsoft 365 Copilot','M365 Copilot');
+    const sub=Number(p.qty)*Number(p.price||0);
+    return `<div class="iur-copilot-item"><div class="iur-copilot-icon">🤖</div><div class="iur-copilot-num">${p.qty} 份</div><div class="iur-copilot-label">${short}</div>${sub?`<div style="font-size:.68rem;color:#2563EB;font-weight:600;margin-top:2px">${ntdFmt(sub)}</div>`:''}</div>`;
+  }).join('');
+
+  return `<div class="iur-section">
+    <div class="iur-section-title">📊 Microsoft 產品授權數量統計
+      <span style="font-size:.76rem;font-weight:400;color:#94A3B8;margin-left:8px">匯率設定：1 USD =
+        <input type="number" value="${rate}" min="1" style="width:54px;padding:2px 5px;border:1px solid #CBD5E1;border-radius:5px;font-size:.76rem;text-align:center"
+          onchange="saveIurSettings({exchangeRate:Number(this.value)||32});renderIurTab()"> NTD
+      </span>
+    </div>
+    <div class="iur-stats-grid">
+      <div class="iur-stat-group iur-core-highlight">
+        <div class="iur-stat-group-title">🖥️ 核心協作工具</div>
+        <div class="iur-stat-two">
+          <div class="iur-stat-two-item">
+            <div class="iur-stat-num">${teamsTotal.toLocaleString()}</div>
+            <div class="iur-stat-label">Teams</div>
+            ${teamsNtd?`<div class="iur-stat-mini-amt">${ntdFmt(teamsNtd)}</div>`:''}
+          </div>
+          <div class="iur-stat-two-item">
+            <div class="iur-stat-num">${m365Total.toLocaleString()}</div>
+            <div class="iur-stat-label">M365</div>
+            ${m365Ntd?`<div class="iur-stat-mini-amt">${ntdFmt(m365Ntd)}</div>`:''}
+          </div>
+        </div>
+        ${coreHighlight}
+        <div class="iur-stat-desc">Teams 為目前授權總數最高的項目，顯示高度的協作需求。</div>
+      </div>
+      <div class="iur-stat-group">
+        <div class="iur-stat-group-title">📈 Dynamics 365</div>
+        <div class="iur-stat-big">${dynTotal.toLocaleString()}</div>
+        <div class="iur-stat-big-sub">份授權</div>
+        ${dynAmountHtml}
+        <div class="iur-stat-desc">商業應用軟體佔據極高比重，為企業營運的核心支柱。</div>
+      </div>
+      <div class="iur-stat-group">
+        <div class="iur-stat-group-title">🔒 Security</div>
+        ${secRows}
+      </div>
+      <div class="iur-stat-group">
+        <div class="iur-stat-group-title">⚡ Power Platform</div>
+        ${ppRows}
+      </div>
+    </div>
+    <div class="iur-section-title" style="margin-top:18px;margin-bottom:10px">🤖 Copilot AI 助理配置</div>
+    <div class="iur-copilot-grid">${copilotCards}</div>
+  </div>`;
+}
+
+/* ── 完整清單表格 ── */
+function renderIurTable(prods, settings){
+  const filterCat=window._iurFilterCat||'';
+  const filterQ=(window._iurFilterQ||'').toLowerCase();
+  let rows=[...prods];
+  if(filterCat) rows=rows.filter(p=>p.cat===filterCat);
+  if(filterQ)   rows=rows.filter(p=>p.name.toLowerCase().includes(filterQ));
+
+  const grandTotal=rows.reduce((s,p)=>s+Number(p.qty)*Number(p.price||0),0);
+  const grandQty=rows.reduce((s,p)=>s+Number(p.qty),0);
+
+  const tbody=rows.map(p=>{
+    const sub=Number(p.qty)*Number(p.price||0);
+    const isCore=IUR_CORE_CATS.includes(p.cat);
+    return `<tr class="${isCore?'iur-row-core':''}">
+      <td><span class="iur-cat-badge iur-cat-${p.cat}">${IUR_CAT_LABELS[p.cat]||p.cat}</span></td>
+      <td style="${isCore?'font-weight:600':''}">${p.name}</td>
+      <td class="iur-qty-cell">${Number(p.qty).toLocaleString()}</td>
+      <td class="iur-price-cell">${p.price?ntdFmt(Number(p.price)):'<span style="color:#CBD5E1">—</span>'}</td>
+      <td class="iur-subtotal-cell">${sub?ntdFmt(sub):'<span style="color:#CBD5E1">—</span>'}</td>
+      <td><button class="iur-edit-btn" onclick="openIurProductModal('${p.id}')">✏️</button></td>
+    </tr>`;
+  }).join('');
+
+  const totalRow=`<tr class="iur-total-row">
+    <td colspan="2">合計</td>
+    <td class="iur-qty-cell">${grandQty.toLocaleString()} 份</td>
+    <td class="iur-price-cell">—</td>
+    <td class="iur-subtotal-cell">${grandTotal?ntdFmt(grandTotal)+' / 月':'—'}</td>
+    <td></td>
+  </tr>`;
+
+  const catOptions=Object.entries(IUR_CAT_LABELS).map(([v,l])=>`<option value="${v}" ${filterCat===v?'selected':''}>${l}</option>`).join('');
+
+  return `<div class="iur-section">
+    <div class="iur-section-title">📋 完整授權清單
+      <span class="iur-total-badge">共 ${rows.length} 項 / ${grandQty.toLocaleString()} 份${grandTotal?' / '+ntdFmt(grandTotal)+' / 月':''}</span>
+    </div>
+    <div class="iur-table-toolbar">
+      <input type="text" placeholder="🔍 搜尋產品名稱..." value="${window._iurFilterQ||''}" oninput="window._iurFilterQ=this.value;refreshIurTable()" style="padding:7px 12px;border:1px solid #CBD5E1;border-radius:8px;font-size:.83rem;flex:1;min-width:160px">
+      <select onchange="window._iurFilterCat=this.value;refreshIurTable()" style="padding:7px 12px;border:1px solid #CBD5E1;border-radius:8px;font-size:.83rem">
+        <option value="">全部類別</option>${catOptions}
+      </select>
+      <button class="tab-action-btn" onclick="openIurProductModal(null)">＋ 新增產品</button>
+      <button class="tab-action-btn" onclick="resetIurData();renderIurTab()" style="background:#FEF2F2;color:#DC2626;border-color:#FCA5A5">🔄 重置預設</button>
+    </div>
+    <div class="iur-table-wrap"><table class="iur-table">
+      <thead><tr>
+        <th>類別</th><th>產品名稱</th>
+        <th style="text-align:right">數量</th>
+        <th style="text-align:right">單價 (NTD/月)</th>
+        <th style="text-align:right">小計 (NTD/月)</th>
+        <th></th>
+      </tr></thead>
+      <tbody>${tbody}${totalRow}</tbody>
+    </table></div>
+  </div>`;
+}
+
+function refreshIurTable(){
+  const prods=loadIurProducts();
+  const settings=loadIurSettings();
+  const el=document.querySelector('#iur-content .iur-section:last-child');
+  if(el){const tmp=document.createElement('div');tmp.innerHTML=renderIurTable(prods,settings);el.replaceWith(tmp.firstElementChild);}
+}
+
+function saveIurAzureField(id,field,val){
+  const d=loadIurAzure();const a=d.find(x=>x.id===id);if(a){a[field]=val.trim();saveIurAzure(d);}
+}
+function saveIurAzureUsd(id,val){
+  const d=loadIurAzure();const a=d.find(x=>x.id===id);
+  if(a){a.usd=parseInt(val.replace(/[^0-9]/g,''))||0;saveIurAzure(d);}
+}
+function delIurAzure(id){saveIurAzure(loadIurAzure().filter(x=>x.id!==id));renderIurTab();}
+function openIurAzureModal(id){
+  const d=loadIurAzure();
+  const a=id?d.find(x=>x.id===id):{id:'az'+Date.now(),label:'',usd:0,desc:'',icon:'💡',color:'#F0F9FF'};
+  const isEdit=!!id;
+  document.getElementById('iur-modal-container').innerHTML=`
+    <div class="iur-modal-overlay" onclick="if(event.target===this)closeIurModal()">
+      <div class="iur-modal">
+        <h3>${isEdit?'✏️ 編輯':'＋ 新增'}預算項目</h3>
+        <label>項目名稱</label><input id="im-label" value="${a.label}" placeholder="例：AzureAI ASP">
+        <label>金額 (USD)</label><input id="im-usd" type="number" value="${a.usd}">
+        <label>圖示 Emoji</label><input id="im-icon" value="${a.icon}" placeholder="🧠">
+        <label>背景色</label><input id="im-color" type="color" value="${a.color||'#DBEAFE'}" style="height:36px;padding:2px">
+        <label>說明</label><input id="im-desc" value="${a.desc}">
+        <div class="iur-modal-btns">
+          ${isEdit?`<button class="btn-delete" onclick="delIurAzure('${id}');closeIurModal()">🗑 刪除</button>`:''}
+          <button class="btn-cancel" onclick="closeIurModal()">取消</button>
+          <button class="btn-save" onclick="saveIurAzureModal('${a.id}',${isEdit})">💾 儲存</button>
+        </div>
+      </div>
+    </div>`;
+}
+function saveIurAzureModal(id,isEdit){
+  const d=loadIurAzure();
+  const obj={id,label:document.getElementById('im-label').value.trim(),usd:parseInt(document.getElementById('im-usd').value)||0,icon:document.getElementById('im-icon').value.trim()||'💡',color:document.getElementById('im-color').value,desc:document.getElementById('im-desc').value.trim()};
+  if(isEdit){const i=d.findIndex(x=>x.id===id);if(i>=0)d[i]=obj;}else d.push(obj);
+  saveIurAzure(d);closeIurModal();renderIurTab();
+}
+function openIurProductModal(id){
+  const prods=loadIurProducts();
+  const p=id?prods.find(x=>x.id===id):{id:'p'+Date.now(),name:'',qty:0,price:0,cat:'other',subcat:'其他'};
+  const isEdit=!!id;
+  const catOptions=Object.entries(IUR_CAT_LABELS).map(([v,l])=>`<option value="${v}" ${p.cat===v?'selected':''}>${l}</option>`).join('');
+  document.getElementById('iur-modal-container').innerHTML=`
+    <div class="iur-modal-overlay" onclick="if(event.target===this)closeIurModal()">
+      <div class="iur-modal">
+        <h3>${isEdit?'✏️ 編輯':'＋ 新增'}產品授權</h3>
+        <label>產品名稱</label><input id="ip-name" value="${p.name}" placeholder="例：Microsoft 365 E5 (no Teams)">
+        <label>數量</label><input id="ip-qty" type="number" value="${p.qty}" min="0">
+        <label>List Price（NTD / 月 / 份，0 = 未填）</label><input id="ip-price" type="number" value="${p.price||0}" min="0" placeholder="0">
+        <label>類別</label><select id="ip-cat">${catOptions}</select>
+        <div class="iur-modal-btns">
+          ${isEdit?`<button class="btn-delete" onclick="delIurProduct('${id}');closeIurModal()">🗑 刪除</button>`:''}
+          <button class="btn-cancel" onclick="closeIurModal()">取消</button>
+          <button class="btn-save" onclick="saveIurProductModal('${p.id}',${isEdit})">💾 儲存</button>
+        </div>
+      </div>
+    </div>`;
+}
+function saveIurProductModal(id,isEdit){
+  const d=loadIurProducts();
+  const cat=document.getElementById('ip-cat').value;
+  const obj={id,name:document.getElementById('ip-name').value.trim(),qty:parseInt(document.getElementById('ip-qty').value)||0,price:parseFloat(document.getElementById('ip-price').value)||0,cat,subcat:IUR_CAT_LABELS[cat]||cat};
+  if(isEdit){const i=d.findIndex(x=>x.id===id);if(i>=0)d[i]=obj;}else d.push(obj);
+  saveIurProducts(d);closeIurModal();renderIurTab();
+}
+function delIurProduct(id){saveIurProducts(loadIurProducts().filter(x=>x.id!==id));renderIurTab();}
+function closeIurModal(){const el=document.getElementById('iur-modal-container');if(el)el.innerHTML='';}
+// ════════════ end IUR JS ════════════
 function toggleMember(el, color){
   el.classList.toggle('active');
   if(el.classList.contains('active')){
