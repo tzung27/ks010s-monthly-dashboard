@@ -2274,11 +2274,6 @@ function renderPartnerSection(){
         <div class="ms-card-bot-text">${c.specialist}</div>
       </div>
     </div>`).join('');
-  const imagesHtml=d.aspImages.map(img=>`
-    <div class="asp-img-item">
-      <img src="${img.dataUrl}" alt="${img.name}" title="${img.name}">
-      <button class="asp-img-del" onclick="delAspImage('${img.id}')">✕</button>
-    </div>`).join('');
   return `<div class="partner-wrap">
     <div class="partner-header">
       <div class="partner-title" contenteditable="true" onblur="savePartnerField('title',this.innerText)">${d.title}</div>
