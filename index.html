@@ -327,11 +327,17 @@ li:hover .partner-li-del{opacity:1}
 .iur-cat-sandbox{background:#E0E7FF;color:#4338CA}
 .iur-qty-cell{font-weight:700;color:#1E3A5F;text-align:right}
 .iur-price-cell{text-align:right;color:#64748B;font-size:.8rem}
+.iur-unit-badge{display:inline-block;font-size:.65rem;color:#64748B;background:#F1F5F9;border:1px solid #E2E8F0;border-radius:4px;padding:1px 5px;margin-left:4px;vertical-align:middle;white-space:nowrap}
+.iur-unit-badge.bot{background:#FEF3C7;color:#92400E;border-color:#FDE68A}
+.iur-unit-badge.tenant{background:#F0FDF4;color:#166534;border-color:#BBF7D0}
+.iur-unit-badge.room{background:#EFF6FF;color:#1D4ED8;border-color:#BFDBFE}
 .iur-subtotal-cell{text-align:right;font-weight:600;color:#1E3A5F;font-size:.82rem}
+.iur-annual-cell{text-align:right;font-weight:700;color:#0F172A;font-size:.82rem}
+.iur-annual-cell .iur-annual-dim{font-size:.68rem;color:#94A3B8;font-weight:400;margin-left:2px}
 .iur-row-core td{background:#EFF6FF}
 .iur-row-core:hover td{background:#DBEAFE}
 .iur-total-row td{background:#1E3A5F;color:#fff;font-weight:700;font-size:.83rem}
-.iur-total-row .iur-qty-cell,.iur-total-row .iur-subtotal-cell{color:#FCD34D}
+.iur-total-row .iur-qty-cell,.iur-total-row .iur-subtotal-cell,.iur-total-row .iur-annual-cell{color:#FCD34D}
 .iur-core-highlight{border:2px solid #2563EB !important;background:linear-gradient(135deg,#EFF6FF 0%,#DBEAFE 100%) !important;position:relative}
 .iur-core-highlight::before{content:'★ 核心';position:absolute;top:-1px;right:10px;background:#2563EB;color:#fff;font-size:.65rem;font-weight:700;padding:1px 8px;border-radius:0 0 6px 6px}
 .iur-stat-amount{font-size:.82rem;font-weight:700;color:#2563EB;margin:6px 0 2px;background:#DBEAFE;border-radius:6px;padding:3px 8px;display:inline-block}
@@ -2571,24 +2577,24 @@ function renderIurStats(prods, settings){
   const teamsTotal=sumQty('teams'), teamsNtd=sumNtd('teams');
   const m365Total=sumQty('m365'),   m365Ntd=sumNtd('m365');
   const coreNtd=teamsNtd+m365Ntd;
-  const coreHighlight=coreNtd>0?`<div class="iur-stat-amount iur-highlight-amount">${ntdFmt(coreNtd)} <span>/ 月</span></div>`:'';
+  const coreHighlight=coreNtd>0?`<div class="iur-stat-amount iur-highlight-amount">${ntdFmt(coreNtd)} <span>/ 月</span><div style="font-size:.72rem;color:#1D4ED8;font-weight:700;margin-top:2px">${ntdFmt(coreNtd*12)} <span style="font-weight:400;color:#64748B">/ 年</span></div></div>`:'';
 
   const dynTotal=sumQty('dynamics'), dynNtd=sumNtd('dynamics');
-  const dynAmountHtml=dynNtd?`<div class="iur-stat-amount">${ntdFmt(dynNtd)} <span>/ 月</span></div>`:'';
+  const dynAmountHtml=dynNtd?`<div class="iur-stat-amount">${ntdFmt(dynNtd)} <span>/ 月</span><div style="font-size:.72rem;color:#15803D;font-weight:700;margin-top:2px">${ntdFmt(dynNtd*12)} <span style="font-weight:400;color:#64748B">/ 年</span></div></div>`:'';
 
   const secRows=items('security').map(p=>{
     const sub=Number(p.qty)*Number(p.price||0);
-    return `<div class="iur-stat-row"><span class="iur-stat-row-name">${p.name}</span><span class="iur-stat-row-qty">${Number(p.qty).toLocaleString()}${sub?`<br><small style="color:#94A3B8;font-weight:400">${ntdFmt(sub)}</small>`:''}</span></div>`;
+    return `<div class="iur-stat-row"><span class="iur-stat-row-name">${p.name}</span><span class="iur-stat-row-qty">${Number(p.qty).toLocaleString()}${sub?`<br><small style="color:#94A3B8;font-weight:400">${ntdFmt(sub)}/月</small><br><small style="color:#60A5FA;font-weight:600">${ntdFmt(sub*12)}/年</small>`:''}</span></div>`;
   }).join('');
   const ppRows=items('powerplatform').map(p=>{
     const sub=Number(p.qty)*Number(p.price||0);
-    return `<div class="iur-stat-row"><span class="iur-stat-row-name">${p.name.replace('Power ','')}</span><span class="iur-stat-row-qty">${Number(p.qty).toLocaleString()}${sub?`<br><small style="color:#94A3B8;font-weight:400">${ntdFmt(sub)}</small>`:''}</span></div>`;
+    return `<div class="iur-stat-row"><span class="iur-stat-row-name">${p.name.replace('Power ','')}</span><span class="iur-stat-row-qty">${Number(p.qty).toLocaleString()}${sub?`<br><small style="color:#94A3B8;font-weight:400">${ntdFmt(sub)}/月</small><br><small style="color:#7C3AED;font-weight:600">${ntdFmt(sub*12)}/年</small>`:''}</span></div>`;
   }).join('');
   const copilotItems=items('copilot');
   const copilotCards=copilotItems.map(p=>{
     const short=p.name.replace('Microsoft 365 Copilot for ','').replace('Microsoft 365 Copilot','M365 Copilot');
     const sub=Number(p.qty)*Number(p.price||0);
-    return `<div class="iur-copilot-item"><div class="iur-copilot-icon">🤖</div><div class="iur-copilot-num">${p.qty} 份</div><div class="iur-copilot-label">${short}</div>${sub?`<div style="font-size:.68rem;color:#2563EB;font-weight:600;margin-top:2px">${ntdFmt(sub)}</div>`:''}</div>`;
+    return `<div class="iur-copilot-item"><div class="iur-copilot-icon">🤖</div><div class="iur-copilot-num">${p.qty} 份</div><div class="iur-copilot-label">${short}</div>${sub?`<div style="font-size:.68rem;color:#2563EB;font-weight:600;margin-top:2px">${ntdFmt(sub)}/月</div><div style="font-size:.65rem;color:#64748B;font-weight:600">${ntdFmt(sub*12)}/年</div>`:''}</div>`;
   }).join('');
 
   return `<div class="iur-section">
@@ -2605,12 +2611,12 @@ function renderIurStats(prods, settings){
           <div class="iur-stat-two-item">
             <div class="iur-stat-num">${teamsTotal.toLocaleString()}</div>
             <div class="iur-stat-label">Teams</div>
-            ${teamsNtd?`<div class="iur-stat-mini-amt">${ntdFmt(teamsNtd)}</div>`:''}
+            ${teamsNtd?`<div class="iur-stat-mini-amt">${ntdFmt(teamsNtd)}<span style="font-size:.6rem;color:#64748B">/月</span></div><div style="font-size:.62rem;color:#2563EB;font-weight:600">${ntdFmt(teamsNtd*12)}/年</div>`:''}
           </div>
           <div class="iur-stat-two-item">
             <div class="iur-stat-num">${m365Total.toLocaleString()}</div>
             <div class="iur-stat-label">M365</div>
-            ${m365Ntd?`<div class="iur-stat-mini-amt">${ntdFmt(m365Ntd)}</div>`:''}
+            ${m365Ntd?`<div class="iur-stat-mini-amt">${ntdFmt(m365Ntd)}<span style="font-size:.6rem;color:#64748B">/月</span></div><div style="font-size:.62rem;color:#2563EB;font-weight:600">${ntdFmt(m365Ntd*12)}/年</div>`:''}
           </div>
         </div>
         ${coreHighlight}
@@ -2638,6 +2644,14 @@ function renderIurStats(prods, settings){
 }
 
 /* ── 完整清單表格 ── */
+function iurUnitBadge(unit){
+  if(!unit) return '';
+  let cls='';
+  if(unit==='bot/月') cls=' bot';
+  else if(unit==='租戶/月'||unit==='租戶') cls=' tenant';
+  else if(unit==='會議室/月') cls=' room';
+  return `<span class="iur-unit-badge${cls}">${unit}</span>`;
+}
 function renderIurTable(prods, settings){
   const filterCat=window._iurFilterCat||'';
   const filterQ=(window._iurFilterQ||'').toLowerCase();
@@ -2645,18 +2659,21 @@ function renderIurTable(prods, settings){
   if(filterCat) rows=rows.filter(p=>p.cat===filterCat);
   if(filterQ)   rows=rows.filter(p=>p.name.toLowerCase().includes(filterQ));
 
-  const grandTotal=rows.reduce((s,p)=>s+Number(p.qty)*Number(p.price||0),0);
+  const grandMonthly=rows.reduce((s,p)=>s+Number(p.qty)*Number(p.price||0),0);
+  const grandAnnual=grandMonthly*12;
   const grandQty=rows.reduce((s,p)=>s+Number(p.qty),0);
 
   const tbody=rows.map(p=>{
     const sub=Number(p.qty)*Number(p.price||0);
+    const annual=sub*12;
     const isCore=IUR_CORE_CATS.includes(p.cat);
     return `<tr class="${isCore?'iur-row-core':''}">
       <td><span class="iur-cat-badge iur-cat-${p.cat}">${IUR_CAT_LABELS[p.cat]||p.cat}</span></td>
       <td style="${isCore?'font-weight:600':''}">${p.name}</td>
       <td class="iur-qty-cell">${Number(p.qty).toLocaleString()}</td>
-      <td class="iur-price-cell">${p.price?ntdFmt(Number(p.price)):'<span style="color:#CBD5E1">—</span>'}</td>
+      <td class="iur-price-cell">${p.price?ntdFmt(Number(p.price)):'<span style="color:#CBD5E1">—</span>'}${iurUnitBadge(p.unit)}</td>
       <td class="iur-subtotal-cell">${sub?ntdFmt(sub):'<span style="color:#CBD5E1">—</span>'}</td>
+      <td class="iur-annual-cell">${annual?ntdFmt(annual)+'<span class="iur-annual-dim">/年</span>':'<span style="color:#CBD5E1">—</span>'}</td>
       <td><button class="iur-edit-btn" onclick="openIurProductModal('${p.id}')">✏️</button></td>
     </tr>`;
   }).join('');
@@ -2665,7 +2682,8 @@ function renderIurTable(prods, settings){
     <td colspan="2">合計</td>
     <td class="iur-qty-cell">${grandQty.toLocaleString()} 份</td>
     <td class="iur-price-cell">—</td>
-    <td class="iur-subtotal-cell">${grandTotal?ntdFmt(grandTotal)+' / 月':'—'}</td>
+    <td class="iur-subtotal-cell">${grandMonthly?ntdFmt(grandMonthly)+' / 月':'—'}</td>
+    <td class="iur-annual-cell">${grandAnnual?ntdFmt(grandAnnual)+' / 年':'—'}</td>
     <td></td>
   </tr>`;
 
@@ -2673,7 +2691,7 @@ function renderIurTable(prods, settings){
 
   return `<div class="iur-section">
     <div class="iur-section-title">📋 完整授權清單
-      <span class="iur-total-badge">共 ${rows.length} 項 / ${grandQty.toLocaleString()} 份${grandTotal?' / '+ntdFmt(grandTotal)+' / 月':''}</span>
+      <span class="iur-total-badge">共 ${rows.length} 項 / ${grandQty.toLocaleString()} 份${grandMonthly?' · '+ntdFmt(grandMonthly)+' / 月 · '+ntdFmt(grandAnnual)+' / 年':''}</span>
     </div>
     <div class="iur-table-toolbar">
       <input type="text" placeholder="🔍 搜尋產品名稱..." value="${window._iurFilterQ||''}" oninput="window._iurFilterQ=this.value;refreshIurTable()" style="padding:7px 12px;border:1px solid #CBD5E1;border-radius:8px;font-size:.83rem;flex:1;min-width:160px">
@@ -2687,8 +2705,9 @@ function renderIurTable(prods, settings){
       <thead><tr>
         <th>類別</th><th>產品名稱</th>
         <th style="text-align:right">數量</th>
-        <th style="text-align:right">單價 (NTD/月)</th>
-        <th style="text-align:right">小計 (NTD/月)</th>
+        <th style="text-align:right">單價 (NTD)</th>
+        <th style="text-align:right">小計 / 月</th>
+        <th style="text-align:right">年度金額</th>
         <th></th>
       </tr></thead>
       <tbody>${tbody}${totalRow}</tbody>
