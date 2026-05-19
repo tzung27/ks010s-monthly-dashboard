@@ -7,38 +7,98 @@ const DATA_202604 = {
     Aaron: {
       name: "Aaron", role: "全能型雲端支援專家", color: "#3B82F6",
       summary: { cases: 96, virtual: 51100, actual: 0 },
-      highlights: ["M365/Exchange 支援", "MFA 重設處理", "Cloudiway 郵件遷移諮詢", "Exchange Online / Teams / SharePoint 存取與授權處理", "GWS 轉 M365 遷移諮詢"],
-      nextMonth: ["推進 Cloudiway Tenant-to-Tenant 遷移實作", "Defender for Business 部署案件跟進", "協助 Entra ID 取代 AD 客戶規劃", "BC 升版問題追蹤與解決", "Power Automate / SharePoint 整合需求開發"]
+      highlights: [
+        "完成 96 件 Microsoft 365 全領域技術支援，涵蓋 Exchange Online、Entra ID、Defender、SharePoint、Teams、Power Platform",
+        "推進 8 件 Cloudiway 郵件遷移諮詢（含 T2T 遷移教學與文件製作），Tenant-to-Tenant 遷移服務能力正式建立",
+        "完成添鴻 M365 T2T 遷移流程教學及工具操作文件製作（NT$3,000），高價值遷移服務首案落地",
+        "協助安心食品完成 Entra ID 取代地端 AD 完整評估諮詢，雲端身份治理高附加值服務管線開啟",
+        "處理美好證券 Intune Windows 裝置更新管理、國喬石化 Exchange Hybrid 混合架構，技術廣度覆蓋企業核心 IT 場景"
+      ],
+      nextMonth: [
+        "推進 Cloudiway Tenant-to-Tenant 遷移實作案件，目標本月完成首件正式收費遷移服務",
+        "跟進 Defender for Business / Defender for Endpoint 部署案件，完成 3 件以上部署驗收",
+        "協助安心食品、科雅光電完成 Entra ID 取代地端 AD 規劃，推動顧問評估轉正式收費",
+        "Business Central 升版問題（v27→v28）追蹤解決，確保客戶升版時程達成",
+        "推進 Power Automate / SharePoint 整合需求開發，建立自動化服務收費提案"
+      ]
     },
     Denny: {
       name: "Denny", role: "端點管理與資安主力", color: "#22C55E",
       summary: { cases: 117, virtual: 83200, actual: 0 },
-      highlights: ["Apple & Jamf 裝置納管（101件）", "Trend Micro 資安維護（16件）", "彰化銀行 / 中華航空 iPad DFU 大量處理", "ADE 納管協助", "Trend Micro Apex One 建置"],
-      nextMonth: ["彰銀 Jamf 憑證更新前置作業", "強茂 Jamf for Mobile POC 後續", "凱基人壽 macOS MDM 擴展", "Trend Micro Vision One NAS 防護跟進", "Apex One On-Premises 三鶯線建置完成驗收"]
+      highlights: [
+        "完成 101 件 Apple & Jamf 裝置管理，跨越 30+ 彰化銀行分行進行 iPad DFU/ADE 大規模更新，展現超大規模端點管理能力",
+        "中華航空多組（TPEEMO、TPETZ、TPEEZ、TPEOZ）Jamf 複雜問題排除，含 Jamf Trust Wi-Fi 影響境外連線、資產 CSV 預載等高難度場景",
+        "與 William 協作完成奇美醫院 Jamf Pro iOS Training（NT$20,000）、Zeabur AI 解決方案 MDM 整合（NT$5,000）等高價值案件",
+        "完成 16 件 Trend Micro 資安維護，含 Apex One On-Premises 三鶯線建置、WFBS 弱點修補、Vision One NAS 防護評估",
+        "協助高雄科大 Jamf 憑證更新，主動通知多家客戶憑證即將到期，預防性服務強化客戶信任度"
+      ],
+      nextMonth: [
+        "啟動彰化銀行 Jamf 憑證更新前置作業，確保憑證續期前所有分行設備無服務中斷",
+        "推進強茂 Jamf for Mobile POC 正式轉約，目標本月完成合約簽訂（預估 NT$50,000+）",
+        "擴展凱基人壽 macOS MDM 納管範圍，推動從 POC 到正式合約的轉換",
+        "持續追蹤 Trend Micro Vision One NAS 防護方案，協助快克立完成採購決策",
+        "完成新北捷運三鶯線 Apex One On-Premises 建置驗收，確認收費項目"
+      ]
     },
     William: {
       name: "William", role: "高價值服務與營收貢獻者", color: "#A855F7",
       summary: { cases: 43, virtual: 52800, actual: 75000 },
-      highlights: ["高階 Jamf 培訓與支援（奇美醫院 iOS Training）", "Kaspersky 安全管理（17件）", "奇美醫院 Jamf 專業培訓", "卡巴斯基管理中心維護", "TeamViewer 設定"],
-      nextMonth: ["華航 Jamf 年度服務續約洽談", "奇美醫院 Jamf 進階培訓規劃", "Kaspersky KES 升版服務推廣", "強茂 MDM POC 轉正式合約", "資生堂 Jamf 服務擴展評估"]
+      highlights: [
+        "確認華航年度 Jamf 維護合約實際收費 NT$75,000（全年合約價值 NT$300,000），為部門本月唯一實收，顧問收費轉型路線完整驗證",
+        "與 Denny 協作完成奇美醫院 Jamf Pro iOS 專業培訓（NT$20,000），高端醫療業技術培訓服務能力建立",
+        "與 Denny 協作完成 Zeabur AI 解決方案 ABM & MDM 整合（NT$5,000），AI 應用場景 × MDM 跨域整合服務首案完成",
+        "完成 Kaspersky 管理中心維護 17 件，涵蓋 WSUS 設定、主控台登入、KES 升版諮詢等多元場景",
+        "與 Denny 推進強茂 Jamf for Mobile POC，協助高雄科大憑證更新，多客戶協作服務持續展現"
+      ],
+      nextMonth: [
+        "推進華航 Jamf 年度服務續約洽談，確保 NT$300,000 年度合約正式簽訂續期",
+        "規劃奇美醫院 Jamf 進階培訓方案，推動從單次培訓轉為年度技術支援合約",
+        "推廣 Kaspersky KES 升版服務至現有客戶群，目標完成 3 件以上升版收費案件",
+        "跟進強茂 MDM POC 評估結果，推動 5 月前完成正式合約簽訂",
+        "評估台灣資生堂 Jamf 服務擴展需求，推進年度維護合約洽談"
+      ]
     },
     Lucas: {
-      name: "Lucas", role: "Azure 雲端基礎架構手", color: "#F59E0B",
+      name: "Lucas", role: "Azure 雲端基礎架構手 · SC-200 認證", color: "#F59E0B",
       summary: { cases: 51, virtual: 29400, actual: 0 },
-      highlights: ["Azure 資源部署", "配額調整", "雲端資安檢查", "Azure VM 曾能異常處理", "GPU 配額提升申請", "Sentinel 安全監控 POC 開通"],
-      nextMonth: ["Sentinel POC 驗收報告撰寫", "網際智慧資安強化方案提案", "嘉龍資訊 VM 升版完成驗收", "AWS 轉 Azure 遷移規劃（坤侑科技）", "Azure 備份機制標準化 SOP 建立"]
+      highlights: [
+        "通過 Microsoft SC-200 Security Operations Analyst Associate 資安認證，技術認證直接連結 Sentinel 業務開拓",
+        "開通中華資安國際 Azure Sentinel 安全監控 POC，雲端資安收費服務正式進入實質驗證階段",
+        "協助網際智慧完成 Azure 資安檢查與攻擊疑慮排查（NT$3,000），緊急資安事件應變能力展現",
+        "推進坤侑科技 AWS → Azure 遷移規劃，跨雲平台遷移顧問服務能力正式建立",
+        "完成研華 Web App 配額申請、嘉龍資訊 VM 升版、台灣微軟 Azure 資源建立等多樣化 Azure 技術支援 51 件"
+      ],
+      nextMonth: [
+        "完成中華資安國際 Sentinel POC 驗收報告，並提出正式收費服務報價方案",
+        "啟動坤侑科技 AWS → Azure 遷移執行計畫，目標本月完成架構設計並確認收費項目",
+        "完成嘉龍資訊 Azure VM 2016 → 2025 升版驗收，確認收費結案",
+        "推進網際智慧資安強化方案提案，以 Sentinel + Defender 組合服務進行報價",
+        "建立 Azure 備份機制標準化 SOP 文件，提供給客戶作為自助參考，減少重複性問題"
+      ]
     },
     Nick: {
       name: "Nick", role: "GitHub Copilot / 微軟雲端推廣", color: "#14B8A6",
       summary: { cases: 0, virtual: 0, actual: 0 },
-      highlights: ["2026年4月無案件紀錄"],
-      nextMonth: []
+      highlights: ["2026年4月暫無案件紀錄，預計 Q2 重新加入服務交付"],
+      nextMonth: ["規劃 GitHub Copilot 企業導入推廣方案", "建立微軟 AI 開發工具培訓課程材料"]
     },
     Adobe: {
       name: "Jimmy", role: "培訓與內容產出導師", color: "#EF4444",
       summary: { cases: 72, virtual: null, actual: null },
-      highlights: ["Adobe CC 部署", "生成式 AI 培訓", "技術專欄著作", "雲科大 Firefly AI 應用講座", "AI 向量設計影音教學", "Acrobat Sign 導入"],
-      nextMonth: ["Firefly AI 進階應用課程規劃", "Acrobat Sign 企業版推廣", "Adobe CC 授權管理優化", "AI 工具整合培訓材料製作", "技術文件產出（月刊 / 部落格）"]
+      highlights: [
+        "完成國立雲林科技大學 Adobe Firefly AI 應用公開講座，部門 AI 教育品牌正式對外發聲，建立對外技術影響力",
+        "交付生成式 AI 工具整合應用培訓課程，涵蓋企業 AI 工具導入流程與最佳實踐",
+        "完成技術專欄著作 68 篇（59 篇技術文 + 9 篇內容文），技術部落格持續經營，品牌曝光度持續累積",
+        "完成 AI 向量設計影音教學系列，為 Adobe 創意工具教育推廣建立可複用教學素材庫",
+        "協助 Acrobat Sign 企業版導入，推動電子簽章數位轉型，開拓 Adobe Document Cloud 收費服務管線"
+      ],
+      nextMonth: [
+        "規劃 Firefly AI 進階應用課程，建立收費標準，目標本月完成首件 AI 培訓收費案件",
+        "推廣 Acrobat Sign 企業版至現有 Adobe CC 客戶群，目標完成 2 件以上評估洽談",
+        "優化 Adobe CC 授權管理流程，為客戶提供年度授權健診服務並轉換為收費顧問項目",
+        "持續技術文章產出，月目標 60 篇以上，並評估技術文章商業轉換（詢問 / 採購）指標",
+        "製作 AI 工具整合培訓完整套件，供內部培訓及對外銷售使用"
+      ]
     }
   },
   cases: {
