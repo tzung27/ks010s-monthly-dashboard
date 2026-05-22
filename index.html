@@ -2622,7 +2622,7 @@ function renderIurStats(prods, settings){
   const teamsTotal=sumQty('teams'), teamsNtd=sumNtd('teams');
   const m365Total=sumQty('m365'),   m365Ntd=sumNtd('m365');
   const coreNtd=teamsNtd+m365Ntd;
-  const coreHighlight=coreNtd>0?`<div class="iur-stat-amount iur-highlight-amount">${ntdFmt(coreNtd)} <span>/ 月</span><div style="font-size:.72rem;color:#1D4ED8;font-weight:700;margin-top:2px">${ntdFmt(coreNtd*12)} <span style="font-weight:400;color:#64748B">/ 年</span></div></div>`:'';
+  const coreHighlight=coreNtd>0?`<div class="iur-stat-amount iur-highlight-amount">${ntdFmt(coreNtd)} <span>/ 月</span><div style="font-size:.72rem;color:#fff;font-weight:700;margin-top:2px">${ntdFmt(coreNtd*12)} <span style="font-weight:400;color:rgba(255,255,255,.75)">/ 年</span></div></div>`:'';
 
   const dynTotal=sumQty('dynamics'), dynNtd=sumNtd('dynamics');
   const dynAmountHtml=dynNtd?`<div class="iur-stat-amount">${ntdFmt(dynNtd)} <span>/ 月</span><div style="font-size:.72rem;color:#15803D;font-weight:700;margin-top:2px">${ntdFmt(dynNtd*12)} <span style="font-weight:400;color:#64748B">/ 年</span></div></div>`:'';
