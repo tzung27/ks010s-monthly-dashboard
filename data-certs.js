@@ -41,9 +41,14 @@ const CERT_DATA_DEFAULT = [
 
 function loadCertData(){
   const s=localStorage.getItem('ks_cert_data');
-  return s?JSON.parse(s):[...CERT_DATA_DEFAULT.map(r=>({...r}))];
+  return s?JSON.parse(s):loadCertDefault();
+}
+function loadCertDefault(){
+  const s=localStorage.getItem('ks_cert_data_default');
+  return s?JSON.parse(s):CERT_DATA_DEFAULT.map(r=>({...r}));
 }
 function saveCertData(d){ localStorage.setItem('ks_cert_data',JSON.stringify(d)); }
+function saveCertDataAsDefault(d){ localStorage.setItem('ks_cert_data_default',JSON.stringify(d)); }
 function resetCertData(){ localStorage.removeItem('ks_cert_data'); }
 
 function getCertStatus(row){

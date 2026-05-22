@@ -66,13 +66,19 @@ const IUR_PRODUCTS_DEFAULT = [
 
 function loadIurAzure(){
   const s=localStorage.getItem('ks_iur_azure');
-  return s?JSON.parse(s):JSON.parse(JSON.stringify(IUR_AZURE_DEFAULT));
+  if(s) return JSON.parse(s);
+  const def=localStorage.getItem('ks_iur_azure_default');
+  return def?JSON.parse(def):JSON.parse(JSON.stringify(IUR_AZURE_DEFAULT));
 }
 function saveIurAzure(d){localStorage.setItem('ks_iur_azure',JSON.stringify(d));}
+function saveIurAzureAsDefault(d){localStorage.setItem('ks_iur_azure_default',JSON.stringify(d));}
 
 function loadIurProducts(){
   const s=localStorage.getItem('ks_iur_products');
-  if(!s) return JSON.parse(JSON.stringify(IUR_PRODUCTS_DEFAULT));
+  if(!s){
+    const def=localStorage.getItem('ks_iur_products_default');
+    return def?JSON.parse(def):JSON.parse(JSON.stringify(IUR_PRODUCTS_DEFAULT));
+  }
   const d=JSON.parse(s);
   // 補齊舊資料缺少的欄位，並自動從預設值填入尚未設定的單價與計價單位
   d.forEach(p=>{
@@ -87,6 +93,7 @@ function loadIurProducts(){
   return d;
 }
 function saveIurProducts(d){localStorage.setItem('ks_iur_products',JSON.stringify(d));}
+function saveIurProductsAsDefault(d){localStorage.setItem('ks_iur_products_default',JSON.stringify(d));}
 
 function loadIurSettings(){
   const s=localStorage.getItem('ks_iur_settings');

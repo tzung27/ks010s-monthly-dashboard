@@ -717,6 +717,7 @@ tr:hover .iur-edit-btn{opacity:1}
       </select>
       <button class="btn-cert-add" onclick="openCertModal()">＋ 新增認證</button>
       <button class="btn-cert-export" onclick="exportCertCSV()">⬇ 匯出 CSV</button>
+      <button class="btn-cert-export" id="cert-save-default-btn" onclick="certSaveAsDefault()" style="background:#F0FDF4;color:#15803D;border:1px solid #86EFAC">💾 存為預設</button>
       <button class="btn-cert-reset" onclick="if(confirm('確定重置為預設資料？')){{resetCertData();renderCertTab();}}">↺ 重置</button>
     </div>
     <table class="cert-table" id="cert-table">
@@ -2743,6 +2744,7 @@ function renderIurTable(prods, settings){
         <option value="">全部類別</option>${catOptions}
       </select>
       <button class="tab-action-btn" onclick="openIurProductModal(null)">＋ 新增產品</button>
+      <button class="tab-action-btn" id="iur-save-default-btn" onclick="iurSaveAsDefault()" style="background:#F0FDF4;color:#15803D;border-color:#86EFAC">💾 存為預設</button>
       <button class="tab-action-btn" onclick="resetIurData();renderIurTab()" style="background:#FEF2F2;color:#DC2626;border-color:#FCA5A5">🔄 重置預設</button>
     </div>
     <div class="iur-table-wrap"><table class="iur-table">
@@ -2959,6 +2961,19 @@ function renderMarketplaceSection(items){
     </table></div>
   </div>
   <div id="mp-modal-container"></div>`;
+}
+
+function iurSaveAsDefault(){
+  saveIurAzureAsDefault(loadIurAzure());
+  saveIurProductsAsDefault(loadIurProducts());
+  const btn=document.getElementById('iur-save-default-btn');
+  if(btn){const orig=btn.textContent;btn.textContent='✅ 已儲存！';btn.disabled=true;setTimeout(()=>{btn.textContent=orig;btn.disabled=false;},1500);}
+}
+
+function certSaveAsDefault(){
+  saveCertDataAsDefault(loadCertData());
+  const btn=document.getElementById('cert-save-default-btn');
+  if(btn){const orig=btn.textContent;btn.textContent='✅ 已儲存！';btn.disabled=true;setTimeout(()=>{btn.textContent=orig;btn.disabled=false;},1500);}
 }
 
 function mpSaveAsDefault(){
