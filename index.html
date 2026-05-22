@@ -13,6 +13,7 @@
 <script src="data-certs.js"></script>
 <script src="data-asp.js"></script>
 <script src="data-iur.js"></script>
+<script src="data-marketplace.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -464,6 +465,39 @@ tr:hover .iur-edit-btn{opacity:1}
 .checklist-th{padding:10px 12px;text-align:left;border-bottom:2px solid var(--border);font-size:.78rem;color:var(--subtle);text-transform:uppercase;letter-spacing:.4px;white-space:nowrap;font-weight:600}
 .checklist-td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:middle;font-size:.83rem}
 .status-badge{display:inline-block;padding:2px 10px;border-radius:6px;font-size:.75rem;cursor:pointer;font-weight:500;user-select:none}
+/* ── Marketplace ── */
+.mp-section{background:#fff;border-radius:16px;padding:24px;margin-bottom:20px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.mp-section-title{font-size:1rem;font-weight:700;color:#1E3A5F;margin-bottom:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.mp-count-badge{background:#EFF6FF;color:#2563EB;border-radius:20px;padding:2px 12px;font-size:.75rem;font-weight:600}
+.mp-toolbar{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.mp-table-wrap{overflow-x:auto}
+.mp-table{width:100%;border-collapse:collapse;font-size:.83rem}
+.mp-table th{background:#F1F5F9;color:#475569;font-weight:700;font-size:.74rem;text-transform:uppercase;letter-spacing:.04em;padding:9px 12px;text-align:left;white-space:nowrap}
+.mp-table td{padding:9px 12px;border-bottom:1px solid #F1F5F9;vertical-align:middle}
+.mp-table tr:hover td{background:#F8FAFC}
+.mp-name-link{color:#2563EB;text-decoration:none;font-weight:600}
+.mp-name-link:hover{text-decoration:underline}
+.mp-name-nolink{color:#1E3A5F;font-weight:600}
+.mp-code-badge{font-family:monospace;font-size:.75rem;background:#F1F5F9;color:#475569;padding:2px 8px;border-radius:5px;border:1px solid #E2E8F0}
+.mp-type-badge{font-size:.72rem;background:#EDE9FE;color:#6D28D9;padding:2px 8px;border-radius:8px;font-weight:600;white-space:nowrap}
+.mp-status-live{display:inline-block;font-size:.72rem;background:#DCFCE7;color:#15803D;padding:2px 10px;border-radius:8px;font-weight:600}
+.mp-status-draft{display:inline-block;font-size:.72rem;background:#FEF9C3;color:#92400E;padding:2px 10px;border-radius:8px;font-weight:600}
+.mp-status-off{display:inline-block;font-size:.72rem;background:#F1F5F9;color:#64748B;padding:2px 10px;border-radius:8px;font-weight:600}
+.mp-date{color:#64748B;font-size:.79rem;white-space:nowrap}
+.mp-actions{display:flex;gap:4px;align-items:center}
+.mp-btn{background:none;border:none;cursor:pointer;padding:3px 6px;border-radius:5px;font-size:.8rem;color:#94A3B8;transition:color .15s,background .15s}
+.mp-btn:hover{background:#F1F5F9;color:#1E3A5F}
+.mp-btn.del:hover{background:#FEF2F2;color:#DC2626}
+.mp-btn.move{font-size:.7rem}
+/* Modal */
+.mp-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:999;display:flex;align-items:center;justify-content:center}
+.mp-modal{background:#fff;border-radius:14px;padding:28px;width:480px;max-width:95vw;box-shadow:0 20px 60px rgba(0,0,0,.2);max-height:90vh;overflow-y:auto}
+.mp-modal h3{font-size:1rem;font-weight:700;color:#1E3A5F;margin-bottom:18px}
+.mp-modal label{display:block;font-size:.78rem;font-weight:600;color:#475569;margin-bottom:4px;margin-top:12px}
+.mp-modal label:first-of-type{margin-top:0}
+.mp-modal input,.mp-modal select{width:100%;padding:8px 10px;border:1px solid #CBD5E1;border-radius:8px;font-size:.83rem;box-sizing:border-box}
+.mp-modal input:focus,.mp-modal select:focus{outline:none;border-color:#2563EB;box-shadow:0 0 0 2px #DBEAFE}
+.mp-modal-btns{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
 </style>
 </head>
 <body>
@@ -492,6 +526,7 @@ tr:hover .iur-edit-btn{opacity:1}
   <button class="tab-btn" onclick="switchTab('certs',this);renderCertTab()">🏅 認證追蹤</button>
   <button class="tab-btn" onclick="switchTab('asp',this);renderAspTab()">🎯 ASP 專長</button>
   <button class="tab-btn" onclick="switchTab('iur',this);renderIurTab()">📦 內部使用權</button>
+  <button class="tab-btn" onclick="switchTab('marketplace',this);renderMarketplaceTab()">🛒 Marketplace</button>
 </nav>
 
 <main>
@@ -718,6 +753,11 @@ tr:hover .iur-edit-btn{opacity:1}
 <!-- ════════════ IUR 分頁 ════════════ -->
 <div id="tab-iur" class="tab-panel">
   <div id="iur-content"></div>
+</div>
+
+<!-- ════════════ Marketplace 分頁 ════════════ -->
+<div id="tab-marketplace" class="tab-panel">
+  <div id="marketplace-content"></div>
 </div>
 <div id="iur-modal-container"></div>
 
@@ -2863,6 +2903,140 @@ function exportCertCSV(){
 
 // Start
 init();
+
+// ════════════ Marketplace JS ════════════
+function renderMarketplaceTab(){
+  const items=loadMarketplace();
+  document.getElementById('marketplace-content').innerHTML=renderMarketplaceSection(items);
+}
+
+function renderMarketplaceSection(items){
+  const statusBadge=s=>{
+    if(s==='即時') return `<span class="mp-status-live">● 即時</span>`;
+    if(s==='草稿') return `<span class="mp-status-draft">○ 草稿</span>`;
+    return `<span class="mp-status-off">— ${s}</span>`;
+  };
+  const fmtDate=d=>{
+    if(!d)return '—';
+    const [y,m,dd]=d.split('-');
+    return `${y}年${parseInt(m)}月${parseInt(dd)}日`;
+  };
+  const rows=items.map((p,i)=>`
+    <tr>
+      <td>${p.url?`<a class="mp-name-link" href="${p.url}" target="_blank" rel="noopener">${p.name}</a>`:`<span class="mp-name-nolink">${p.name}</span>`}</td>
+      <td><span class="mp-code-badge">${p.code}</span></td>
+      <td><span class="mp-type-badge">${p.type}</span></td>
+      <td class="mp-date">${fmtDate(p.updated)}</td>
+      <td>${statusBadge(p.status)}</td>
+      <td>
+        <div class="mp-actions">
+          <button class="mp-btn move" onclick="mpMove('${p.id}',-1)" title="上移" ${i===0?'disabled style="opacity:.3"':''}>▲</button>
+          <button class="mp-btn move" onclick="mpMove('${p.id}',1)"  title="下移" ${i===items.length-1?'disabled style="opacity:.3"':''}>▼</button>
+          <button class="mp-btn" onclick="openMpModal('${p.id}')" title="編輯">✏️</button>
+          <button class="mp-btn del" onclick="mpDelete('${p.id}')" title="刪除">🗑️</button>
+        </div>
+      </td>
+    </tr>`).join('');
+
+  return `<div class="mp-section">
+    <div class="mp-section-title">
+      🛒 Marketplace 供應項目
+      <span class="mp-count-badge">${items.length} 項</span>
+      <button class="tab-action-btn" onclick="openMpModal(null)" style="margin-left:auto">＋ 新增供應項目</button>
+      <button class="tab-action-btn" onclick="resetMarketplace();renderMarketplaceTab()" style="background:#FEF2F2;color:#DC2626;border-color:#FCA5A5">🔄 重置預設</button>
+    </div>
+    <div class="mp-table-wrap"><table class="mp-table">
+      <thead><tr>
+        <th>供應項目別名</th>
+        <th>供應項目識別碼</th>
+        <th>優惠類型</th>
+        <th>上次修改時間</th>
+        <th>狀態</th>
+        <th style="width:110px">操作</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>
+  </div>
+  <div id="mp-modal-container"></div>`;
+}
+
+function mpMove(id, dir){
+  const d=loadMarketplace();
+  const i=d.findIndex(x=>x.id===id);
+  const j=i+dir;
+  if(j<0||j>=d.length) return;
+  [d[i],d[j]]=[d[j],d[i]];
+  saveMarketplace(d);
+  renderMarketplaceTab();
+}
+
+function mpDelete(id){
+  if(!confirm('確定刪除此供應項目？')) return;
+  const d=loadMarketplace().filter(x=>x.id!==id);
+  saveMarketplace(d);
+  renderMarketplaceTab();
+}
+
+function openMpModal(id){
+  const d=loadMarketplace();
+  const isEdit=!!id;
+  const p=isEdit?d.find(x=>x.id===id):{id:'mp'+Date.now(),name:'',code:'',type:'專業服務',updated:new Date().toISOString().slice(0,10),status:'即時',url:''};
+  document.getElementById('mp-modal-container').innerHTML=`
+    <div class="mp-modal-overlay" onclick="if(event.target===this)closeMpModal()">
+      <div class="mp-modal">
+        <h3>${isEdit?'✏️ 編輯供應項目':'＋ 新增供應項目'}</h3>
+        <label>供應項目別名（顯示名稱）</label>
+        <input id="mp-f-name" value="${p.name.replace(/"/g,'&quot;')}" placeholder="例：Microsoft Fabric導入服務">
+        <label>供應項目識別碼</label>
+        <input id="mp-f-code" value="${p.code}" placeholder="例：fabric">
+        <label>優惠類型</label>
+        <select id="mp-f-type">
+          <option ${p.type==='專業服務'?'selected':''}>專業服務</option>
+          <option ${p.type==='SaaS'?'selected':''}>SaaS</option>
+          <option ${p.type==='受控服務'?'selected':''}>受控服務</option>
+          <option ${p.type==='諮詢服務'?'selected':''}>諮詢服務</option>
+        </select>
+        <label>上次修改時間</label>
+        <input id="mp-f-updated" type="date" value="${p.updated}">
+        <label>狀態</label>
+        <select id="mp-f-status">
+          <option ${p.status==='即時'?'selected':''}>即時</option>
+          <option ${p.status==='草稿'?'selected':''}>草稿</option>
+          <option ${p.status==='停用'?'selected':''}>停用</option>
+        </select>
+        <label>Marketplace 網址（點擊供應項目別名時連結）</label>
+        <input id="mp-f-url" type="url" value="${p.url}" placeholder="https://appsource.microsoft.com/...">
+        <div class="mp-modal-btns">
+          <button class="tab-action-btn" style="background:#F1F5F9;color:#475569;border-color:#CBD5E1" onclick="closeMpModal()">取消</button>
+          <button class="tab-action-btn" style="background:#2563EB;color:#fff;border-color:#1D4ED8" onclick="saveMpModal('${p.id}',${isEdit})">💾 儲存</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function closeMpModal(){
+  const el=document.getElementById('mp-modal-container');
+  if(el) el.innerHTML='';
+}
+
+function saveMpModal(id, isEdit){
+  const obj={
+    id,
+    name:document.getElementById('mp-f-name').value.trim(),
+    code:document.getElementById('mp-f-code').value.trim(),
+    type:document.getElementById('mp-f-type').value,
+    updated:document.getElementById('mp-f-updated').value,
+    status:document.getElementById('mp-f-status').value,
+    url:document.getElementById('mp-f-url').value.trim(),
+  };
+  if(!obj.name){alert('請填寫供應項目別名');return;}
+  const d=loadMarketplace();
+  if(isEdit){const i=d.findIndex(x=>x.id===id);if(i>=0)d[i]=obj;}
+  else{d.push(obj);}
+  saveMarketplace(d);
+  closeMpModal();
+  renderMarketplaceTab();
+}
 </script>
 </body>
 </html>
