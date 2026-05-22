@@ -14,7 +14,20 @@ const MARKETPLACE_DEFAULT = [
 
 function loadMarketplace(){
   const s=localStorage.getItem('ks_marketplace');
-  return s?JSON.parse(s):JSON.parse(JSON.stringify(MARKETPLACE_DEFAULT));
+  return s?JSON.parse(s):JSON.parse(JSON.stringify(loadMarketplaceDefault()));
 }
 function saveMarketplace(d){localStorage.setItem('ks_marketplace',JSON.stringify(d));}
-function resetMarketplace(){localStorage.removeItem('ks_marketplace');}
+
+// 存為預設：將目前資料存為重置時的基準
+function saveMarketplaceAsDefault(d){
+  localStorage.setItem('ks_marketplace_default',JSON.stringify(d));
+}
+// 讀取預設（優先用使用者存的，否則用原始 hardcode）
+function loadMarketplaceDefault(){
+  const s=localStorage.getItem('ks_marketplace_default');
+  return s?JSON.parse(s):JSON.parse(JSON.stringify(MARKETPLACE_DEFAULT));
+}
+// 重置：回到上次存的預設（或 hardcode）
+function resetMarketplace(){
+  localStorage.removeItem('ks_marketplace');
+}

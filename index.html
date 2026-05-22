@@ -2943,6 +2943,7 @@ function renderMarketplaceSection(items){
       🛒 Marketplace 供應項目
       <span class="mp-count-badge">${items.length} 項</span>
       <button class="tab-action-btn" onclick="openMpModal(null)" style="margin-left:auto">＋ 新增供應項目</button>
+      <button class="tab-action-btn" onclick="mpSaveAsDefault()" style="background:#F0FDF4;color:#15803D;border-color:#86EFAC">💾 存為預設</button>
       <button class="tab-action-btn" onclick="resetMarketplace();renderMarketplaceTab()" style="background:#FEF2F2;color:#DC2626;border-color:#FCA5A5">🔄 重置預設</button>
     </div>
     <div class="mp-table-wrap"><table class="mp-table">
@@ -2958,6 +2959,14 @@ function renderMarketplaceSection(items){
     </table></div>
   </div>
   <div id="mp-modal-container"></div>`;
+}
+
+function mpSaveAsDefault(){
+  const d=loadMarketplace();
+  saveMarketplaceAsDefault(d);
+  // 視覺回饋
+  const btn=document.querySelector('#marketplace-content .mp-section-title button[onclick*="mpSaveAsDefault"]');
+  if(btn){const orig=btn.textContent;btn.textContent='✅ 已儲存！';btn.disabled=true;setTimeout(()=>{btn.textContent=orig;btn.disabled=false;},1500);}
 }
 
 function mpMove(id, dir){
