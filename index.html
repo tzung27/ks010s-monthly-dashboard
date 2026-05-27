@@ -14,6 +14,7 @@
 <script src="data-asp.js"></script>
 <script src="data-iur.js"></script>
 <script src="data-marketplace.js"></script>
+<script src="data-webtools.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -498,6 +499,10 @@ tr:hover .iur-edit-btn{opacity:1}
 .mp-modal input,.mp-modal select{width:100%;padding:8px 10px;border:1px solid #CBD5E1;border-radius:8px;font-size:.83rem;box-sizing:border-box}
 .mp-modal input:focus,.mp-modal select:focus{outline:none;border-color:#2563EB;box-shadow:0 0 0 2px #DBEAFE}
 .mp-modal-btns{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+/* webtools tab */
+.wt-cat-badge{font-size:.72rem;background:#EEF2FF;color:#3730A3;padding:2px 8px;border-radius:8px;font-weight:600;white-space:nowrap}
+.wt-desc-cell{font-size:.8rem;color:#475569;max-width:260px}
+.wt-note-cell{font-size:.8rem;color:#94A3B8;max-width:160px}
 </style>
 </head>
 <body>
@@ -527,6 +532,7 @@ tr:hover .iur-edit-btn{opacity:1}
   <button class="tab-btn" onclick="switchTab('asp',this);renderAspTab()">🎯 ASP 專長</button>
   <button class="tab-btn" onclick="switchTab('iur',this);renderIurTab()">📦 內部使用權</button>
   <button class="tab-btn" onclick="switchTab('marketplace',this);renderMarketplaceTab()">🛒 Marketplace</button>
+  <button class="tab-btn" onclick="switchTab('webtools',this);renderWebtoolsTab()">🌐 AI &amp; 網站開發</button>
 </nav>
 
 <main>
@@ -759,6 +765,11 @@ tr:hover .iur-edit-btn{opacity:1}
 <!-- ════════════ Marketplace 分頁 ════════════ -->
 <div id="tab-marketplace" class="tab-panel">
   <div id="marketplace-content"></div>
+</div>
+
+<!-- ════════════ AI & 網站開發 分頁 ════════════ -->
+<div id="tab-webtools" class="tab-panel">
+  <div id="webtools-content"></div>
 </div>
 <div id="iur-modal-container"></div>
 
@@ -3060,6 +3071,130 @@ function saveMpModal(id, isEdit){
   saveMarketplace(d);
   closeMpModal();
   renderMarketplaceTab();
+}
+
+// ════════════════════════════════════════════════════════════
+// AI & 網站開發 Tab
+// ════════════════════════════════════════════════════════════
+function renderWebtoolsTab(){
+  try{
+    const items=loadWebtools();
+    document.getElementById('webtools-content').innerHTML=renderWebtoolsSection(items);
+  }catch(e){
+    document.getElementById('webtools-content').innerHTML=`<div style="background:#FEF2F2;border:1px solid #FCA5A5;border-radius:10px;padding:20px;color:#DC2626;font-family:monospace;font-size:.82rem"><strong>renderWebtoolsTab 發生錯誤：</strong><br>${e.message}<br><pre>${e.stack}</pre><br><button onclick="resetWebtools();renderWebtoolsTab()" style="margin-top:8px;padding:6px 14px;background:#DC2626;color:#fff;border:none;border-radius:6px;cursor:pointer">🔄 重置資料</button></div>`;
+  }
+}
+
+function renderWebtoolsSection(items){
+  const catBadge=c=>`<span class="wt-cat-badge">${c||'—'}</span>`;
+  const rows=items.map((p,i)=>`
+    <tr>
+      <td>${p.url?`<a class="mp-name-link" href="${p.url}" target="_blank" rel="noopener">${p.name}</a>`:`<span class="mp-name-nolink">${p.name}</span>`}</td>
+      <td>${catBadge(p.cat)}</td>
+      <td class="wt-desc-cell">${p.desc||'—'}</td>
+      <td class="wt-note-cell">${p.note||'—'}</td>
+      <td>
+        <div class="mp-actions">
+          <button class="mp-btn move" onclick="wtMove('${p.id}',-1)" title="上移" ${i===0?'disabled style="opacity:.3"':''}>▲</button>
+          <button class="mp-btn move" onclick="wtMove('${p.id}',1)"  title="下移" ${i===items.length-1?'disabled style="opacity:.3"':''}>▼</button>
+          <button class="mp-btn" onclick="openWtModal('${p.id}')" title="編輯">✏️</button>
+          <button class="mp-btn del" onclick="wtDelete('${p.id}')" title="刪除">🗑️</button>
+        </div>
+      </td>
+    </tr>`).join('');
+
+  return `<div class="mp-section">
+    <div class="mp-section-title">
+      🌐 AI &amp; 網站開發
+      <span class="mp-count-badge">${items.length} 項</span>
+      <button class="tab-action-btn" onclick="openWtModal(null)" style="margin-left:auto">＋ 新增網站</button>
+      <button class="tab-action-btn" onclick="wtSaveAsDefault()" style="background:#F0FDF4;color:#15803D;border-color:#86EFAC">💾 存為預設</button>
+      <button class="tab-action-btn" onclick="resetWebtools();renderWebtoolsTab()" style="background:#FEF2F2;color:#DC2626;border-color:#FCA5A5">🔄 重置預設</button>
+    </div>
+    <div class="mp-table-wrap"><table class="mp-table">
+      <thead><tr>
+        <th>網站名稱</th>
+        <th>分類</th>
+        <th>說明</th>
+        <th>備註</th>
+        <th style="width:110px">操作</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>
+  </div>
+  <div id="wt-modal-container"></div>`;
+}
+
+function wtSaveAsDefault(){
+  saveWebtoolsAsDefault(loadWebtools());
+  const btn=document.querySelector('#webtools-content .mp-section-title button[onclick*="wtSaveAsDefault"]');
+  if(btn){const orig=btn.textContent;btn.textContent='✅ 已儲存！';btn.disabled=true;setTimeout(()=>{btn.textContent=orig;btn.disabled=false;},1500);}
+}
+
+function wtMove(id, dir){
+  const d=loadWebtools();
+  const i=d.findIndex(x=>x.id===id);
+  const j=i+dir;
+  if(j<0||j>=d.length) return;
+  [d[i],d[j]]=[d[j],d[i]];
+  saveWebtools(d);
+  renderWebtoolsTab();
+}
+
+function wtDelete(id){
+  if(!confirm('確定刪除此網站項目？')) return;
+  const d=loadWebtools().filter(x=>x.id!==id);
+  saveWebtools(d);
+  renderWebtoolsTab();
+}
+
+function openWtModal(id){
+  const d=loadWebtools();
+  const isEdit=!!id;
+  const p=isEdit?d.find(x=>x.id===id):{id:'wt'+Date.now(),name:'',url:'',cat:'',desc:'',note:''};
+  document.getElementById('wt-modal-container').innerHTML=`
+    <div class="mp-modal-overlay" onclick="if(event.target===this)closeWtModal()">
+      <div class="mp-modal">
+        <h3>${isEdit?'✏️ 編輯網站項目':'＋ 新增網站項目'}</h3>
+        <label>網站名稱（顯示名稱）</label>
+        <input id="wt-f-name" value="${(p.name||'').replace(/"/g,'&quot;')}" placeholder="例：CSP Renewal Dashboard">
+        <label>網址（點擊名稱時連結）</label>
+        <input id="wt-f-url" type="url" value="${p.url||''}" placeholder="https://...">
+        <label>分類</label>
+        <input id="wt-f-cat" value="${p.cat||''}" placeholder="例：分析工具、行銷平台、月報系統">
+        <label>說明</label>
+        <textarea id="wt-f-desc" rows="3" style="width:100%;padding:8px 10px;border:1px solid #CBD5E1;border-radius:8px;font-size:.83rem;resize:vertical">${p.desc||''}</textarea>
+        <label>備註</label>
+        <input id="wt-f-note" value="${(p.note||'').replace(/"/g,'&quot;')}" placeholder="選填">
+        <div class="mp-modal-btns">
+          <button class="tab-action-btn" style="background:#F1F5F9;color:#475569;border-color:#CBD5E1" onclick="closeWtModal()">取消</button>
+          <button class="tab-action-btn" style="background:#2563EB;color:#fff;border-color:#1D4ED8" onclick="saveWtModal('${p.id}',${isEdit})">💾 儲存</button>
+        </div>
+      </div>
+    </div>`;
+}
+
+function closeWtModal(){
+  const el=document.getElementById('wt-modal-container');
+  if(el) el.innerHTML='';
+}
+
+function saveWtModal(id, isEdit){
+  const obj={
+    id,
+    name:document.getElementById('wt-f-name').value.trim(),
+    url:document.getElementById('wt-f-url').value.trim(),
+    cat:document.getElementById('wt-f-cat').value.trim(),
+    desc:document.getElementById('wt-f-desc').value.trim(),
+    note:document.getElementById('wt-f-note').value.trim(),
+  };
+  if(!obj.name){alert('請填寫網站名稱');return;}
+  const d=loadWebtools();
+  if(isEdit){const i=d.findIndex(x=>x.id===id);if(i>=0)d[i]=obj;}
+  else{d.push(obj);}
+  saveWebtools(d);
+  closeWtModal();
+  renderWebtoolsTab();
 }
 </script>
 </body>
