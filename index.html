@@ -504,6 +504,43 @@ tr:hover .iur-edit-btn{opacity:1}
 .wt-cat-badge{font-size:.72rem;background:#EEF2FF;color:#3730A3;padding:2px 8px;border-radius:8px;font-weight:600;white-space:nowrap}
 .wt-desc-cell{font-size:.8rem;color:#475569;max-width:260px}
 .wt-note-cell{font-size:.8rem;color:#94A3B8;max-width:160px}
+/* ─── Monthly Report Tab ─── */
+.mr-page{padding:4px 0}
+.mr-titlebar{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.mr-title{font-size:1.25rem;font-weight:800;color:#1E3A5F;line-height:1.3}
+.mr-subtitle{font-size:.8rem;color:#64748B;margin-top:4px}
+.mr-kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+@media(max-width:900px){.mr-kpi-row{grid-template-columns:repeat(2,1fr)}}
+.mr-kpi-card{border-radius:14px;padding:20px 18px;color:#fff}
+.mr-kpi-val{font-size:1.7rem;font-weight:800;letter-spacing:-.5px}
+.mr-kpi-label{font-size:.74rem;font-weight:700;opacity:.85;margin:4px 0 6px;text-transform:uppercase;letter-spacing:.5px}
+.mr-kpi-note{font-size:.72rem;opacity:.7;line-height:1.5}
+.mr-body{display:grid;grid-template-columns:3fr 2fr;gap:18px}
+@media(max-width:1000px){.mr-body{grid-template-columns:1fr}}
+.mr-card{background:#fff;border-radius:14px;padding:20px 22px;box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:16px}
+.mr-section-title{font-size:.95rem;font-weight:700;color:#1E3A5F;margin-bottom:14px}
+.mr-bars{display:flex;flex-direction:column;gap:6px}
+.mr-bar-row{display:flex;align-items:center;gap:10px}
+.mr-bar-label{font-size:.75rem;font-weight:700;width:170px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mr-bar-track{flex:1;background:#F1F5F9;border-radius:6px;height:16px}
+.mr-bar-fill{height:16px;border-radius:6px;transition:width .4s}
+.mr-bar-count{font-size:.78rem;font-weight:700;width:46px;text-align:right;flex-shrink:0}
+.mr-member-hl{font-size:.72rem;color:#94A3B8;padding:2px 0 8px 180px;line-height:1.6;display:flex;flex-wrap:wrap;gap:4px 12px}
+.mr-ai-card{background:#F8FAFC;border-radius:11px;padding:14px 16px;margin-bottom:10px;border-left:4px solid #2563EB}
+.mr-ai-icon{font-size:1.4rem;margin-bottom:5px}
+.mr-ai-title{font-size:.95rem;font-weight:700;color:#1E3A5F}
+.mr-ai-sub{font-size:.74rem;color:#2563EB;font-weight:600;margin:2px 0 6px}
+.mr-ai-desc{font-size:.77rem;color:#475569;line-height:1.6}
+.mr-edit-card{background:#F8FAFC;border-radius:10px;padding:12px;margin-bottom:10px;border:1px solid #E2E8F0}
+.mr-edit-input{width:100%;padding:6px 8px;border:1px solid #CBD5E1;border-radius:7px;font-size:.8rem;margin-bottom:5px;box-sizing:border-box}
+.mr-edit-input:focus{outline:none;border-color:#2563EB;box-shadow:0 0 0 2px #DBEAFE}
+.mr-edit-textarea{width:100%;padding:6px 8px;border:1px solid #CBD5E1;border-radius:7px;font-size:.8rem;resize:vertical;margin-bottom:5px;min-height:62px;box-sizing:border-box;font-family:inherit}
+.mr-edit-textarea:focus{outline:none;border-color:#2563EB;box-shadow:0 0 0 2px #DBEAFE}
+.mr-table{width:100%;border-collapse:collapse;font-size:.83rem}
+.mr-table th{background:#F1F5F9;color:#475569;font-weight:700;font-size:.73rem;text-transform:uppercase;letter-spacing:.04em;padding:9px 12px;text-align:left}
+.mr-table td{padding:9px 12px;border-bottom:1px solid #F1F5F9;vertical-align:middle}
+.mr-table tfoot td{border-top:2px solid #E2E8F0;border-bottom:none}
+.mr-table tr:hover td{background:#F8FAFC}
 </style>
 </head>
 <body>
@@ -522,6 +559,7 @@ tr:hover .iur-edit-btn{opacity:1}
 </header>
 
 <nav>
+  <button class="tab-btn" onclick="switchTab('monthlyreport',this);renderMonthlyReportTab()">📋 月報資料</button>
   <button class="tab-btn active" onclick="switchTab('overview',this)">📊 部門總覽</button>
   <button class="tab-btn" onclick="switchTab('members',this)">👥 個人報告</button>
   <button class="tab-btn" onclick="switchTab('cases',this)">📋 案件明細</button>
@@ -537,6 +575,11 @@ tr:hover .iur-edit-btn{opacity:1}
 </nav>
 
 <main>
+
+<!-- ════════════ 月報資料 分頁 ════════════ -->
+<div id="tab-monthlyreport" class="tab-panel">
+  <div id="mr-content"></div>
+</div>
 
 <!-- ── TAB: Overview ─────────────────────────────────────────── -->
 <div id="tab-overview" class="tab-panel active">
@@ -1051,6 +1094,7 @@ function renderAll(){
   renderMemberCards(pd);
   renderCaseTable(pd);
   renderNextMonth(pd);
+  if(document.getElementById('tab-monthlyreport').classList.contains('active')) _renderMR();
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -3219,6 +3263,194 @@ function closeWtModal(){
   const el=document.getElementById('wt-modal-container');
   if(el) el.innerHTML='';
 }
+
+// ════════════════════════════════════════════════════════════
+// 月報資料 Tab
+// ════════════════════════════════════════════════════════════
+const MR_HIGHLIGHTS_DEFAULT = {
+  '2026-01':[
+    {icon:'🏆',title:'首月實收 NT$160,500',subtitle:'Q1 最強開局月',desc:'William 完成台設院 MA 維護合約 NT$60,000 ＋ Denny 完成華航 Jamf iPad 資料移轉 NT$75,000，雙主力驅動部門強勢開局。'},
+    {icon:'✈️',title:'航空業高單價首案',subtitle:'Jamf 端點管理能力驗證',desc:'中華航空 Jamf iPad 資料移轉單案實收 NT$75,000，企業端點管理大型服務能力完整驗證，為後續年度維護合約打下基礎。'},
+    {icon:'📋',title:'MA 年度合約首次建立',subtitle:'顧問型長期收費模式起步',desc:'台設院 NT$60,000 MA 技術維護合約確立，長期穩定收費關係首次建立，複製推廣顧問服務的參考模式形成。'},
+  ],
+  '2026-02':[
+    {icon:'🌱',title:'Q1 前置播種月',subtitle:'三家企業 ABM 申請完成',desc:'壽司郎、日立永大、台灣資生堂三家 ABM 申請到位，為 3 月大型 Onboarding 案件打通前置通道。'},
+    {icon:'🔑',title:'重要客戶憑證更新',subtitle:'服務連續性零風險確保',desc:'兆賀、萬海航運 Jamf 憑證更新完成，確保設備服務零中斷，重要客戶黏著度維持。'},
+    {icon:'📚',title:'代理商教育訓練深化',subtitle:'展碁線上卡巴斯基培訓 ×2',desc:'展碁線上卡巴斯基培訓兩場完成，代理商技術能力持續提升，長期技術合作關係深化。'},
+  ],
+  '2026-03':[
+    {icon:'🚀',title:'台灣資生堂 Jamf 全導入',subtitle:'企業大型 MDM Onboarding 首案',desc:'台灣資生堂 Jamf Pro 全面導入完成，包含完整培訓服務，建立可複製推廣的大型企業 MDM Onboarding 標準流程。'},
+    {icon:'💰',title:'和雲行動服務實收 NT$20,000',subtitle:'Apex One 建置結案',desc:'和雲行動服務 Apex One 建置完工收款 NT$20,000，Q1 資安建置服務首案實收確認。'},
+    {icon:'✈️',title:'華航雙組 iOS Onboarding',subtitle:'航空業端點服務縱深擴展',desc:'華航 TPEEMO 與 TPEEG 兩組 iOS Onboarding 完成，航空業端點管理縱深持續擴展，後續年度維護空間確立。'},
+  ],
+  '2026-04':[
+    {icon:'📱',title:'五人全員量能躍升',subtitle:'單月 379 件歷史新高',desc:'Aaron 96件、Denny 117件、William 43件、Lucas 51件、Jimmy 72件，五人合力創下部門單月案件數歷史新高。'},
+    {icon:'🔒',title:'Lucas SC-200 認證通過',subtitle:'認證直接轉換業務開拓',desc:'Lucas 通過 Microsoft SC-200 Security Operations Analyst 認證，同步開通中華資安國際 Sentinel POC，技術即業績完整驗證。'},
+    {icon:'🤖',title:'Adobe AI 品牌對外發聲',subtitle:'雲科大 Firefly AI 公開講座',desc:'Jimmy 完成國立雲林科技大學 Adobe Firefly AI 應用公開講座，部門 AI 教育品牌正式建立，影響力擴展至學術界。'},
+  ],
+  '2026-05':[
+    {icon:'⏱',title:'效率提升 60%',subtitle:'AI 輔助文件撰寫成果',desc:'透過 ChatGPT 與 NotebookLM 協助，技術文章（KB）撰寫時間從 2 小時大幅縮短至 40 分鐘，人均輸出量顯著提升。'},
+    {icon:'🤝',title:'NT$70,000 實際收費',subtitle:'固定月費收入首次建立',desc:'華航資安稽核服務 NT$25,000/月固定維運上線，Apple SMB 經銷商巡迴活動北中南場次完成，通路技術認可度強化。'},
+    {icon:'🏥',title:'醫學中心案例擴展',subtitle:'醫療體系服務商機',desc:'奇美醫院 Jamf 案成功延伸至高醫附設中和紀念醫院，行動裝置應用程式管理（MAM）需求明確，具年約服務潛力。'},
+  ],
+};
+
+let mrEditMode=false;
+
+function loadMrHL(period){
+  const all=JSON.parse(localStorage.getItem('ks_mr_highlights')||'{}');
+  return all[period]?JSON.parse(JSON.stringify(all[period])):JSON.parse(JSON.stringify(MR_HIGHLIGHTS_DEFAULT[period]||[]));
+}
+function saveMrHL(period,cards){
+  const all=JSON.parse(localStorage.getItem('ks_mr_highlights')||'{}');
+  all[period]=cards; localStorage.setItem('ks_mr_highlights',JSON.stringify(all));
+}
+
+function renderMonthlyReportTab(){
+  mrEditMode=false;
+  try{ _renderMR(); }
+  catch(e){ document.getElementById('mr-content').innerHTML=`<div style="background:#FEF2F2;border:1px solid #FCA5A5;border-radius:10px;padding:20px;color:#DC2626"><strong>錯誤：</strong>${e.message}<br><pre>${e.stack}</pre></div>`; }
+}
+
+function _renderMR(){
+  const data=getAllData(); const period=currentPeriod; const pd=data[period];
+  const el=document.getElementById('mr-content');
+  if(!pd){ el.innerHTML='<div class="section-card"><p style="color:#94A3B8;text-align:center;padding:40px">無此月份資料</p></div>'; return; }
+  const [year,month]=period.split('-');
+  const mems=pd.members||{};
+  let totalCases=0,totalVirtual=0,totalActual=0;
+  MEMBER_NAMES.forEach(m=>{ const x=mems[m]; if(!x) return; totalCases+=x.summary?.cases||0; const v=x.summary?.virtual; const a=x.summary?.actual; if(v) totalVirtual+=v; if(a) totalActual+=a; });
+  const convRate=totalVirtual>0?((totalActual/totalVirtual)*100).toFixed(1)+'%':'—';
+  const maxCases=Math.max(...MEMBER_NAMES.map(m=>mems[m]?.summary?.cases||0),1);
+  const ntdFmt=n=>n==null?'—':'NT$'+n.toLocaleString();
+  const COLORS={Aaron:'#3B82F6',Denny:'#22C55E',William:'#A855F7',Lucas:'#F59E0B',Nick:'#14B8A6',Adobe:'#EF4444'};
+
+  const barRows=MEMBER_NAMES.filter(m=>{const x=mems[m];return x&&((x.summary?.cases||0)>0||(x.summary?.virtual||0)>0);}).map(m=>{
+    const mem=mems[m]; const c=mem.summary?.cases||0; const pct=Math.round((c/maxCases)*100);
+    const color=COLORS[m]||'#94A3B8';
+    const hl=(mem.highlights||[]).slice(0,2).map(h=>h.replace(/NT\$[\d,]+/g,'').replace(/^[\s·\-–—►▸]+/,'').trim().slice(0,38));
+    return `<div class="mr-bar-row">
+      <span class="mr-bar-label" style="color:${color}">${mem.name}<span style="font-size:.68rem;color:#94A3B8;font-weight:400"> (${(mem.role||'').split('·')[0].trim().slice(0,10)})</span></span>
+      <div class="mr-bar-track"><div class="mr-bar-fill" style="width:${pct}%;background:${color}"></div></div>
+      <span class="mr-bar-count" style="color:${color}">${c} 件</span>
+    </div>
+    ${hl.length?`<div class="mr-member-hl">${hl.map(h=>`<span>• ${h}</span>`).join('')}</div>`:''}`;
+  }).join('');
+
+  const highlights=loadMrHL(period);
+  const aiCards=mrEditMode?_mrEditCards(highlights):highlights.map(c=>`
+    <div class="mr-ai-card">
+      <div class="mr-ai-icon">${c.icon}</div>
+      <div class="mr-ai-title">${c.title}</div>
+      <div class="mr-ai-sub">${c.subtitle}</div>
+      <div class="mr-ai-desc">${c.desc}</div>
+    </div>`).join('');
+
+  const tableRows=MEMBER_NAMES.filter(m=>mems[m]).map(m=>{
+    const mem=mems[m]; const v=mem.summary?.virtual; const a=mem.summary?.actual; const color=COLORS[m]||'#94A3B8';
+    return`<tr><td><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${color};margin-right:6px;vertical-align:middle"></span><strong>${mem.name}</strong></td>
+      <td style="color:#1E3A5F;font-weight:600">${ntdFmt(v)}</td>
+      <td style="color:${(a||0)>0?'#16A34A':'#94A3B8'};font-weight:600">${a!=null?ntdFmt(a):'—'}</td></tr>`;
+  }).join('');
+
+  el.innerHTML=`<div class="mr-page">
+    <div class="mr-titlebar">
+      <div>
+        <div class="mr-title">${year}年${parseInt(month)}月 KS010S 部門工作績效與績效統計總覽</div>
+        <div class="mr-subtitle">部門技術支援 · 端點管理 · 雲端架構 · 資安防護 · Adobe AI 應用</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        ${mrEditMode
+          ?`<button class="tab-action-btn" style="background:#2563EB;color:#fff;border-color:#1D4ED8" onclick="mrSave()">💾 儲存</button>
+             <button class="tab-action-btn" onclick="mrCancelEdit()">✕ 取消</button>`
+          :`<button class="tab-action-btn" onclick="mrStartEdit()">✏️ 編輯亮點</button>
+             <button class="tab-action-btn" style="background:#FEF2F2;color:#DC2626;border-color:#FCA5A5" onclick="mrResetHL()">🔄 重置</button>`
+        }
+      </div>
+    </div>
+
+    <div class="mr-kpi-row">
+      <div class="mr-kpi-card" style="background:linear-gradient(135deg,#1E3A5F,#2563EB)">
+        <div class="mr-kpi-val">${totalCases} 件</div>
+        <div class="mr-kpi-label">全月總處理案件量</div>
+        <div class="mr-kpi-note">包含雲端支援、端點管理、資安維護及軟體諮詢，維持高效率的技術管理。</div>
+      </div>
+      <div class="mr-kpi-card" style="background:linear-gradient(135deg,#6D28D9,#A855F7)">
+        <div class="mr-kpi-val">${ntdFmt(totalVirtual)}</div>
+        <div class="mr-kpi-label">虛擬費用總計</div>
+        <div class="mr-kpi-note">根據服務難度與工時換算的技術服務總估值，反映團隊強大的技術輸出能量。</div>
+      </div>
+      <div class="mr-kpi-card" style="background:linear-gradient(135deg,#065F46,#059669)">
+        <div class="mr-kpi-val">${ntdFmt(totalActual)}</div>
+        <div class="mr-kpi-label">實際收費總計</div>
+        <div class="mr-kpi-note">本月實際確認收費，含顧問服務、培訓、維護合約等各項收費項目。</div>
+      </div>
+      <div class="mr-kpi-card" style="background:linear-gradient(135deg,#92400E,#D97706)">
+        <div class="mr-kpi-val">${convRate}</div>
+        <div class="mr-kpi-label">費用轉換率</div>
+        <div class="mr-kpi-note">實際收費 ÷ 虛擬費用，衡量技術服務轉換為實際收入的能力。</div>
+      </div>
+    </div>
+
+    <div class="mr-body">
+      <div class="mr-left">
+        <div class="mr-card">
+          <div class="mr-section-title">👥 團隊成員績效細節</div>
+          <div style="font-size:.76rem;color:#94A3B8;margin-bottom:12px">成員案件數量比較</div>
+          <div class="mr-bars">${barRows}</div>
+        </div>
+      </div>
+      <div class="mr-right">
+        <div class="mr-card">
+          <div class="mr-section-title">🤖 AI 工具應用與創新亮點</div>
+          <div id="mr-ai-section">${aiCards}</div>
+          ${mrEditMode?`<button class="tab-action-btn" style="width:100%;margin-top:4px;text-align:center" onclick="mrAddCard()">＋ 新增亮點</button>`:''}
+        </div>
+        <div class="mr-card">
+          <div class="mr-section-title">📊 成員績效總覽</div>
+          <table class="mr-table">
+            <thead><tr><th>成員名稱</th><th>虛擬費用 (未稅)</th><th>實際收費 (未稅)</th></tr></thead>
+            <tbody>${tableRows}</tbody>
+            <tfoot><tr style="background:#F8FAFC;font-weight:700">
+              <td>合計</td>
+              <td style="color:#1E3A5F">${ntdFmt(totalVirtual)}</td>
+              <td style="color:${totalActual>0?'#16A34A':'#94A3B8'}">${ntdFmt(totalActual)}</td>
+            </tr></tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function _mrEditCards(hl){
+  return hl.map((c,i)=>`
+    <div class="mr-edit-card">
+      <div style="display:flex;gap:6px;align-items:center;margin-bottom:2px">
+        <input class="mr-edit-input" style="width:52px;text-align:center" id="mr-icon-${i}" value="${c.icon}">
+        <input class="mr-edit-input" style="flex:1" id="mr-etitle-${i}" placeholder="標題" value="${c.title.replace(/"/g,'&quot;')}">
+        <button onclick="mrDeleteCard(${i})" style="padding:4px 8px;background:#FEF2F2;color:#DC2626;border:1px solid #FCA5A5;border-radius:6px;cursor:pointer;font-size:.78rem;flex-shrink:0">🗑</button>
+      </div>
+      <input class="mr-edit-input" id="mr-esub-${i}" placeholder="副標題" value="${c.subtitle.replace(/"/g,'&quot;')}">
+      <textarea class="mr-edit-textarea" id="mr-edesc-${i}">${c.desc}</textarea>
+    </div>`).join('');
+}
+
+function _mrCollect(existing){
+  const out=[];
+  for(let i=0;i<existing.length+10;i++){
+    const el=document.getElementById(`mr-icon-${i}`); if(!el) break;
+    out.push({icon:el.value.trim(),title:document.getElementById(`mr-etitle-${i}`).value.trim(),subtitle:document.getElementById(`mr-esub-${i}`).value.trim(),desc:document.getElementById(`mr-edesc-${i}`).value.trim()});
+  }
+  return out;
+}
+
+function mrStartEdit(){ mrEditMode=true; _renderMR(); }
+function mrCancelEdit(){ mrEditMode=false; _renderMR(); }
+function mrSave(){ saveMrHL(currentPeriod,_mrCollect(loadMrHL(currentPeriod))); mrEditMode=false; _renderMR(); }
+function mrDeleteCard(idx){ const c=_mrCollect(loadMrHL(currentPeriod)); c.splice(idx,1); saveMrHL(currentPeriod,c); mrEditMode=true; _renderMR(); }
+function mrAddCard(){ const c=_mrCollect(loadMrHL(currentPeriod)); c.push({icon:'✨',title:'新亮點',subtitle:'副標題',desc:'說明文字'}); saveMrHL(currentPeriod,c); mrEditMode=true; _renderMR(); }
+function mrResetHL(){ if(!confirm('確定重置此月份的亮點至預設值？')) return; const all=JSON.parse(localStorage.getItem('ks_mr_highlights')||'{}'); delete all[currentPeriod]; localStorage.setItem('ks_mr_highlights',JSON.stringify(all)); mrEditMode=false; _renderMR(); }
 
 function saveWtModal(id, isEdit){
   const obj={
