@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
+<body style="margin:0;padding:0;background:#F5F5F5;font-family:Arial,sans-serif;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#F5F5F5;padding:24px 0;">
+<tr><td align="center">
+<table width="680" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);">
+
+<!-- HEADER -->
+<tr>
+  <td bgcolor="#1F5C99" style="background:linear-gradient(135deg,#154360 0%,#1F5C99 60%,#0078D4 100%);padding:32px 40px 28px;">
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td>
+          <div style="font-size:11px;color:#AED6F1;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;">展碁國際 · Microsoft CSP 代理商</div>
+          <div style="font-size:26px;font-weight:bold;color:#ffffff;line-height:1.3;">展碁 Weekly</div>
+          <div style="font-size:14px;color:#D6EAF8;margin-top:4px;">第 23 週 · Azure 技術精選</div>
+        </td>
+        <td align="right" valign="top">
+          <div style="background:rgba(255,255,255,0.15);border-radius:6px;padding:10px 16px;display:inline-block;text-align:center;">
+            <div style="font-size:10px;color:#AED6F1;letter-spacing:1px;">TODAY</div>
+            <div style="font-size:20px;font-weight:bold;color:#fff;">6/2</div>
+            <div style="font-size:10px;color:#AED6F1;">週二 · Azure</div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+
+<!-- INTRO -->
+<tr>
+  <td style="padding:28px 40px 20px;border-bottom:1px solid #EBF5FB;">
+    <p style="margin:0;font-size:14px;color:#555;line-height:1.8;">
+      📢 本週 Azure 焦點：<strong>GPT-5.5 正式登陸 Microsoft Foundry</strong>，深度長文本推理、更可靠的代理人執行能力，以及企業級治理框架全面到位！本期從零開始，帶您完成帳號申請、資源建立、模型部署、安全設定到稽核監控的完整流程。
+    </p>
+  </td>
+</tr>
+
+<!-- BADGE + TITLE -->
+<tr>
+  <td style="padding:28px 40px 0px;">
+    <table cellpadding="0" cellspacing="0">
+      <tr>
+        <td style="background:#0078D4;color:#fff;font-size:11px;font-weight:bold;padding:4px 12px;border-radius:20px;letter-spacing:1px;">Azure AI Foundry</td>
+        <td width="10"></td>
+        <td style="background:#E8F4F8;color:#1F5C99;font-size:11px;font-weight:bold;padding:4px 12px;border-radius:20px;">難度：中級</td>
+        <td width="10"></td>
+        <td style="background:#FEF9E7;color:#D35400;font-size:11px;font-weight:bold;padding:4px 12px;border-radius:20px;">🔥 本週焦點</td>
+      </tr>
+    </table>
+    <h2 style="margin:16px 0 8px;font-size:20px;color:#154360;line-height:1.4;">GPT-5.5 進駐 Microsoft Foundry：企業 AI 代理人完整建置指南<br><span style="font-size:14px;font-weight:normal;color:#666;">— 從零開始到正式上線，完整 Step-by-Step</span></h2>
+  </td>
+</tr>
+
+<!-- BACKGROUND -->
+<tr>
+  <td style="padding:16px 40px 20px;">
+    <div style="background:#EBF5FB;border-left:4px solid #0078D4;border-radius:0 6px 6px 0;padding:16px 20px;">
+      <div style="font-size:12px;color:#1F5C99;font-weight:bold;margin-bottom:6px;">📌 背景說明</div>
+      <p style="margin:0;font-size:13px;color:#444;line-height:1.8;">
+        OpenAI GPT-5.5 現已正式在 Microsoft Foundry 上線，為企業帶來三大突破：<strong>深度長文本推理</strong>（適合合約審查、法規分析等高複雜度任務）、<strong>穩定的多步驟代理人執行</strong>（大幅減少人工干預需求），以及<strong>更高 Token 使用效率</strong>（相同預算下處理量提升達 30%）。現有 Azure OpenAI 訂閱用戶可直接在 Foundry 無縫切換，不需重新申請資源或修改 API 程式碼。
+      </p>
+    </div>
+  </td>
+</tr>
+
+<!-- STEP BY STEP -->
+<tr>
+  <td style="padding:0 40px 8px;">
+    <div style="font-size:15px;font-weight:bold;color:#154360;margin-bottom:16px;padding-bottom:8px;border-bottom:2px solid #0078D4;">🛠️ Step-by-Step 操作步驟</div>
+  </td>
+</tr>
+
+<!-- Step 1 -->
+<tr>
+  <td style="padding:0 40px 18px;">
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="36" valign="top">
+          <div style="width:28px;height:28px;background:#0078D4;border-radius:50%;text-align:center;line-height:28px;color:#fff;font-weight:bold;font-size:13px;">1</div>
+        </td>
+        <td style="padding-left:12px;">
+          <div style="font-weight:bold;font-size:13px;color:#1F5C99;margin-bottom:6px;">確認前置條件與帳號權限</div>
+          <div style="font-size:13px;color:#555;line-height:1.8;">
+            在開始前，請確認以下項目皆已就緒：<br>
+            ① <strong>Azure 訂閱</strong>：需有有效的 Azure 訂閱（可至 portal.azure.com → 訂閱 確認）。若尚無訂閱，點選「+ 新增」選擇 Pay-As-You-Go 或 Enterprise Agreement。<br>
+            ② <strong>帳號角色</strong>：操作帳號需具備「<strong>擁有者（Owner）</strong>」或「<strong>參與者（Contributor）</strong>」角色，以及「<strong>認知服務參與者（Cognitive Services Contributor）</strong>」。至 Azure Portal → 訂閱 → 存取控制（IAM）→ 新增角色指派 完成設定。<br>
+            ③ <strong>地區可用性</strong>：GPT-5.5 目前優先支援 <strong>East US 2</strong> 與 <strong>Sweden Central</strong>，建議選擇其中之一。<br>
+            ④ <strong>配額申請</strong>（如有需要）：前往 Azure Portal → 訂閱 → 使用量 + 配額，搜尋「Azure OpenAI」，確認所選地區有足夠 GPT-5.5 配額。若配額為 0，點選「申請增加」填寫表單，通常 1～2 個工作天核准。
+          </div>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+
+<!-- Step 2 -->
+<tr>
+  <td style="padding:0 40px 18px;">
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="36" valign="top">
+          <div style="width:28px;height:28px;background:#0078D4;border-radius:50%;text-align:center;line-height:28px;color:#fff;font-weight:bold;font-size:13px;">2</div>
+        </td>
+        <td style="padding-left:12px;">
+          <div style="font-weight:bold;font-size:13px;color:#1F5C99;margin-bottom:6px;">建立 Azure AI Foundry Hub 與專案</div>
+          <div style="font-size:13px;color:#555;line-height:1.8;">
+            ① 前往 <strong>portal.azure.com</strong>，在頂部搜尋欄輸入「<strong>Azure AI Foundry</strong>」→ 點選出現的服務項目。<br>
+            ② 點選「<strong>+ 建立</strong>」→ 選擇「<strong>Azure AI Foundry Hub</strong>」。填入：<br>
+            &nbsp;&nbsp;• 訂閱：選擇您的 Azure 訂閱<br>
+            &nbsp;&nbsp;• 資源群組：點選「新建」，輸入 <code style="background:#f0f0f0;padding:1px 5px;border-radius:3px;">rg-ai-foundry-prod</code><br>
+            &nbsp;&nbsp;• Hub 名稱：輸入 <code style="background:#f0f0f0;padding:1px 5px;border-radius:3px;">weblink-ai-hub</code>（需全球唯一）<br>
+            &nbsp;&nbsp;• 地區：選擇「<strong>East US 2</strong>」<br>
+            &nbsp;&nbsp;• 儲存體帳戶：自動建立即可<br>
+            ③ 點選「<strong>檢閱 + 建立</strong>」→ 確認設定無誤後點選「<strong>建立</strong>」。部署約需 3～5 分鐘。<br>
+            ④ 部署完成後，點選「<strong>前往資源</strong>」→ 進入 Hub 後點選「<strong>+ 新增專案</strong>」，填入專案名稱（例：<code style="background:#f0f0f0;padding:1px 5px;border-radius:3px;">gpt55-enterprise-proj</code>）→「<strong>建立專案</strong>」。<br>
+            <span style="color:#888;font-size:12px;">💡 Hub 是共用基礎設施層，專案是各部門或應用程式的獨立工作空間，建議依部門或用途建立不同專案。</span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+
+<!-- Step 3 -->
+<tr>
+  <td style="padding:0 40px 18px;">
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="36" valign="top">
+          <div style="width:28px;height:28px;background:#0078D4;border-radius:50%;text-align:center;line-height:28px;color:#fff;font-weight:bold;font-size:13px;">3</div>
+        </td>
+        <td style="padding-left:12px;">
+          <div style="font-weight:bold;font-size:13px;color:#1F5C99;margin-bottom:6px;">部署 GPT-5.5 模型</div>
+          <div style="font-size:13px;color:#555;line-height:1.8;">
+            ① 進入剛建立的專案後，點選左側導覽列「<strong>模型 + 端點（Models + Endpoints）</strong>」。<br>
+            ② 點選「<strong>部署模型（Deploy Model）</strong>」→「<strong>從模型目錄部署</strong>」。<br>
+            ③ 在搜尋欄輸入「<strong>gpt-5.5</strong>」→ 選擇「<strong>gpt-5.5</strong>」→ 點選「<strong>確認</strong>」。<br>
+            ④ 填入部署設定：<br>
+            &nbsp;&nbsp;• 部署名稱：<code style="background:#f0f0f0;padding:1px 5px;border-radius:3px;">gpt-55-enterprise</code>（此名稱即為 API 呼叫時的 model 參數）<br>
+            &nbsp;&nbsp;• 部署類型：選「<strong>Global Standard</strong>」（跨區域負載均衡，正式環境首選）<br>
+            &nbsp;&nbsp;• 每分鐘 Token 限制（TPM）：起始建議 <strong>100,000</strong>（視使用量調整）<br>
+            &nbsp;&nbsp;• 內容篩選：暫時使用「Default」，後續步驟再客製化<br>
+            ⑤ 點選「<strong>部署</strong>」，等待約 1～2 分鐘完成。<br>
+            ⑥ 部署成功後，在模型清單中確認狀態顯示「<strong>成功（Succeeded）</strong>」，並記下「<strong>目標 URI</strong>」與「<strong>金鑰</strong>」，後續 API 整合時會用到。
+          </div>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+
+<!-- Step 4 -->
+<tr>
+  <td style="padding:0 40px 18px;">
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="36" valign="top">
+          <div style="width:28px;height:28px;background:#0078D4;border-radius:50%;text-align:center;line-height:28px;color:#fff;font-weight:bold;font-size:13px;">4</div>
+        </td>
+        <td style="padding-left:12px;">
+          <div style="font-weight:bold;font-size:13px;color:#1F5C99;margin-bottom:6px;">在 Playground 測試模型效能</div>
+          <div style="font-size:13px;color:#555;line-height:1.8;">
+            ① 點選左側「<strong>Playground</strong>」→「<strong>Chat</strong>」。<br>
+            ② 右上角「<strong>部署</strong>」欄位選擇 <code style="background:#f0f0f0;padding:1px 5px;border-radius:3px;">gpt-55-enterprise</code>。<br>
+            ③ 在「<strong>系統訊息（System Message）</strong>」框輸入角色設定，例如：<br>
+            &nbsp;&nbsp;<em style="color:#666;">「你是展碁國際的資深技術顧問，專門協助 Microsoft 365 與 Azure 服務的授權規劃與技術評估。請以繁體中文回應，語氣專業且易於理解。」</em><br>
+            ④ 在對話框輸入測試問題，例如：「請比較 Azure AI Foundry 與 Azure OpenAI Service 的主要差異與適用情境」。<br>
+            ⑤ 確認回應品質：檢查<strong>邏輯完整性</strong>、<strong>繁體中文流暢度</strong>、以及<strong>專業術語的準確性</strong>。<br>
+            ⑥ 測試長文本能力：點選「<strong>新增附件</strong>」上傳 PDF（如產品說明書、合約），詢問模型摘要或分析，確認能正確解讀完整文件內容。<br>
+            <span style="color:#888;font-size:12px;">💡 Playground 的測試不計入生產環境用量，可放心大量測試。</span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+
+<!-- Step 5 -->
+<tr>
+  <td style="padding:0 40px 18px;">
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="36" valign="top">
+          <div style="width:28px;height:28px;background:#0078D4;border-radius:50%;text-align:center;line-height:28px;color:#fff;font-weight:bold;font-size:13px;">5</div>
+        </td>
+        <td style="padding-left:12px;">
+          <div style="font-weight:bold;font-size:13px;color:#1F5C99;margin-bottom:6px;">設定企業級內容安全政策</div>
+          <div style="font-size:13px;color:#555;line-height:1.8;">
+            ① 點選左側「<strong>安全 + 治理（Safety + Governance）</strong>」→「<strong>內容篩選（Content Filters）</strong>」。<br>
+            ② 點選「<strong>+ 建立內容篩選設定檔</strong>」，填入名稱（例：<code style="background:#f0f0f0;padding:1px 5px;border-radius:3px;">enterprise-policy</code>）。<br>
+            ③ 設定各類別的嚴重性閾值（建議企業環境）：<br>
+            &nbsp;&nbsp;• 仇恨內容（Hate）：<strong>低（Low）</strong><br>
+            &nbsp;&nbsp;• 暴力內容（Violence）：<strong>低（Low）</strong><br>
+            &nbsp;&nbsp;• 性相關內容（Sexual）：<strong>低（Low）</strong><br>
+            &nbsp;&nbsp;• 自我傷害（Self-harm）：<strong>低（Low）</strong><br>
+            ④ 開啟進階防護選項：<br>
+            &nbsp;&nbsp;• ✅ <strong>個人識別資訊偵測（PII Detection）</strong>：偵測並遮蔽身分證號、電話、信用卡等敏感資料<br>
+            &nbsp;&nbsp;• ✅ <strong>越獄嘗試防護（Jailbreak Detection）</strong>：阻擋試圖繞過安全限制的指令<br>
+            &nbsp;&nbsp;• ✅ <strong>受保護素材偵測（Protected Material）</strong>：避免輸出受著作權保護的內容<br>
+            ⑤ 點選「<strong>建立</strong>」儲存設定檔 → 回到模型清單，選擇 <code style="background:#f0f0f0;padding:1px 5px;border-radius:3px;">gpt-55-enterprise</code> → 點選「<strong>編輯</strong>」→ 將內容篩選改為 <code style="background:#f0f0f0;padding:1px 5px;border-radius:3px;">enterprise-policy</code> → 儲存。
+          </div>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+
+<!-- Step 6 -->
+<tr>
+  <td style="padding:0 40px 18px;">
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="36" valign="top">
+          <div style="width:28px;height:28px;background:#0078D4;border-radius:50%;text-align:center;line-height:28px;color:#fff;font-weight:bold;font-size:13px;">6</div>
+        </td>
+        <td style="padding-left:12px;">
+          <div style="font-weight:bold;font-size:13px;color:#1F5C99;margin-bottom:6px;">啟用監控、稽核與費用警示</div>
+          <div style="font-size:13px;color:#555;line-height:1.8;">
+            ① <strong>啟用追蹤（Tracing）</strong>：點選左側「<strong>監控（Monitoring）</strong>」→「<strong>追蹤（Tracing）</strong>」→ 開啟「<strong>啟用追蹤</strong>」→ 連結或建立 Application Insights 資源（建議建立獨立資源，名稱如 <code style="background:#f0f0f0;padding:1px 5px;border-radius:3px;">ai-foundry-insights</code>）→ 儲存。<br>
+            ② <strong>查看即時監控</strong>：前往 Azure Portal → 搜尋剛建立的 Application Insights → 點選「<strong>即時計量（Live Metrics）</strong>」，可即時看到每筆 API 呼叫的延遲、Token 用量與錯誤率。<br>
+            ③ <strong>建立費用警示</strong>：前往 Azure Portal → 「<strong>成本管理 + 計費</strong>」→「<strong>預算</strong>」→「<strong>+ 新增</strong>」。設定：<br>
+            &nbsp;&nbsp;• 預算金額：依每月預算填入（例：NT$30,000）<br>
+            &nbsp;&nbsp;• 警示條件：達預算 <strong>80%</strong> 時寄送 Email 通知給管理者<br>
+            &nbsp;&nbsp;• 達 <strong>100%</strong> 時寄送第二封警示<br>
+            ④ <strong>設定稽核記錄</strong>：前往 Hub 的「<strong>診斷設定（Diagnostic Settings）</strong>」→「<strong>+ 新增診斷設定</strong>」→ 勾選「<strong>AuditLogs</strong>」與「<strong>RequestResponse</strong>」→ 目的地選擇 Log Analytics Workspace → 儲存。所有 AI 呼叫記錄將保留 90 天，可供稽核查閱。<br>
+            <span style="color:#888;font-size:12px;">💡 追蹤與診斷設定完成後，即符合 ISO 27001 稽核要求中的「AI 系統可追溯性」條款。</span>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+
+<!-- BENEFITS -->
+<tr>
+  <td style="padding:8px 40px 24px;">
+    <div style="background:#154360;border-radius:8px;padding:20px 24px;">
+      <div style="font-size:14px;font-weight:bold;color:#AED6F1;margin-bottom:12px;">✅ 導入後預期效益</div>
+      <table width="100%" cellpadding="0" cellspacing="0">
+        <tr>
+          <td width="20" valign="top" style="color:#5DADE2;font-size:16px;padding-top:1px;">▸</td>
+          <td style="font-size:13px;color:#D6EAF8;line-height:1.7;padding-left:8px;"><strong>複雜任務處理效率提升 40%</strong>：GPT-5.5 深度推理可直接處理長達數萬字的合約、報告，大幅減少人工拆分與彙整時間，合約審查從數小時縮短至分鐘內完成</td>
+        </tr>
+        <tr><td height="8"></td><td></td></tr>
+        <tr>
+          <td width="20" valign="top" style="color:#5DADE2;font-size:16px;padding-top:1px;">▸</td>
+          <td style="font-size:13px;color:#D6EAF8;line-height:1.7;padding-left:8px;"><strong>現有投資無縫升級</strong>：已使用 Azure OpenAI 的企業可直接切換至 GPT-5.5，REST API 完全相容，僅需更新 model 參數名稱，零程式碼改寫成本</td>
+        </tr>
+        <tr><td height="8"></td><td></td></tr>
+        <tr>
+          <td width="20" valign="top" style="color:#5DADE2;font-size:16px;padding-top:1px;">▸</td>
+          <td style="font-size:13px;color:#D6EAF8;line-height:1.7;padding-left:8px;"><strong>企業合規全面就緒</strong>：內建 PII 偵測、Jailbreak 防護、完整稽核追蹤（90 天記錄），直接對應 ISO 27001、GDPR 及金融監理法規要求，縮短合規評估時程</td>
+        </tr>
+      </table>
+    </div>
+  </td>
+</tr>
+
+<!-- SOURCE -->
+<tr>
+  <td style="padding:0 40px 24px;">
+    <div style="background:#F8F9FA;border-radius:6px;padding:12px 16px;">
+      <span style="font-size:12px;color:#888;">📎 資訊來源：</span>
+      <a href="https://azure.microsoft.com/en-us/blog/openais-gpt-5-5-in-microsoft-foundry-frontier-intelligence-on-an-enterprise-ready-platform/" style="font-size:12px;color:#0078D4;text-decoration:none;">OpenAI GPT-5.5 in Microsoft Foundry 官方公告 → azure.microsoft.com</a>
+    </div>
+  </td>
+</tr>
+
+<!-- CTA -->
+<tr>
+  <td style="padding:0 40px 32px;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:linear-gradient(135deg,#EBF5FB,#D6EAF8);border-radius:8px;border:1px solid #AED6F1;">
+      <tr><td style="padding:20px 24px;">
+        <div style="font-size:15px;font-weight:bold;color:#154360;margin-bottom:8px;">📩 想在貴公司導入 Azure AI Foundry？展碁提供免費技術評估！</div>
+        <p style="margin:0 0 12px;font-size:13px;color:#444;line-height:1.7;">展碁國際作為 Microsoft CSP 代理商，提供 Azure AI Foundry 授權規劃、架構設計諮詢，以及 GPT-5.5 PoC 概念驗證協助，協助您的企業以最低風險、最短時間完成 AI 升級。</p>
+        <table cellpadding="0" cellspacing="0">
+          <tr>
+            <td style="font-size:13px;color:#1F5C99;padding-right:20px;">📧 <strong>mscsp@weblink.com.tw</strong></td>
+            <td style="font-size:13px;color:#1F5C99;padding-right:20px;">📞 <strong>02-23716000#779</strong></td>
+            <td style="font-size:13px;color:#1F5C99;">🌐 <strong>www.weblink.com.tw</strong></td>
+          </tr>
+        </table>
+      </td></tr>
+    </table>
+  </td>
+</tr>
+
+<!-- FOOTER -->
+<tr>
+  <td style="background:#F0F3F4;padding:16px 40px;border-top:1px solid #D5D8DC;">
+    <table width="100%" cellpadding="0" cellspacing="0">
+      <tr>
+        <td style="font-size:11px;color:#999;line-height:1.6;">
+          展碁國際股份有限公司 · Microsoft CSP 代理商<br>
+          本電子報由展碁技術團隊編撰，內容來源為 Microsoft 官方公告。如需取消訂閱，請回信告知。
+        </td>
+        <td align="right" valign="top">
+          <div style="font-size:10px;color:#BDC3C7;">2026 / 6 / 2 · 第 23 週</div>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+
+</table>
+</td></tr>
+</table>
+</body>
+</html>
