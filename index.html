@@ -505,42 +505,51 @@ tr:hover .iur-edit-btn{opacity:1}
 .wt-desc-cell{font-size:.8rem;color:#475569;max-width:260px}
 .wt-note-cell{font-size:.8rem;color:#94A3B8;max-width:160px}
 /* ─── Monthly Report Tab ─── */
-.mr-page{padding:4px 0}
-.mr-titlebar{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:18px}
-.mr-title{font-size:1.25rem;font-weight:800;color:#1E3A5F;line-height:1.3}
-.mr-subtitle{font-size:.8rem;color:#64748B;margin-top:4px}
-.mr-kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
-@media(max-width:900px){.mr-kpi-row{grid-template-columns:repeat(2,1fr)}}
-.mr-kpi-card{border-radius:14px;padding:20px 18px;color:#fff}
-.mr-kpi-val{font-size:1.7rem;font-weight:800;letter-spacing:-.5px}
-.mr-kpi-label{font-size:.74rem;font-weight:700;opacity:.85;margin:4px 0 6px;text-transform:uppercase;letter-spacing:.5px}
-.mr-kpi-note{font-size:.72rem;opacity:.7;line-height:1.5}
-.mr-body{display:grid;grid-template-columns:3fr 2fr;gap:18px}
-@media(max-width:1000px){.mr-body{grid-template-columns:1fr}}
-.mr-card{background:#fff;border-radius:14px;padding:20px 22px;box-shadow:0 2px 12px rgba(0,0,0,.06);margin-bottom:16px}
-.mr-section-title{font-size:.95rem;font-weight:700;color:#1E3A5F;margin-bottom:14px}
-.mr-bars{display:flex;flex-direction:column;gap:6px}
-.mr-bar-row{display:flex;align-items:center;gap:10px}
-.mr-bar-label{font-size:.75rem;font-weight:700;width:170px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mr-bar-track{flex:1;background:#F1F5F9;border-radius:6px;height:16px}
-.mr-bar-fill{height:16px;border-radius:6px;transition:width .4s}
-.mr-bar-count{font-size:.78rem;font-weight:700;width:46px;text-align:right;flex-shrink:0}
-.mr-member-hl{font-size:.72rem;color:#94A3B8;padding:2px 0 8px 180px;line-height:1.6;display:flex;flex-wrap:wrap;gap:4px 12px}
-.mr-ai-card{background:#F8FAFC;border-radius:11px;padding:14px 16px;margin-bottom:10px;border-left:4px solid #2563EB}
-.mr-ai-icon{font-size:1.4rem;margin-bottom:5px}
-.mr-ai-title{font-size:.95rem;font-weight:700;color:#1E3A5F}
-.mr-ai-sub{font-size:.74rem;color:#2563EB;font-weight:600;margin:2px 0 6px}
-.mr-ai-desc{font-size:.77rem;color:#475569;line-height:1.6}
+.mr-page{background:#F1F5F9;padding:0}
+.mr-header-bar{background:#fff;border-radius:16px;padding:20px 28px;margin-bottom:16px;box-shadow:0 2px 12px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.mr-main-title{font-size:1.35rem;font-weight:800;color:#1a1a2e;flex:1;text-align:center}
+.mr-kpi-2col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.mr-kpi-box{background:#fff;border-radius:16px;padding:22px 26px;box-shadow:0 2px 12px rgba(0,0,0,.06);display:flex;gap:18px;align-items:flex-start}
+.mr-kpi-icon{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0}
+.mr-kpi-num{font-size:2.6rem;font-weight:900;letter-spacing:-1px;line-height:1.1;margin-bottom:3px}
+.mr-kpi-num.blue{color:#2563EB}
+.mr-kpi-num.purple{color:#7C3AED}
+.mr-kpi-label{font-size:.85rem;font-weight:700;color:#1E3A5F;margin-bottom:5px}
+.mr-kpi-desc{font-size:.74rem;color:#64748B;line-height:1.6}
+.mr-2col{display:grid;grid-template-columns:55% 1fr;gap:16px;align-items:start}
+@media(max-width:1000px){.mr-2col{grid-template-columns:1fr}}
+.mr-white-card{background:#fff;border-radius:14px;padding:20px 22px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:14px}
+.mr-sec-title{font-size:1rem;font-weight:800;color:#1a1a2e;margin-bottom:2px}
+.mr-sec-sub{font-size:.74rem;color:#94A3B8;margin-bottom:14px}
+.mr-mem-row{margin-bottom:12px}
+.mr-mem-bar-line{display:flex;align-items:center;gap:8px;margin-bottom:3px}
+.mr-mem-avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:800;color:#fff;flex-shrink:0}
+.mr-mem-chip{padding:3px 12px;border-radius:20px;font-size:.75rem;font-weight:700;color:#fff;white-space:nowrap;flex-shrink:0;max-width:170px;overflow:hidden;text-overflow:ellipsis}
+.mr-mem-track{flex:1;background:#F1F5F9;border-radius:6px;height:18px;overflow:hidden;min-width:60px}
+.mr-mem-fill{height:18px;border-radius:6px;transition:width .5s ease}
+.mr-mem-count{font-size:.82rem;font-weight:800;width:46px;text-align:right;flex-shrink:0}
+.mr-mem-bullets{display:grid;grid-template-columns:1fr 1fr;gap:0 12px;padding-left:42px;margin-top:2px}
+.mr-mem-bullet{font-size:.71rem;color:#475569;padding:1px 0;line-height:1.5}
+.mr-ai-section-title{font-size:1rem;font-weight:800;color:#1a1a2e;margin-bottom:12px}
+.mr-ai-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.mr-ai-card{background:#F8FAFC;border-radius:12px;padding:14px 12px;border:1px solid #E2E8F0}
+.mr-ai-icon{font-size:1.5rem;margin-bottom:5px}
+.mr-ai-card-title{font-size:.86rem;font-weight:800;color:#1E3A5F;margin-bottom:2px}
+.mr-ai-card-sub{font-size:.7rem;color:#2563EB;font-weight:700;margin-bottom:6px}
+.mr-ai-card-desc{font-size:.7rem;color:#475569;line-height:1.55}
+.mr-tbl{width:100%;border-collapse:collapse;font-size:.82rem;margin-bottom:14px}
+.mr-tbl th{background:#F9FAFB;color:#6B7280;font-size:.72rem;font-weight:700;padding:8px 12px;text-align:left;border-bottom:2px solid #E5E7EB}
+.mr-tbl td{padding:7px 12px;border-bottom:1px solid #F1F5F9;vertical-align:middle}
+.mr-tbl tfoot td{border-top:2px solid #E2E8F0;border-bottom:none;font-weight:700;background:#F8FAFC}
+.mr-name-chip{border-radius:6px;padding:3px 10px;color:#fff;font-weight:700;font-size:.8rem;display:inline-block;white-space:nowrap}
+.mr-charts-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mr-chart-card{background:#F8FAFC;border-radius:12px;padding:14px 10px;border:1px solid #E2E8F0}
+.mr-chart-title{font-size:.76rem;font-weight:700;color:#374151;margin-bottom:8px;text-align:center}
 .mr-edit-card{background:#F8FAFC;border-radius:10px;padding:12px;margin-bottom:10px;border:1px solid #E2E8F0}
 .mr-edit-input{width:100%;padding:6px 8px;border:1px solid #CBD5E1;border-radius:7px;font-size:.8rem;margin-bottom:5px;box-sizing:border-box}
 .mr-edit-input:focus{outline:none;border-color:#2563EB;box-shadow:0 0 0 2px #DBEAFE}
-.mr-edit-textarea{width:100%;padding:6px 8px;border:1px solid #CBD5E1;border-radius:7px;font-size:.8rem;resize:vertical;margin-bottom:5px;min-height:62px;box-sizing:border-box;font-family:inherit}
+.mr-edit-textarea{width:100%;padding:6px 8px;border:1px solid #CBD5E1;border-radius:7px;font-size:.8rem;resize:vertical;margin-bottom:5px;min-height:60px;box-sizing:border-box;font-family:inherit}
 .mr-edit-textarea:focus{outline:none;border-color:#2563EB;box-shadow:0 0 0 2px #DBEAFE}
-.mr-table{width:100%;border-collapse:collapse;font-size:.83rem}
-.mr-table th{background:#F1F5F9;color:#475569;font-weight:700;font-size:.73rem;text-transform:uppercase;letter-spacing:.04em;padding:9px 12px;text-align:left}
-.mr-table td{padding:9px 12px;border-bottom:1px solid #F1F5F9;vertical-align:middle}
-.mr-table tfoot td{border-top:2px solid #E2E8F0;border-bottom:none}
-.mr-table tr:hover td{background:#F8FAFC}
 </style>
 </head>
 <body>
@@ -3312,6 +3321,17 @@ function renderMonthlyReportTab(){
   catch(e){ document.getElementById('mr-content').innerHTML=`<div style="background:#FEF2F2;border:1px solid #FCA5A5;border-radius:10px;padding:20px;color:#DC2626"><strong>錯誤：</strong>${e.message}<br><pre>${e.stack}</pre></div>`; }
 }
 
+let _mrChartV=null, _mrChartA=null;
+
+function _mrBullets(highlights){
+  return (highlights||[]).slice(0,4).map(h=>{
+    let s=h.replace(/NT\$[\d,，]+/g,'').replace(/（[^）]*）/g,'').replace(/[\(（][^)\）]*[\)）]/g,'').trim();
+    s=s.replace(/^[\u{1F000}-\u{1FFFF}🏆✈️🔒🎓☁️🖥️📋🤖💰🚀🌱🔑📚📱💼🤝🏥⏱✨⚡🎯🔐💡🌟🎁🏅]+\s*/u,'');
+    s=s.split(/[，,、；;。]/)[0].trim();
+    return s.slice(0,22);
+  });
+}
+
 function _renderMR(){
   const data=getAllData(); const period=currentPeriod; const pd=data[period];
   const el=document.getElementById('mr-content');
@@ -3319,108 +3339,154 @@ function _renderMR(){
   const [year,month]=period.split('-');
   const mems=pd.members||{};
   let totalCases=0,totalVirtual=0,totalActual=0;
-  MEMBER_NAMES.forEach(m=>{ const x=mems[m]; if(!x) return; totalCases+=x.summary?.cases||0; const v=x.summary?.virtual; const a=x.summary?.actual; if(v) totalVirtual+=v; if(a) totalActual+=a; });
-  const convRate=totalVirtual>0?((totalActual/totalVirtual)*100).toFixed(1)+'%':'—';
+  MEMBER_NAMES.forEach(m=>{ const x=mems[m]; if(!x)return; totalCases+=x.summary?.cases||0; const v=x.summary?.virtual; const a=x.summary?.actual; if(v)totalVirtual+=v; if(a)totalActual+=a; });
   const maxCases=Math.max(...MEMBER_NAMES.map(m=>mems[m]?.summary?.cases||0),1);
-  const ntdFmt=n=>n==null?'—':'NT$'+n.toLocaleString();
+  const ntd=n=>n!=null?'NT$'+n.toLocaleString():'—';
   const COLORS={Aaron:'#3B82F6',Denny:'#22C55E',William:'#A855F7',Lucas:'#F59E0B',Nick:'#14B8A6',Adobe:'#EF4444'};
+  const ICONS={Aaron:'🧑‍💻',Denny:'📱',William:'🛡️',Lucas:'☁️',Nick:'🤖',Adobe:'🎨'};
+  const activeMembers=MEMBER_NAMES.filter(m=>{const x=mems[m];return x&&((x.summary?.cases||0)>0||(x.summary?.virtual||0)>0);});
 
-  const barRows=MEMBER_NAMES.filter(m=>{const x=mems[m];return x&&((x.summary?.cases||0)>0||(x.summary?.virtual||0)>0);}).map(m=>{
+  // Member rows
+  const memberRows=activeMembers.map(m=>{
     const mem=mems[m]; const c=mem.summary?.cases||0; const pct=Math.round((c/maxCases)*100);
     const color=COLORS[m]||'#94A3B8';
-    const hl=(mem.highlights||[]).slice(0,2).map(h=>h.replace(/NT\$[\d,]+/g,'').replace(/^[\s·\-–—►▸]+/,'').trim().slice(0,38));
-    return `<div class="mr-bar-row">
-      <span class="mr-bar-label" style="color:${color}">${mem.name}<span style="font-size:.68rem;color:#94A3B8;font-weight:400"> (${(mem.role||'').split('·')[0].trim().slice(0,10)})</span></span>
-      <div class="mr-bar-track"><div class="mr-bar-fill" style="width:${pct}%;background:${color}"></div></div>
-      <span class="mr-bar-count" style="color:${color}">${c} 件</span>
-    </div>
-    ${hl.length?`<div class="mr-member-hl">${hl.map(h=>`<span>• ${h}</span>`).join('')}</div>`:''}`;
+    const bullets=_mrBullets(mem.highlights);
+    const roleShort=(mem.role||'').split(/[·\-]/)[0].trim().slice(0,10);
+    return `<div class="mr-mem-row">
+      <div class="mr-mem-bar-line">
+        <div class="mr-mem-avatar" style="background:${color}">${ICONS[m]||mem.name[0]}</div>
+        <span class="mr-mem-chip" style="background:${color}">${mem.name} (${roleShort})</span>
+        <div class="mr-mem-track"><div class="mr-mem-fill" style="width:${pct}%;background:${color}"></div></div>
+        <span class="mr-mem-count" style="color:${color}">${c} 件</span>
+      </div>
+      <div class="mr-mem-bullets">${bullets.map(b=>`<div class="mr-mem-bullet">• ${b}</div>`).join('')}</div>
+    </div>`;
   }).join('');
 
+  // AI highlights
   const highlights=loadMrHL(period);
-  const aiCards=mrEditMode?_mrEditCards(highlights):highlights.map(c=>`
-    <div class="mr-ai-card">
-      <div class="mr-ai-icon">${c.icon}</div>
-      <div class="mr-ai-title">${c.title}</div>
-      <div class="mr-ai-sub">${c.subtitle}</div>
-      <div class="mr-ai-desc">${c.desc}</div>
-    </div>`).join('');
+  const aiSection=mrEditMode
+    ?`<div>${_mrEditCards(highlights)}<button class="tab-action-btn" style="width:100%;margin-top:4px;text-align:center" onclick="mrAddCard()">＋ 新增亮點</button></div>`
+    :`<div class="mr-ai-grid">${highlights.map(c=>`
+        <div class="mr-ai-card">
+          <div class="mr-ai-icon">${c.icon}</div>
+          <div class="mr-ai-card-title">${c.title}</div>
+          <div class="mr-ai-card-sub">${c.subtitle}</div>
+          <div class="mr-ai-card-desc">${c.desc}</div>
+        </div>`).join('')}
+      </div>`;
 
-  const tableRows=MEMBER_NAMES.filter(m=>mems[m]).map(m=>{
+  // Table rows
+  const tableRows=activeMembers.map(m=>{
     const mem=mems[m]; const v=mem.summary?.virtual; const a=mem.summary?.actual; const color=COLORS[m]||'#94A3B8';
-    return`<tr><td><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${color};margin-right:6px;vertical-align:middle"></span><strong>${mem.name}</strong></td>
-      <td style="color:#1E3A5F;font-weight:600">${ntdFmt(v)}</td>
-      <td style="color:${(a||0)>0?'#16A34A':'#94A3B8'};font-weight:600">${a!=null?ntdFmt(a):'—'}</td></tr>`;
+    return`<tr>
+      <td><span class="mr-name-chip" style="background:${color}">${mem.name}</span></td>
+      <td style="color:#1E3A5F;font-weight:600">${ntd(v)}</td>
+      <td style="color:${(a||0)>0?'#16A34A':'#94A3B8'};font-weight:600">${a!=null?ntd(a):'—'}</td>
+    </tr>`;
   }).join('');
+
+  if(_mrChartV){try{_mrChartV.destroy();}catch(e){}  _mrChartV=null;}
+  if(_mrChartA){try{_mrChartA.destroy();}catch(e){}  _mrChartA=null;}
 
   el.innerHTML=`<div class="mr-page">
-    <div class="mr-titlebar">
-      <div>
-        <div class="mr-title">${year}年${parseInt(month)}月 KS010S 部門工作績效與績效統計總覽</div>
-        <div class="mr-subtitle">部門技術支援 · 端點管理 · 雲端架構 · 資安防護 · Adobe AI 應用</div>
-      </div>
+    <!-- Header -->
+    <div class="mr-header-bar">
+      <div style="font-size:.8rem;color:#64748B">📋 部門月報資料</div>
+      <div class="mr-main-title">${year}年${parseInt(month)}月 KS010S 部門工作績效與績效統計總覽</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         ${mrEditMode
           ?`<button class="tab-action-btn" style="background:#2563EB;color:#fff;border-color:#1D4ED8" onclick="mrSave()">💾 儲存</button>
              <button class="tab-action-btn" onclick="mrCancelEdit()">✕ 取消</button>`
           :`<button class="tab-action-btn" onclick="mrStartEdit()">✏️ 編輯亮點</button>
-             <button class="tab-action-btn" style="background:#FEF2F2;color:#DC2626;border-color:#FCA5A5" onclick="mrResetHL()">🔄 重置</button>`
-        }
+             <button class="tab-action-btn" style="background:#FEF2F2;color:#DC2626;border-color:#FCA5A5" onclick="mrResetHL()">🔄 重置</button>`}
       </div>
     </div>
 
-    <div class="mr-kpi-row">
-      <div class="mr-kpi-card" style="background:linear-gradient(135deg,#1E3A5F,#2563EB)">
-        <div class="mr-kpi-val">${totalCases} 件</div>
-        <div class="mr-kpi-label">全月總處理案件量</div>
-        <div class="mr-kpi-note">包含雲端支援、端點管理、資安維護及軟體諮詢，維持高效率的技術管理。</div>
+    <!-- 2 KPI boxes -->
+    <div class="mr-kpi-2col">
+      <div class="mr-kpi-box">
+        <div class="mr-kpi-icon" style="background:#EFF6FF">${'🔵'}</div>
+        <div>
+          <div class="mr-kpi-num blue">${totalCases} 件</div>
+          <div class="mr-kpi-label">全月總處理案件量</div>
+          <div class="mr-kpi-desc">包含雲端支援、端點管理、資安維護及軟體諮詢，維持高效率的技術管理。</div>
+        </div>
       </div>
-      <div class="mr-kpi-card" style="background:linear-gradient(135deg,#6D28D9,#A855F7)">
-        <div class="mr-kpi-val">${ntdFmt(totalVirtual)}</div>
-        <div class="mr-kpi-label">虛擬費用總計</div>
-        <div class="mr-kpi-note">根據服務難度與工時換算的技術服務總估值，反映團隊強大的技術輸出能量。</div>
-      </div>
-      <div class="mr-kpi-card" style="background:linear-gradient(135deg,#065F46,#059669)">
-        <div class="mr-kpi-val">${ntdFmt(totalActual)}</div>
-        <div class="mr-kpi-label">實際收費總計</div>
-        <div class="mr-kpi-note">本月實際確認收費，含顧問服務、培訓、維護合約等各項收費項目。</div>
-      </div>
-      <div class="mr-kpi-card" style="background:linear-gradient(135deg,#92400E,#D97706)">
-        <div class="mr-kpi-val">${convRate}</div>
-        <div class="mr-kpi-label">費用轉換率</div>
-        <div class="mr-kpi-note">實際收費 ÷ 虛擬費用，衡量技術服務轉換為實際收入的能力。</div>
+      <div class="mr-kpi-box">
+        <div class="mr-kpi-icon" style="background:#F5F3FF">${'💜'}</div>
+        <div>
+          <div class="mr-kpi-num purple">${ntd(totalVirtual)}</div>
+          <div class="mr-kpi-label">${parseInt(month)}月虛擬費用總計</div>
+          <div class="mr-kpi-desc">根據服務難度與工時換算的技術服務總估值，反映團隊強大的技術輸出能量。</div>
+        </div>
       </div>
     </div>
 
-    <div class="mr-body">
-      <div class="mr-left">
-        <div class="mr-card">
-          <div class="mr-section-title">👥 團隊成員績效細節</div>
-          <div style="font-size:.76rem;color:#94A3B8;margin-bottom:12px">成員案件數量比較</div>
-          <div class="mr-bars">${barRows}</div>
+    <!-- Left + Right body -->
+    <div class="mr-2col">
+      <!-- LEFT: members -->
+      <div>
+        <div class="mr-white-card">
+          <div class="mr-sec-title">團隊成員績效細節</div>
+          <div class="mr-sec-sub">成員案件數量比較</div>
+          ${memberRows}
         </div>
       </div>
-      <div class="mr-right">
-        <div class="mr-card">
-          <div class="mr-section-title">🤖 AI 工具應用與創新亮點</div>
-          <div id="mr-ai-section">${aiCards}</div>
-          ${mrEditMode?`<button class="tab-action-btn" style="width:100%;margin-top:4px;text-align:center" onclick="mrAddCard()">＋ 新增亮點</button>`:''}
+
+      <!-- RIGHT: AI + table + charts -->
+      <div>
+        <div class="mr-white-card">
+          <div class="mr-ai-section-title">AI 工具應用與創新亮點</div>
+          ${aiSection}
         </div>
-        <div class="mr-card">
-          <div class="mr-section-title">📊 成員績效總覽</div>
-          <table class="mr-table">
+        <div class="mr-white-card">
+          <table class="mr-tbl">
             <thead><tr><th>成員名稱</th><th>虛擬費用 (未稅)</th><th>實際收費 (未稅)</th></tr></thead>
             <tbody>${tableRows}</tbody>
-            <tfoot><tr style="background:#F8FAFC;font-weight:700">
+            <tfoot><tr>
               <td>合計</td>
-              <td style="color:#1E3A5F">${ntdFmt(totalVirtual)}</td>
-              <td style="color:${totalActual>0?'#16A34A':'#94A3B8'}">${ntdFmt(totalActual)}</td>
+              <td style="color:#1E3A5F">${ntd(totalVirtual)}</td>
+              <td style="color:${totalActual>0?'#16A34A':'#94A3B8'}">${ntd(totalActual)}</td>
             </tr></tfoot>
           </table>
+          <div class="mr-charts-row">
+            <div class="mr-chart-card">
+              <div class="mr-chart-title">虛擬費用總覽 (NT$)</div>
+              <canvas id="mr-chart-v" height="180"></canvas>
+            </div>
+            <div class="mr-chart-card">
+              <div class="mr-chart-title">實際收費總覽 (NT$)</div>
+              <canvas id="mr-chart-a" height="180"></canvas>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>`;
+
+  // Render charts after DOM update
+  setTimeout(()=>_mrCharts(activeMembers,mems,COLORS),60);
+}
+
+function _mrCharts(activeMembers,mems,COLORS){
+  const names=activeMembers.map(m=>mems[m].name);
+  const colors=activeMembers.map(m=>COLORS[m]||'#94A3B8');
+  const vData=activeMembers.map(m=>mems[m].summary?.virtual||0);
+  const aData=activeMembers.map(m=>mems[m].summary?.actual||0);
+  const chartOpts=(data,cols)=>({
+    type:'bar',
+    data:{labels:names,datasets:[{data,backgroundColor:cols,borderRadius:5,borderSkipped:false}]},
+    options:{
+      responsive:true,maintainAspectRatio:true,
+      plugins:{legend:{display:false},datalabels:{anchor:'end',align:'top',formatter:v=>v>0?'NT$'+(v>=1000?Math.round(v/1000)+'K':v.toLocaleString()):'',font:{size:8},color:'#374151'}},
+      scales:{y:{display:false,beginAtZero:true,grace:'20%'},x:{grid:{display:false},ticks:{font:{size:9}}}}
+    }
+  });
+  const ctxV=document.getElementById('mr-chart-v');
+  const ctxA=document.getElementById('mr-chart-a');
+  if(ctxV) _mrChartV=new Chart(ctxV.getContext('2d'),chartOpts(vData,colors));
+  if(ctxA) _mrChartA=new Chart(ctxA.getContext('2d'),chartOpts(aData,colors));
 }
 
 function _mrEditCards(hl){
