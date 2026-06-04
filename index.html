@@ -10,6 +10,7 @@
 <script src="data-202602.js"></script>
 <script src="data-202603.js"></script>
 <script src="data-202604.js"></script>
+<script src="data-202605.js"></script>
 <script src="data-certs.js"></script>
 <script src="data-asp.js"></script>
 <script src="data-iur.js"></script>
@@ -815,6 +816,7 @@ function getAllData(){
   stored['2026-02']=DATA_202602;
   stored['2026-03']=DATA_202603;
   stored['2026-04']=DATA_202604;
+  stored['2026-05']=DATA_202605;
   return stored;
 }
 
@@ -893,6 +895,26 @@ function getHighlightsAndImprovements(period){
         'Jimmy 培訓與講座服務尚未建立明確收費機制，講座及技術文章的 ROI 無法量化，建議規劃外部講座收費標準及內部績效指標（如流量、詢問轉換率）',
         '強茂 Jamf for Mobile POC、多家企業 MDM 諮詢停留在評估階段，建議設定 30 天轉約追蹤機制，由各負責成員主動推進合約轉換，避免長期免費服務'
       ]
+    },
+    '2026-05':{
+      report:`2026年5月，KS010S 部門五人全員到位，合計完成 336 件服務案件（Aaron 108 件、Denny 66 件、William 38 件、Lucas 82 件、Jimmy 42 件），部門虛擬費用總計 NT$404,600，實際確認收費 NT$70,000，為部門 Q2 衝刺月。Aaron 以 108 件居部門最高，完成 Copilot 實務應用課程三梯次及 AI Agent 實作坊（NT$10,000），乾佑科技 GWS 搬遷諮詢（NT$8,000），Security 顧問（DLP、Purview）持續深化；Denny 完成 61 件 Apple/Jamf + Trend Micro 技術支援，促成華航資安稽核服務正式上線（NT$25,000/月），憑證更新（hTC、普利司通、中華賓士）三家各 NT$3,000；William 取得 Kaspersky Container Security 與 Next EDR Optimum 兩張原廠認證，完成基隆關稅局健診服務（NT$8,000）及華航維運（NT$25,000），本月實收 NT$33,000；Lucas 完成 82 件 Azure 技術支援，首筆 Azure VM 升級收費（新新憶企業 NT$12,000），推進東和鋼鐵 Azure 雲端導入規劃，並通過 Surestep Pitch Perfect License 考試；Jimmy 完成 42 件 Adobe 技術支援，交付國立台灣工藝研究發展中心 Photoshop/Illustrator x Firefly 生成式AI實體培訓兩場（NT$40,000），並完成三項 AI 功能技術測試影音產出。`,
+      highlights:[
+        '🔒 William 取得 Kaspersky Container Security（044.2）與 Next EDR Optimum（047.12.6）兩張原廠認證，資安技術能量大幅提升',
+        '✈️ Denny & William 協作促成華航資安稽核服務上線（NT$25,000/月），固定維運合約首月到位，月費收入基礎建立',
+        '🎓 Aaron 主導展碁國際 Copilot 課程三梯次 + AI Agent 實作坊（NT$10,000），Copilot 教育服務品牌首月落地',
+        '☁️ Lucas 首筆 Azure VM 升級收費（NT$12,000），技術服務商業化突破，東和鋼鐵大型 Migration 商機成型',
+        '🖥️ Jimmy 交付國立台灣工藝研究發展中心 Firefly AI 實體培訓兩場（NT$40,000），高端政府機關教育訓練首案',
+        '📋 William & Denny 協作完成 17 份 Apple/Jamf 文件與 KB，Apple SMB 技術知識庫完整建立',
+        '🚀 Aaron 完成乾佑 GWS 搬遷諮詢（NT$8,000），跨雲 Migration 高單價服務能力正式驗證'
+      ],
+      improvements:[
+        '部門虛擬費用 NT$404,600 vs 實際收費 NT$70,000，付費轉換率約 17.3%，Aaron（NT$0）、Denny（NT$25,000，共享）、Lucas（NT$12,000）三人轉換率仍有提升空間，需建立個人收費目標追蹤機制',
+        'Aaron MFA 重設類案件仍佔相當比例（15件以上），應建立自助 SOP 文件並廣發客戶，降低低價值重複案件的佔比',
+        'Denny 彰銀 iPad 日常問題持續出現（NT$300~500/件），建議推動彰銀包月或季約維護合約，將分散的低單價轉換為穩定月費',
+        'Lucas 的 MFA 重設/M365 基本支援案件（佔約 20 件）非其核心 Azure 專長，建議統一轉由前線成員處理，讓 Lucas 專注高單價 Azure Migration 及 Sentinel 案件',
+        'Jimmy 課程虛擬產值高（NT$47,000）但實收 NT$0，教育訓練服務收費機制需儘速落地，建議本月完成至少 1 件收費課程',
+        '華航 Denny & William 共同認列的 NT$25,000/月，需釐清部門內部分潤規則，避免重複計算造成績效認定模糊'
+      ]
     }
   };
   return map[period]||{
@@ -905,8 +927,8 @@ function getHighlightsAndImprovements(period){
 // ─────────────────────────────────────────────────────────────
 // State
 // ─────────────────────────────────────────────────────────────
-let selectedPeriods=['2026-04'];
-let currentPeriod='2026-04'; // always = selectedPeriods last element
+let selectedPeriods=['2026-05'];
+let currentPeriod='2026-05'; // always = selectedPeriods last element
 let filteredCases=[];
 let currentPage=1;
 const PAGE_SIZE=50;
