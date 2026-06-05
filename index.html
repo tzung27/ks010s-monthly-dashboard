@@ -504,6 +504,62 @@ tr:hover .iur-edit-btn{opacity:1}
 .wt-cat-badge{font-size:.72rem;background:#EEF2FF;color:#3730A3;padding:2px 8px;border-radius:8px;font-weight:600;white-space:nowrap}
 .wt-desc-cell{font-size:.8rem;color:#475569;max-width:260px}
 .wt-note-cell{font-size:.8rem;color:#94A3B8;max-width:160px}
+/* ─── Monthly Report Tab (v3) ─── */
+.mr3-page{background:#F8FAFC;min-height:100%}
+.mr3-header{text-align:center;padding:16px 0 14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.mr3-title{font-size:1.38rem;font-weight:800;color:#0F172A;flex:1;text-align:center}
+.mr3-top3{display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:16px;margin-bottom:20px}
+@media(max-width:950px){.mr3-top3{grid-template-columns:1fr}}
+.mr3-card{background:#fff;border-radius:16px;padding:20px;box-shadow:0 1px 8px rgba(0,0,0,.06);border:1px solid #F1F5F9}
+.mr3-kpi-row{display:flex;align-items:center;gap:16px}
+.mr3-kpi-icon{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.8rem}
+.mr3-kpi-num{font-size:2.4rem;font-weight:900;line-height:1.1;margin-bottom:4px}
+.mr3-kpi-num.blue{color:#2563EB}.mr3-kpi-num.purple{color:#7C3AED}
+.mr3-kpi-label{font-size:.83rem;font-weight:700;color:#0F172A;margin-bottom:5px}
+.mr3-kpi-desc{font-size:.72rem;color:#64748B;line-height:1.65}
+.mr3-ai-card-title{font-size:1rem;font-weight:700;color:#0F172A;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #F1F5F9}
+.mr3-ai-item{display:flex;gap:10px;margin-bottom:14px;align-items:flex-start}
+.mr3-ai-item:last-child{margin-bottom:0}
+.mr3-ai-icon{font-size:1.1rem;width:22px;text-align:center;flex-shrink:0;margin-top:1px}
+.mr3-ai-name{font-size:.82rem;font-weight:700;color:#0F172A}
+.mr3-ai-sub{font-size:.74rem;color:#64748B;font-weight:400}
+.mr3-ai-desc{font-size:.72rem;color:#64748B;margin-top:2px;line-height:1.55}
+.mr3-body2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:950px){.mr3-body2{grid-template-columns:1fr}}
+.mr3-sec-title{font-size:1rem;font-weight:700;color:#0F172A;margin-bottom:3px}
+.mr3-sec-sub{font-size:.74rem;color:#64748B;margin-bottom:18px}
+.mr3-member{margin-bottom:20px}
+.mr3-mem-row{display:flex;align-items:flex-start;gap:14px}
+.mr3-avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,.12);border:2px solid #fff}
+.mr3-mem-inner{flex:1;min-width:0}
+.mr3-chip{display:inline-block;padding:4px 12px;border-radius:20px;color:#fff;font-size:.78rem;font-weight:700;margin-bottom:8px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mr3-bar-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.mr3-bar-bg{flex:1;background:#F1F5F9;height:20px;border-radius:0 10px 10px 0;overflow:hidden}
+.mr3-bar-fg{height:100%;border-radius:0 10px 10px 0;transition:width .5s}
+.mr3-bar-cnt{font-size:.82rem;font-weight:700;width:46px;text-align:right;flex-shrink:0}
+.mr3-tasks{display:grid;grid-template-columns:1fr 1fr;gap:1px 10px}
+.mr3-task{font-size:.72rem;color:#475569;padding:2px 0;display:flex;gap:5px;align-items:flex-start}
+.mr3-table-wrap{border-radius:14px;overflow:hidden;border:1px solid #F1F5F9;margin-bottom:20px}
+.mr3-tbl{width:100%;border-collapse:collapse;font-size:.82rem}
+.mr3-tbl th{background:#F1F5F9;color:#475569;font-weight:700;font-size:.72rem;padding:10px 16px;text-align:center;border-bottom:2px solid #E2E8F0}
+.mr3-tbl td{padding:10px 16px;text-align:center;border-bottom:1px solid #F1F5F9;font-weight:500;color:#374151}
+.mr3-tbl-name{color:#fff;font-weight:700}
+.mr3-charts-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mr3-chart-box{padding:4px 0}
+.mr3-chart-title{font-size:.82rem;font-weight:700;color:#0F172A;text-align:center;margin-bottom:2px}
+.mr3-chart-sub{font-size:.74rem;color:#64748B;text-align:center;display:block;margin-bottom:14px}
+.mr3-bars{display:flex;align-items:flex-end;justify-content:space-around;height:170px;border-bottom:2px solid #E2E8F0;padding:0 4px;gap:2px}
+.mr3-bcol{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;flex:1;max-width:50px;height:100%}
+.mr3-bval{font-size:.68rem;font-weight:700;color:#475569;text-align:center;white-space:nowrap;margin-bottom:3px}
+.mr3-brect{width:88%;max-width:36px;border-radius:3px 3px 0 0;min-height:2px}
+.mr3-blabel{font-size:.69rem;color:#64748B;text-align:center;margin-top:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:56px}
+.mr3-btag{font-size:.65rem;font-weight:700;padding:2px 5px;border-radius:5px;border:1px solid;background:#fff;white-space:nowrap;margin-bottom:2px;display:inline-block}
+.mr3-edit-block{background:#F9FAFB;border-radius:10px;padding:12px;margin-bottom:10px;border:1px solid #E2E8F0}
+.mr3-ei{width:100%;padding:6px 8px;border:1px solid #CBD5E1;border-radius:7px;font-size:.8rem;margin-bottom:4px;box-sizing:border-box}
+.mr3-ei:focus{outline:none;border-color:#2563EB;box-shadow:0 0 0 2px #DBEAFE}
+.mr3-eta{width:100%;padding:6px 8px;border:1px solid #CBD5E1;border-radius:7px;font-size:.8rem;resize:vertical;min-height:50px;box-sizing:border-box;font-family:inherit}
+.mr3-eta:focus{outline:none;border-color:#2563EB;box-shadow:0 0 0 2px #DBEAFE}
+.mr3-edit-sec{font-size:.85rem;font-weight:700;color:#1E3A5F;margin:14px 0 8px;padding-bottom:5px;border-bottom:1px solid #E2E8F0}
 </style>
 </head>
 <body>
@@ -522,6 +578,7 @@ tr:hover .iur-edit-btn{opacity:1}
 </header>
 
 <nav>
+  <button class="tab-btn" onclick="switchTab('monthlyreport',this);renderMonthlyReportTab()">📋 月報資料</button>
   <button class="tab-btn active" onclick="switchTab('overview',this)">📊 部門總覽</button>
   <button class="tab-btn" onclick="switchTab('members',this)">👥 個人報告</button>
   <button class="tab-btn" onclick="switchTab('cases',this)">📋 案件明細</button>
@@ -537,6 +594,11 @@ tr:hover .iur-edit-btn{opacity:1}
 </nav>
 
 <main>
+
+<!-- ════════════ 月報資料 分頁 ════════════ -->
+<div id="tab-monthlyreport" class="tab-panel">
+  <div id="mr3-content"></div>
+</div>
 
 <!-- ── TAB: Overview ─────────────────────────────────────────── -->
 <div id="tab-overview" class="tab-panel active">
@@ -1051,6 +1113,7 @@ function renderAll(){
   renderMemberCards(pd);
   renderCaseTable(pd);
   renderNextMonth(pd);
+  if(document.getElementById('tab-monthlyreport').classList.contains('active')) _renderMr3();
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -3218,6 +3281,354 @@ function openWtModal(id){
 function closeWtModal(){
   const el=document.getElementById('wt-modal-container');
   if(el) el.innerHTML='';
+}
+
+// ════════════════════════════════════════════════════════════
+// 月報資料 Tab (v3)
+// ════════════════════════════════════════════════════════════
+const MR3_DEFAULTS = {
+  '2026-01':{
+    aiItems:[
+      {icon:'🏆',title:'首月實收 NT$160,500',sub:'Q1 最強開局月',desc:'William 完成台設院 MA 維護合約 NT$60,000 ＋ Denny 完成華航 Jamf iPad 資料移轉 NT$75,000，雙主力驅動部門強勢開局。'},
+      {icon:'✈️',title:'航空業高單價首案',sub:'Jamf 端點管理能力驗證',desc:'中華航空 Jamf iPad 資料移轉單案實收 NT$75,000，企業端點管理大型服務能力完整驗證，為後續年度維護合約打下基礎。'},
+      {icon:'📋',title:'MA 年度合約首次建立',sub:'顧問型長期收費模式起步',desc:'台設院 NT$60,000 MA 技術維護合約確立，長期穩定收費關係首次建立，複製推廣顧問服務的參考模式形成。'},
+      {icon:'🤝',title:'跨成員協作服務展現',sub:'Jamf Protect Onboarding',desc:'William 與 Denny 協作完成華航 Jamf Protect Onboarding，展示跨成員協作能量，為部門航空業深耕策略打下基礎。'},
+    ],
+    memberTasks:{
+      Aaron:['M365 帳號與授權諮詢','Teams 問題排除','Azure 雲端技術支援','Cloudiway 遷移初探'],
+      Denny:['Apple & Jamf 裝置管理','彰化銀行 iPad 維護','Trend Micro 資安維護','端點管理服務交付'],
+      William:['台設院 MA 年度合約確立','華航 Jamf iPad 資料移轉','Kaspersky 管理維護','高附加值顧問服務'],
+      Lucas:['Azure 雲端技術支援','VM 配置與規格諮詢','Azure 訂閱管理','OpenAI 配額處理'],
+      Nick:['GitHub Copilot 研究規劃','M365 輔助技術支援','AI 工具評估測試','微軟雲端技術推廣'],
+      Adobe:['Adobe CC 技術支援','CorelDRAW 問題排除','AI 應用課程規劃','企業顧問案初探'],
+    }
+  },
+  '2026-02':{
+    aiItems:[
+      {icon:'🌱',title:'Q1 前置播種月',sub:'三家企業 ABM 申請完成',desc:'壽司郎、日立永大、台灣資生堂三家 ABM 申請到位，為 3 月大型 Onboarding 案件打通前置通道。'},
+      {icon:'🔑',title:'重要客戶憑證更新',sub:'服務連續性零風險確保',desc:'兆賀、萬海航運 Jamf 憑證更新完成，確保設備服務零中斷，重要客戶黏著度維持。'},
+      {icon:'📚',title:'代理商教育訓練深化',sub:'展碁線上卡巴斯基培訓 ×2',desc:'展碁線上卡巴斯基培訓兩場完成，代理商技術能力持續提升，長期技術合作關係深化。'},
+      {icon:'📅',title:'農曆春節精實月',sub:'有效工作天約 15 天',desc:'受春節假期影響，本月以布局為主，前置作業到位率 100%，3 月衝刺基礎完整建立。'},
+    ],
+    memberTasks:{
+      Aaron:['M365 帳號管理諮詢','Exchange Online 問題排查','Teams 功能諮詢','授權異動問題處理'],
+      Denny:['Apple & Jamf 日常維護','Jamf 憑證更新協助','Trend Micro 端點維護','POC 環境建置協作'],
+      William:['卡巴斯基線上培訓 ×2','大型客戶 ABM 申請作業','Kaspersky 管理維護','台設院系統維護服務'],
+      Lucas:['Azure 訂閱管理諮詢','VM 配置問題排查','Azure 費用分析','Sentinel 服務前置規劃'],
+      Nick:['GitHub Copilot 研究','微軟 Teams 推廣規劃','M365 技術諮詢支援','AI 工具評估'],
+      Adobe:['Adobe CC 技術支援','CorelDRAW 問題排查','培訓材料製作','AI 工具應用探索'],
+    }
+  },
+  '2026-03':{
+    aiItems:[
+      {icon:'🚀',title:'台灣資生堂 Jamf 全導入',sub:'企業大型 MDM Onboarding 首案',desc:'台灣資生堂 Jamf Pro 全面導入完成，包含完整培訓服務，建立可複製推廣的大型企業 MDM Onboarding 標準流程。'},
+      {icon:'💰',title:'和雲行動服務實收 NT$20,000',sub:'Apex One 建置結案',desc:'和雲行動服務 Apex One 建置完工收款 NT$20,000，Q1 資安建置服務首案實收確認。'},
+      {icon:'✈️',title:'華航雙組 iOS Onboarding',sub:'航空業端點服務縱深擴展',desc:'華航 TPEEMO 與 TPEEG 兩組 iOS Onboarding 完成，航空業端點管理縱深持續擴展，後續年度維護空間確立。'},
+      {icon:'📊',title:'Q1 三月完美收尾',sub:'Q2 全員衝刺基礎奠定',desc:'Q1 整季部門完成 210 件案件、虛擬費用逾 NT$340,000，以雙人之力展現強勁服務能量，為 Q2 五人全員上陣奠定基礎。'},
+    ],
+    memberTasks:{
+      Aaron:['M365 全領域技術支援','郵件遷移規劃諮詢','Entra ID 架構設計','Defender 評估方案規劃'],
+      Denny:['台灣資生堂 Jamf 全導入','華航雙組 iOS Onboarding','彰化銀行分行日常維護','Apex One 資安建置協助'],
+      William:['台灣資生堂 Jamf 培訓服務','和雲行動服務 Apex One 建置','Kaspersky 管理維護作業','Jamf 端點管理協作'],
+      Lucas:['Azure 備份架構設計','Sentinel POC 前置規劃','VM 配置與規格優化','AWS→Azure 遷移評估'],
+      Nick:['M365 技術諮詢支援','GitHub Copilot 推廣規劃','AI 工具評估測試','部門協作支援'],
+      Adobe:['Adobe CC 技術支援','Firefly AI 功能測試','雲科大講座準備','CorelDRAW 問題排查'],
+    }
+  },
+  '2026-04':{
+    aiItems:[
+      {icon:'📱',title:'五人全員量能躍升',sub:'單月 379 件歷史新高',desc:'Aaron 96件、Denny 117件、William 43件、Lucas 51件、Jimmy 72件，五人合力創下部門單月案件數歷史新高。'},
+      {icon:'🔒',title:'Lucas SC-200 認證通過',sub:'認證直接轉換業務開拓',desc:'Lucas 通過 Microsoft SC-200 Security Operations Analyst 認證，同步開通中華資安國際 Sentinel POC，技術即業績完整驗證。'},
+      {icon:'🤖',title:'Adobe AI 品牌對外發聲',sub:'雲科大 Firefly AI 公開講座',desc:'Jimmy 完成國立雲林科技大學 Adobe Firefly AI 應用公開講座，部門 AI 教育品牌正式建立，影響力擴展至學術界。'},
+      {icon:'💼',title:'華航年度合約確認',sub:'William NT$75,000 實收',desc:'確認華航年度 Jamf 維護合約實際收費 NT$75,000（全年合約價值 NT$300,000），為部門本月唯一實收，顧問收費轉型路線完整驗證。'},
+    ],
+    memberTasks:{
+      Aaron:['M365 全領域技術支援 96件','Cloudiway T2T 遷移諮詢 8件','Entra ID/Intune 架構評估','Defender/DLP 資安顧問服務'],
+      Denny:['Apple & Jamf 端點管理 101件','彰銀/華航大規模 iPad DFU','Trend Micro 資安維護 16件','Jamf POC 測試協助'],
+      William:['華航年度合約 NT$75,000 確認','奇美醫院 Jamf iOS 培訓','Kaspersky 管理維護 17件','Zeabur AI MDM 整合'],
+      Lucas:['Azure 雲端技術支援 51件','SC-200 資安認證通過','Sentinel POC 開通','AWS→Azure 遷移規劃'],
+      Nick:['本月暫無案件紀錄','','',''],
+      Adobe:['Adobe Firefly AI 公開講座','技術文章與影音 68篇','Acrobat Sign 企業導入','AI 培訓收費規劃'],
+    }
+  },
+  '2026-05':{
+    aiItems:[
+      {icon:'⏱',title:'效率提升 60%',sub:'AI 輔助文件撰寫成果',desc:'透過 ChatGPT 與 NotebookLM 協助，技術文章（KB）撰寫時間從 2 小時大幅縮短至 40 分鐘，人均輸出量顯著提升。'},
+      {icon:'📣',title:'NT$70,000',sub:'5月實際服務收費總額',desc:'深度參與 Apple SMB 經銷商巡迴活動（北中南場次），強化通路技術認可度，華航 NT$25,000/月固定維運服務上線。'},
+      {icon:'🏥',title:'醫學中心案例擴展',sub:'醫療體系服務商機',desc:'奇美醫院 Jamf 案成功延伸至高醫附設中和紀念醫院，行動裝置應用程式管理（MAM）需求明確，具年約服務潛力。'},
+      {icon:'🧠',title:'導入 GitHub Copilot 內部測試',sub:'開發效率提升 30%',desc:'針對客製化 PowerShell 腳本與 API 串接，減少 30% 基礎程式碼撰寫時間，加速自動化部署效率。'},
+      {icon:'✨',title:'M365 Copilot 客戶體驗工坊',sub:'Copilot 課程三梯次成功交付',desc:'展碁國際 2026 Microsoft Copilot 實務應用課程三梯次完成，協助企業客戶釐清 AI 應用場景，Copilot 教育品牌正式建立。'},
+    ],
+    memberTasks:{
+      Aaron:['M365/Teams 疑難排解','Cloudiway 租戶遷移諮詢','MFA 重設與安全性設定','Copilot 應用場景實施'],
+      Denny:['Apple & Jamf 裝置納管','彰銀/華航 iPad DFU 處理','趨勢科技資安架構維護','產出 17 份技術 KB 文件'],
+      William:['華航資安稽核固定維運','卡巴斯基認證取得 (2張)','基隆關稅局健診服務','TeamViewer 專案支援'],
+      Lucas:['Azure 資源部署與配額調整','易利華 VM 規格升級服務','Sentinel 安全監控諮詢','Azure OpenAI 訓練功能詢問'],
+      Nick:['本月暫無案件紀錄','','',''],
+      Adobe:['Adobe CC / Firefly AI 應用','Acrobat Sign 電子簽署導入','實體教育訓練 (工藝中心)','建立收費服務課程框架'],
+    }
+  },
+};
+
+const MR3_ACTUAL_LABELS = {
+  '2026-01':{Denny:'華航 Jamf 移轉',William:'台設院 MA 合約'},
+  '2026-02':{},
+  '2026-03':{Denny:'Apex One 建置',William:'台灣資生堂'},
+  '2026-04':{William:'華航年度合約'},
+  '2026-05':{Denny:'華航專案',William:'基隆關稅局',Lucas:'易利華專案'},
+};
+
+let mr3EditMode=false;
+
+function loadMr3(period){
+  const s=JSON.parse(localStorage.getItem('ks_mr3')||'{}');
+  const raw=s[period];
+  const def=MR3_DEFAULTS[period]||{aiItems:[],memberTasks:{}};
+  if(!raw) return JSON.parse(JSON.stringify(def));
+  return {aiItems:raw.aiItems||JSON.parse(JSON.stringify(def.aiItems)),memberTasks:raw.memberTasks||JSON.parse(JSON.stringify(def.memberTasks))};
+}
+function saveMr3(period,data){
+  const s=JSON.parse(localStorage.getItem('ks_mr3')||'{}');
+  s[period]=data; localStorage.setItem('ks_mr3',JSON.stringify(s));
+}
+
+function renderMonthlyReportTab(){
+  mr3EditMode=false;
+  try{ _renderMr3(); }
+  catch(e){ document.getElementById('mr3-content').innerHTML=`<div style="padding:20px;color:#DC2626;background:#FEF2F2;border-radius:10px"><strong>錯誤：</strong>${e.message}<pre style="font-size:.75rem">${e.stack}</pre></div>`; }
+}
+
+function _renderMr3(){
+  const data=getAllData(); const period=currentPeriod; const pd=data[period];
+  const el=document.getElementById('mr3-content');
+  if(!pd){el.innerHTML='<div style="text-align:center;padding:40px;color:#9CA3AF">無此月份資料</div>';return;}
+  const [year,month]=period.split('-');
+  const mems=pd.members||{};
+  let totalCases=0,totalVirtual=0,totalActual=0;
+  MEMBER_NAMES.forEach(m=>{const x=mems[m];if(!x)return;totalCases+=x.summary?.cases||0;const v=x.summary?.virtual;const a=x.summary?.actual;if(v)totalVirtual+=v;if(a)totalActual+=a;});
+  const COLORS={Aaron:'#3B82F6',Denny:'#22C55E',William:'#A855F7',Lucas:'#F59E0B',Nick:'#14B8A6',Adobe:'#EF4444'};
+  const BGCOLORS={Aaron:'#EFF6FF',Denny:'#ECFDF5',William:'#FAF5FF',Lucas:'#FFFBEB',Nick:'#F0FDFA',Adobe:'#FEF2F2'};
+  const activeMembers=MEMBER_NAMES.filter(m=>{const x=mems[m];return x&&((x.summary?.cases||0)>0||(x.summary?.virtual||0)>0);});
+  const maxCases=Math.max(...activeMembers.map(m=>mems[m]?.summary?.cases||0),1);
+  const maxVirtual=Math.max(...activeMembers.map(m=>mems[m]?.summary?.virtual||0),1);
+  const maxActual=Math.max(...activeMembers.map(m=>mems[m]?.summary?.actual||0),1)+5000;
+  const ntd=n=>n!=null?'NT$'+n.toLocaleString():'—';
+  const mr3Data=loadMr3(period);
+  const aiItems=mr3Data.aiItems||[];
+  const memberTasks=mr3Data.memberTasks||{};
+  const actualLabels=MR3_ACTUAL_LABELS[period]||{};
+
+  // User SVG icon
+  const userSVG=(color)=>`<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+
+  // Member rows
+  const memberRows=activeMembers.map(m=>{
+    const mem=mems[m];const c=mem.summary?.cases||0;const pct=Math.round((c/maxCases)*100);
+    const color=COLORS[m]||'#94A3B8';const bg=BGCOLORS[m]||'#F9FAFB';
+    const roleShort=(mem.role||'').split(/[·\-]/)[0].trim();
+    const tasks=(memberTasks[m]||[]).filter(t=>t);
+    return`<div class="mr3-member">
+      <div class="mr3-mem-row">
+        <div class="mr3-avatar" style="background:${bg}">${userSVG(color)}</div>
+        <div class="mr3-mem-inner">
+          <span class="mr3-chip" style="background:${color}">${mem.name} <span style="opacity:.85;font-weight:400">(${roleShort.slice(0,10)})</span></span>
+          <div class="mr3-bar-row">
+            <div class="mr3-bar-bg"><div class="mr3-bar-fg" style="width:${pct}%;background:${color}"></div></div>
+            <span class="mr3-bar-cnt" style="color:${color}">${c} 件</span>
+          </div>
+          <div class="mr3-tasks">${tasks.map(t=>`<div class="mr3-task"><span style="color:#9CA3AF;margin-top:1px">•</span>${t}</div>`).join('')}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  // AI items (display or edit)
+  const aiSection=mr3EditMode?_mr3EditAI(aiItems):`<div>${aiItems.map(it=>`
+    <div class="mr3-ai-item">
+      <span class="mr3-ai-icon">${it.icon}</span>
+      <div>
+        <div class="mr3-ai-name">${it.title}${it.sub?`<span class="mr3-ai-sub"> (${it.sub})</span>`:''}</div>
+        <div class="mr3-ai-desc">${it.desc}</div>
+      </div>
+    </div>`).join('')}</div>`;
+
+  // Table rows
+  const tableRows=activeMembers.map(m=>{
+    const mem=mems[m];const v=mem.summary?.virtual;const a=mem.summary?.actual;const color=COLORS[m];
+    const label=m==='Adobe'?'Adobe 工程師':mem.name;
+    return`<tr><td class="mr3-tbl-name" style="background:${color}">${label}</td><td>${ntd(v)}</td><td>${a!=null?ntd(a):'—'}</td></tr>`;
+  }).join('');
+
+  // CSS bar charts
+  const makeBar=(members,valFn,tagFn)=>members.map(m=>{
+    const mem=mems[m];const v=valFn(mem);const color=COLORS[m];
+    const maxV=valFn===((x)=>x.summary?.virtual||0)?maxVirtual:maxActual;
+    const h=Math.round((v/maxV)*100);
+    const tag=tagFn?tagFn(m):'';
+    const label=m==='Adobe'?'Adobe\n(Jimmy)':mem.name;
+    return`<div class="mr3-bcol">
+      ${tag?`<span class="mr3-btag" style="color:${color};border-color:${color}">${tag}</span>`:''}
+      <div class="mr3-bval">${v>0?ntd(v):'NT$0'}</div>
+      <div class="mr3-brect" style="height:${Math.max(h,1)}%;background:${color}"></div>
+      <div class="mr3-blabel">${label}</div>
+    </div>`;
+  }).join('');
+
+  // Member tasks edit section
+  const tasksEditSection=mr3EditMode?`<div style="margin-top:14px">
+    <div class="mr3-edit-sec">🎯 成員工作重點</div>
+    ${activeMembers.map(m=>{const mem=mems[m];const color=COLORS[m];const ts=memberTasks[m]||['','','',''];
+      return`<div class="mr3-edit-block"><div style="font-size:.8rem;font-weight:700;color:${color};margin-bottom:6px">${mem.name}</div>
+        ${[0,1,2,3].map(i=>`<input class="mr3-ei" id="mr3-t-${m}-${i}" placeholder="重點${i+1}" value="${(ts[i]||'').replace(/"/g,'&quot;')}">`).join('')}
+      </div>`;}).join('')}</div>`:'';
+
+  el.innerHTML=`<div class="mr3-page">
+    <!-- Header -->
+    <div class="mr3-header">
+      <div style="display:flex;gap:8px;flex-wrap:wrap;min-width:160px">
+        ${mr3EditMode
+          ?`<button class="tab-action-btn" style="background:#2563EB;color:#fff;border-color:#1D4ED8" onclick="mr3Save()">💾 儲存</button>
+             <button class="tab-action-btn" onclick="mr3CancelEdit()">✕ 取消</button>`
+          :`<button class="tab-action-btn" onclick="mr3StartEdit()">✏️ 編輯</button>
+             <button class="tab-action-btn" style="background:#FEF2F2;color:#DC2626;border-color:#FCA5A5" onclick="mr3Reset()">🔄 重置</button>`}
+      </div>
+      <div class="mr3-title">
+        <svg style="width:28px;height:28px;color:#2563EB;flex-shrink:0" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        ${year}年${parseInt(month)}月 KS010S 部門工作績效與績效統計總覽
+      </div>
+      <div style="min-width:160px"></div>
+    </div>
+
+    <!-- Top 3 KPI cards -->
+    <div class="mr3-top3">
+      <div class="mr3-card mr3-kpi-row">
+        <div class="mr3-kpi-icon" style="background:#EFF6FF;border:4px solid #DBEAFE">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#3B82F6" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div>
+          <div class="mr3-kpi-num blue">${totalCases} <span style="font-size:1.1rem;color:#64748B;font-weight:500">件</span></div>
+          <div class="mr3-kpi-label">全月總處理案件量</div>
+          <div class="mr3-kpi-desc">包含雲端支援、端點管理、資安維護及軟體諮詢，維持高效率的技術響應。</div>
+        </div>
+      </div>
+      <div class="mr3-card mr3-kpi-row">
+        <div class="mr3-kpi-icon" style="background:#FAF5FF;border:4px solid #E9D5FF">
+          <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="#7C3AED" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div>
+          <div class="mr3-kpi-num purple">${ntd(totalVirtual)}</div>
+          <div class="mr3-kpi-label">${parseInt(month)}月虛擬服務收費總額</div>
+          <div class="mr3-kpi-desc">根據服務複雜度與工時換算的技術服務總價值，反映出團隊強大的技術輸出能量。</div>
+        </div>
+      </div>
+      <div class="mr3-card">
+        <div class="mr3-ai-card-title">AI 工具應用與創新亮點</div>
+        ${mr3EditMode?`<div>${_mr3EditAI(aiItems)}<button class="tab-action-btn" style="width:100%;text-align:center;margin-top:6px" onclick="mr3AddItem()">＋ 新增亮點</button></div>`:aiSection}
+      </div>
+    </div>
+
+    <!-- Main 2-col -->
+    <div class="mr3-body2">
+      <!-- LEFT: members -->
+      <div class="mr3-card">
+        <div class="mr3-sec-title">團隊成員績效細節</div>
+        <div class="mr3-sec-sub">成員案件數量比較</div>
+        ${memberRows}
+        ${tasksEditSection}
+      </div>
+
+      <!-- RIGHT: table + charts -->
+      <div>
+        <div class="mr3-table-wrap">
+          <table class="mr3-tbl">
+            <thead><tr><th>成員名稱</th><th>虛擬費用 (未稅)</th><th>實際收費 (未稅)</th></tr></thead>
+            <tbody>${tableRows}</tbody>
+          </table>
+        </div>
+        <div class="mr3-card">
+          <div class="mr3-charts-row">
+            <div class="mr3-chart-box">
+              <div class="mr3-chart-title">費用總覽 (柱狀圖)</div>
+              <span class="mr3-chart-sub">虛擬費用總覽 (NT$)</span>
+              <div class="mr3-bars">${makeBar(activeMembers,m=>m.summary?.virtual||0,null)}</div>
+            </div>
+            <div class="mr3-chart-box">
+              <div class="mr3-chart-title">費用總覽 (柱狀圖)</div>
+              <span class="mr3-chart-sub">實際收費總覽 (NT$)</span>
+              <div class="mr3-bars">${makeBar(activeMembers,m=>m.summary?.actual||0,m=>actualLabels[m]||'')}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function _mr3EditAI(items){
+  return items.map((it,i)=>`
+    <div class="mr3-edit-block">
+      <div style="display:flex;gap:6px;align-items:center;margin-bottom:3px">
+        <input class="mr3-ei" style="width:48px;text-align:center" id="mr3-ai-icon-${i}" value="${it.icon}">
+        <input class="mr3-ei" style="flex:1" id="mr3-ai-title-${i}" placeholder="標題" value="${it.title.replace(/"/g,'&quot;')}">
+        <button onclick="mr3DelItem(${i})" style="padding:4px 8px;background:#FEF2F2;color:#DC2626;border:1px solid #FCA5A5;border-radius:6px;cursor:pointer;font-size:.78rem;flex-shrink:0">🗑</button>
+      </div>
+      <input class="mr3-ei" id="mr3-ai-sub-${i}" placeholder="副標題（括號內）" value="${(it.sub||'').replace(/"/g,'&quot;')}">
+      <textarea class="mr3-eta" id="mr3-ai-desc-${i}">${it.desc}</textarea>
+    </div>`).join('');
+}
+
+function _mr3CollectAI(existing){
+  const out=[];
+  for(let i=0;i<existing.length+10;i++){
+    const el=document.getElementById(`mr3-ai-icon-${i}`); if(!el) break;
+    out.push({icon:el.value.trim(),title:document.getElementById(`mr3-ai-title-${i}`).value.trim(),sub:document.getElementById(`mr3-ai-sub-${i}`).value.trim(),desc:document.getElementById(`mr3-ai-desc-${i}`).value.trim()});
+  }
+  return out;
+}
+
+function _mr3CollectTasks(){
+  const out={};
+  MEMBER_NAMES.forEach(m=>{
+    const tasks=[];
+    for(let i=0;i<4;i++){const el=document.getElementById(`mr3-t-${m}-${i}`);if(el) tasks.push(el.value.trim());}
+    if(tasks.some(t=>t)) out[m]=tasks;
+  });
+  return out;
+}
+
+function mr3StartEdit(){ mr3EditMode=true; _renderMr3(); }
+function mr3CancelEdit(){ mr3EditMode=false; _renderMr3(); }
+function mr3Save(){
+  const cur=loadMr3(currentPeriod);
+  const aiItems=_mr3CollectAI(cur.aiItems);
+  const memberTasks={...cur.memberTasks,..._mr3CollectTasks()};
+  saveMr3(currentPeriod,{aiItems,memberTasks});
+  mr3EditMode=false; _renderMr3();
+}
+function mr3DelItem(idx){
+  const cur=loadMr3(currentPeriod);
+  const aiItems=_mr3CollectAI(cur.aiItems);
+  aiItems.splice(idx,1);
+  const memberTasks={...cur.memberTasks,..._mr3CollectTasks()};
+  saveMr3(currentPeriod,{aiItems,memberTasks});
+  mr3EditMode=true; _renderMr3();
+}
+function mr3AddItem(){
+  const cur=loadMr3(currentPeriod);
+  const aiItems=_mr3CollectAI(cur.aiItems);
+  const memberTasks={...cur.memberTasks,..._mr3CollectTasks()};
+  aiItems.push({icon:'✨',title:'新亮點',sub:'副標題',desc:'說明文字'});
+  saveMr3(currentPeriod,{aiItems,memberTasks});
+  mr3EditMode=true; _renderMr3();
+}
+function mr3Reset(){
+  if(!confirm('確定重置此月份的資料至預設值？')) return;
+  const s=JSON.parse(localStorage.getItem('ks_mr3')||'{}');
+  delete s[currentPeriod]; localStorage.setItem('ks_mr3',JSON.stringify(s));
+  mr3EditMode=false; _renderMr3();
 }
 
 function saveWtModal(id, isEdit){
