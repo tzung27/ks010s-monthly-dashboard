@@ -969,13 +969,64 @@ tr:hover .iur-edit-btn{opacity:1}
 #tab-apftransform .apf-svg-wrap { width:100%; overflow-x:auto; background:#fff; border-radius:8px; padding:12px; border:1px solid #e2e8f0; }
 #tab-apftransform .apf-svg-wrap svg { width:100%; height:auto; display:block; }
 
+/* === SVG Sub-tab Edit Mode === */
+#tab-apftransform .apf-nav-spacer { flex:1; }
+#tab-apftransform .apf-manage-btn {
+  padding:5px 12px; border:1px solid #94a3b8; background:#f8fafc;
+  color:#475569; border-radius:6px; cursor:pointer; font-size:12px;
+  font-weight:600; transition:all .2s; margin-left:auto;
+}
+#tab-apftransform .apf-manage-btn.active { background:#0A2540; color:#fff; border-color:#0A2540; }
+#tab-apftransform .apf-add-tab-btn {
+  padding:5px 12px; border:1px dashed #0A2540; background:#f0f4ff;
+  color:#0A2540; border-radius:6px; cursor:pointer; font-size:12px; font-weight:600;
+}
+#tab-apftransform .apf-tab-ctrl { display:none; font-size:11px; padding:0 2px; border-radius:3px; }
+#tab-apftransform .apf-tab-edit { color:#3b82f6; margin-left:5px; }
+#tab-apftransform .apf-tab-edit:hover { background:#dbeafe; }
+#tab-apftransform .apf-tab-del { color:#ef4444; margin-left:2px; }
+#tab-apftransform .apf-tab-del:hover { background:#fee2e2; }
+#tab-apftransform .apf-svg-panel-toolbar {
+  display:none; padding:6px 8px; background:#fef9c3;
+  border:1px solid #fde047; border-radius:6px; margin-bottom:8px;
+}
+#tab-apftransform .apf-replace-btn {
+  padding:5px 12px; border:1px solid #f59e0b; background:#fffbeb;
+  color:#92400e; border-radius:5px; cursor:pointer; font-size:12px; font-weight:600;
+}
+#tab-apftransform .apf-replace-btn:hover { background:#fef3c7; }
+
 </style><div class="apf-subtab-nav">
   <button class="apf-subtab-btn active" onclick="apfSwitchSubtab('apf-sub-plan',this)">📋 業務計畫</button>
-  <button class="apf-subtab-btn" onclick="apfSwitchSubtab('apf-sub-timeline',this)">📅 SPF Task Timeline</button>
-  <button class="apf-subtab-btn" onclick="apfSwitchSubtab('apf-sub-fte',this)">📊 FTE 任務分配與期程</button>
-  <button class="apf-subtab-btn" onclick="apfSwitchSubtab('apf-sub-arch',this)">🏗️ 技術端任務分配與期程</button>
-  <button class="apf-subtab-btn" onclick="apfSwitchSubtab('apf-sub-invest',this)">💡 SPF Transform 投資架構</button>
+  <button class="apf-subtab-btn apf-svgtab-btn" data-tabid="apf-sub-timeline" onclick="apfSvgTabClick('apf-sub-timeline',this,event)"><span class="apf-tab-label">📅 SPF Task Timeline</span><span class="apf-tab-ctrl apf-tab-edit" onclick="apfRenameTab('apf-sub-timeline',this,event)" title="重新命名">✎</span><span class="apf-tab-ctrl apf-tab-del" onclick="apfDeleteTab('apf-sub-timeline',this,event)" title="刪除">✕</span></button>
+  <button class="apf-subtab-btn apf-svgtab-btn" data-tabid="apf-sub-fte" onclick="apfSvgTabClick('apf-sub-fte',this,event)"><span class="apf-tab-label">📊 FTE 任務分配與期程</span><span class="apf-tab-ctrl apf-tab-edit" onclick="apfRenameTab('apf-sub-fte',this,event)" title="重新命名">✎</span><span class="apf-tab-ctrl apf-tab-del" onclick="apfDeleteTab('apf-sub-fte',this,event)" title="刪除">✕</span></button>
+  <button class="apf-subtab-btn apf-svgtab-btn" data-tabid="apf-sub-arch" onclick="apfSvgTabClick('apf-sub-arch',this,event)"><span class="apf-tab-label">🏗️ 技術端任務分配與期程</span><span class="apf-tab-ctrl apf-tab-edit" onclick="apfRenameTab('apf-sub-arch',this,event)" title="重新命名">✎</span><span class="apf-tab-ctrl apf-tab-del" onclick="apfDeleteTab('apf-sub-arch',this,event)" title="刪除">✕</span></button>
+  <button class="apf-subtab-btn apf-svgtab-btn" data-tabid="apf-sub-invest" onclick="apfSvgTabClick('apf-sub-invest',this,event)"><span class="apf-tab-label">💡 SPF Transform 投資架構</span><span class="apf-tab-ctrl apf-tab-edit" onclick="apfRenameTab('apf-sub-invest',this,event)" title="重新命名">✎</span><span class="apf-tab-ctrl apf-tab-del" onclick="apfDeleteTab('apf-sub-invest',this,event)" title="刪除">✕</span></button>
+
+  <span class="apf-nav-spacer"></span>
+  <button id="apf-manage-btn" class="apf-manage-btn" onclick="apfToggleEditMode()">✏️ 管理</button>
+  <button id="apf-add-tab-btn" class="apf-add-tab-btn" style="display:none" onclick="apfOpenAddModal()">＋ 新增分頁</button>
 </div>
+
+<!-- APF SVG Sub-tab Edit Modal -->
+<div id="apf-edit-modal" style="display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;background:rgba(0,0,0,.5)">
+  <div style="background:#fff;border-radius:10px;padding:24px;width:min(90vw,560px);max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)">
+    <h3 id="apf-modal-title" style="margin:0 0 16px;font-size:16px;color:#0A2540">新增分頁</h3>
+    <div id="apf-modal-name-row" style="margin-bottom:12px">
+      <label style="display:block;font-size:12px;font-weight:600;color:#475569;margin-bottom:4px">分頁名稱（可含 emoji）</label>
+      <input id="apf-modal-name" type="text" placeholder="例如：📈 新圖表" style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px;font-size:13px;box-sizing:border-box">
+    </div>
+    <div style="margin-bottom:16px">
+      <label style="display:block;font-size:12px;font-weight:600;color:#475569;margin-bottom:4px">SVG 代碼（貼上完整 &lt;svg&gt;...&lt;/svg&gt;）</label>
+      <textarea id="apf-modal-svg" rows="10" placeholder="<svg viewBox=&quot;0 0 800 600&quot; ...>...</svg>" style="width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px;font-size:12px;font-family:monospace;box-sizing:border-box;resize:vertical"></textarea>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button onclick="apfCloseModal()" style="padding:8px 16px;border:1px solid #cbd5e1;background:#f8fafc;border-radius:6px;cursor:pointer;font-size:13px">取消</button>
+      <button onclick="apfModalConfirm()" style="padding:8px 16px;border:none;background:#0A2540;color:#fff;border-radius:6px;cursor:pointer;font-size:13px;font-weight:600">確認</button>
+    </div>
+  </div>
+</div>
+
 <div id="apf-sub-plan" class="apf-subtab-panel active" style="display:block">
 
 <div style="display:flex;gap:8px;margin-bottom:12px;justify-content:flex-end;padding:8px;background:#fff;border-radius:6px;border:1px solid #ddd;">
@@ -1700,6 +1751,7 @@ tr:hover .iur-edit-btn{opacity:1}
 </div>
 </div>
 <div id="apf-sub-timeline" class="apf-subtab-panel" style="display:none">
+  <div class="apf-svg-panel-toolbar" style="display:none"><button class="apf-replace-btn" onclick="apfOpenReplaceModal('apf-sub-timeline',event)">🔄 替換 SVG 內容</button></div>
   <div class="apf-svg-wrap">
     <svg width="100%" viewBox="0 0 680 540" role="img" style="" xmlns="http://www.w3.org/2000/svg">
 <title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">FY27 SPF Transform 任務配置與期程圖</title>
@@ -1882,6 +1934,7 @@ tr:hover .iur-edit-btn{opacity:1}
   </div>
 </div>
 <div id="apf-sub-fte" class="apf-subtab-panel" style="display:none">
+  <div class="apf-svg-panel-toolbar" style="display:none"><button class="apf-replace-btn" onclick="apfOpenReplaceModal('apf-sub-fte',event)">🔄 替換 SVG 內容</button></div>
   <div class="apf-svg-wrap" style="overflow-x:auto;">
     <svg viewBox="0 0 1120 912" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" font-family="Arial, sans-serif">
   <rect width="1120" height="740" fill="#F1EFE8"/>
@@ -2215,6 +2268,7 @@ tr:hover .iur-edit-btn{opacity:1}
   </div>
 </div>
 <div id="apf-sub-arch" class="apf-subtab-panel" style="display:none">
+  <div class="apf-svg-panel-toolbar" style="display:none"><button class="apf-replace-btn" onclick="apfOpenReplaceModal('apf-sub-arch',event)">🔄 替換 SVG 內容</button></div>
   <div class="apf-svg-wrap">
     <svg viewBox="0 0 900 1420" xmlns="http://www.w3.org/2000/svg" role="img" font-family="'Segoe UI',Arial,sans-serif">
   <title>FY27 Transform Business Plan — 技術架構與執行期程</title>
@@ -2534,6 +2588,7 @@ tr:hover .iur-edit-btn{opacity:1}
   </div>
 </div>
 <div id="apf-sub-invest" class="apf-subtab-panel" style="display:none">
+  <div class="apf-svg-panel-toolbar" style="display:none"><button class="apf-replace-btn" onclick="apfOpenReplaceModal('apf-sub-invest',event)">🔄 替換 SVG 內容</button></div>
   <div class="apf-svg-wrap">
     <svg width="100%" viewBox="0 0 680 520" role="img" style="" xmlns="http://www.w3.org/2000/svg">
 <title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">FY27 SPF Transform 三大核心能力架構圖</title>
@@ -5756,6 +5811,137 @@ function apfSwitchSubtab(id, btn) {
   document.querySelectorAll('#tab-apftransform .apf-subtab-btn').forEach(function(b){
     b.classList.toggle('active', b===btn);
   });
+}
+
+
+/* ── APF SVG Sub-tab Edit Mode ── */
+var apfEditMode = false;
+var apfModalAction = null;
+var apfModalTargetId = null;
+var apfSvgTabCounter = 0;
+
+function apfSvgTabClick(id, btn, event) {
+  if (event.target.classList.contains('apf-tab-ctrl')) return;
+  apfSwitchSubtab(id, btn);
+}
+
+function apfToggleEditMode() {
+  apfEditMode = !apfEditMode;
+  var manageBtn = document.getElementById('apf-manage-btn');
+  var addBtn    = document.getElementById('apf-add-tab-btn');
+  manageBtn.textContent = apfEditMode ? '✅ 完成編輯' : '✏️ 管理';
+  manageBtn.classList.toggle('active', apfEditMode);
+  addBtn.style.display = apfEditMode ? '' : 'none';
+  document.querySelectorAll('#tab-apftransform .apf-tab-ctrl').forEach(function(el) {
+    el.style.display = apfEditMode ? 'inline' : 'none';
+  });
+  document.querySelectorAll('#tab-apftransform .apf-svg-panel-toolbar').forEach(function(el) {
+    el.style.display = apfEditMode ? '' : 'none';
+  });
+}
+
+function apfDeleteTab(id, span, event) {
+  event.stopPropagation();
+  var btn = span.closest('button');
+  var label = btn.querySelector('.apf-tab-label').textContent;
+  if (!confirm('刪除分頁「' + label + '」？')) return;
+  var panel = document.getElementById(id);
+  if (panel) panel.remove();
+  btn.remove();
+  // If deleted tab was active, switch to 業務計畫
+  ['apf-sub-plan','apf-sub-timeline','apf-sub-fte','apf-sub-arch','apf-sub-invest'].forEach(function(pid) {
+    var el = document.getElementById(pid);
+    if (el && el.style.display !== 'none') return;
+  });
+  var firstBtn = document.querySelector('#tab-apftransform .apf-subtab-btn');
+  if (firstBtn) apfSwitchSubtab('apf-sub-plan', firstBtn);
+}
+
+function apfRenameTab(id, span, event) {
+  event.stopPropagation();
+  var btn = span.closest('button');
+  var labelSpan = btn.querySelector('.apf-tab-label');
+  var current = labelSpan.textContent;
+  var newName = prompt('新分頁名稱：', current);
+  if (newName && newName.trim()) labelSpan.textContent = newName.trim();
+}
+
+function apfOpenAddModal() {
+  apfModalAction = 'add';
+  apfModalTargetId = null;
+  document.getElementById('apf-modal-title').textContent = '新增 SVG 分頁';
+  document.getElementById('apf-modal-name-row').style.display = '';
+  document.getElementById('apf-modal-name').value = '';
+  document.getElementById('apf-modal-svg').value = '';
+  document.getElementById('apf-edit-modal').style.display = 'flex';
+}
+
+function apfOpenReplaceModal(id, event) {
+  event.stopPropagation();
+  apfModalAction = 'replace';
+  apfModalTargetId = id;
+  document.getElementById('apf-modal-title').textContent = '替換 SVG 內容';
+  document.getElementById('apf-modal-name-row').style.display = 'none';
+  document.getElementById('apf-modal-svg').value = '';
+  document.getElementById('apf-edit-modal').style.display = 'flex';
+}
+
+function apfModalConfirm() {
+  var svgCode = document.getElementById('apf-modal-svg').value.trim();
+  if (!svgCode) { alert('請貼入 SVG 代碼'); return; }
+
+  if (apfModalAction === 'replace') {
+    var panel = document.getElementById(apfModalTargetId);
+    var wrap = panel ? panel.querySelector('.apf-svg-wrap') : null;
+    if (wrap) wrap.innerHTML = svgCode;
+
+  } else if (apfModalAction === 'add') {
+    var name = document.getElementById('apf-modal-name').value.trim();
+    if (!name) { alert('請填入分頁名稱'); return; }
+    apfSvgTabCounter++;
+    var newId = 'apf-sub-custom-' + apfSvgTabCounter;
+
+    // Create panel
+    var panel = document.createElement('div');
+    panel.id = newId;
+    panel.className = 'apf-subtab-panel';
+    panel.style.display = 'none';
+    panel.innerHTML =
+      '<div class="apf-svg-panel-toolbar" style="">'
+      + '<button class="apf-replace-btn" onclick="apfOpenReplaceModal(\'' + newId + '\',event)">🔄 替換 SVG 內容</button>'
+      + '</div>'
+      + '<div class="apf-svg-wrap">' + svgCode + '</div>';
+
+    // Insert panel after last sub-tab panel
+    var nav = document.querySelector('#tab-apftransform .apf-subtab-nav');
+    nav.parentNode.appendChild(panel);
+
+    // Create button
+    var btn = document.createElement('button');
+    btn.className = 'apf-subtab-btn apf-svgtab-btn';
+    btn.dataset.tabid = newId;
+    btn.onclick = function(e) { apfSvgTabClick(newId, btn, e); };
+    btn.innerHTML =
+      '<span class="apf-tab-label">' + name + '</span>'
+      + '<span class="apf-tab-ctrl apf-tab-edit" onclick="apfRenameTab(\'' + newId + '\',this,event)" title="重新命名">✎</span>'
+      + '<span class="apf-tab-ctrl apf-tab-del" onclick="apfDeleteTab(\'' + newId + '\',this,event)" title="刪除">✕</span>';
+
+    // Insert before 管理 button
+    var manageBtn = document.getElementById('apf-manage-btn');
+    nav.insertBefore(btn, manageBtn);
+
+    // Show edit controls immediately (edit mode is on)
+    btn.querySelectorAll('.apf-tab-ctrl').forEach(function(c) { c.style.display = 'inline'; });
+
+    // Switch to new tab
+    apfSwitchSubtab(newId, btn);
+  }
+  apfCloseModal();
+}
+
+function apfCloseModal() {
+  document.getElementById('apf-edit-modal').style.display = 'none';
+  document.getElementById('apf-modal-name-row').style.display = '';
 }
 
 </script>
