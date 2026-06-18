@@ -587,6 +587,7 @@ tr:hover .iur-edit-btn{opacity:1}
   <button class="tab-btn" onclick="switchTab('history',this)">📈 歷史比較</button>
   <button class="tab-btn" onclick="switchTab('kpi',this);renderKPITab()">🎯 年度 KPI</button>
   <button class="tab-btn" onclick="switchTab('checklist',this);renderChecklistTab()">☑️ KPI 查核表</button>
+  <button class="tab-btn" onclick="switchTab('apftransform',this)">📋 FY27_APF_transform</button>
   <button class="tab-btn" onclick="switchTab('certs',this);renderCertTab()">🏅 認證追蹤</button>
   <button class="tab-btn" onclick="switchTab('asp',this);renderAspTab()">🎯 ASP 專長</button>
   <button class="tab-btn" onclick="switchTab('iur',this);renderIurTab()">📦 內部使用權</button>
@@ -750,6 +751,900 @@ tr:hover .iur-edit-btn{opacity:1}
 <!-- ── TAB: Checklist ────────────────────────────────────────── -->
 <div id="tab-checklist" class="tab-panel">
   <div id="checklist-tab-content"></div>
+</div>
+
+
+<!-- ════════════ FY27 APF Transform 分頁 ════════════ -->
+<div id="tab-apftransform" class="tab-panel">
+<style id="apf-transform-styles">
+#tab-apftransform {
+            --primary-blue: #0A2540;
+            --secondary-blue: #0063B1;
+            --accent-blue: #E1F5FE;
+            --light-bg: #F4F6F9;
+            --border-color: #D2D6DE;
+            --text-dark: #333333;
+            --text-muted: #666666;
+            --success-green: #28A745;
+            --warning-orange: #FD7E14;
+            --danger-red: #DC3545;
+            --microsoft-red: #F25022;
+        }
+#tab-apftransform #tab-apftransform * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, 'Microsoft JhengHei'; }
+#tab-apftransform { background-color: var(--light-bg); color: var(--text-dark); padding: 20px; font-size: 12px; line-height: 1.4; padding-bottom: 80px; transition: background-color 0.3s; }
+#tab-apftransform.apf-editing { background-color: #eef2f7; }
+#tab-apftransform .dashboard-container { max-width: 1600px; margin: 0 auto; background: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+#tab-apftransform.apf-editing .dashboard-container { box-shadow: 0 0 0 2px var(--secondary-blue), 0 8px 24px rgba(0,0,0,0.15); }
+#tab-apftransform /* --- Editable Styles --- */
+        #tab-apftransform.apf-editing [data-editable="true"] { outline: 1px dashed #adb5bd; transition: all 0.2s ease; cursor: text; }
+#tab-apftransform.apf-editing *:not(td)[data-editable="true"] { min-height: 1.2em; min-width: 20px; border-radius: 3px; }
+#tab-apftransform.apf-editing [data-editable="true"]:hover, #tab-apftransform.apf-editing [data-editable="true"]:focus { outline: 2px solid var(--secondary-blue); background-color: rgba(0, 99, 177, 0.05); z-index: 10; }
+#tab-apftransform.apf-editing .val-calc { color: var(--secondary-blue); font-weight: bold; background-color: #f8f9fa; }
+#tab-apftransform.apf-editing .val-calc::after { content: " ⚙️"; font-size: 10px; opacity: 0.5; }
+#tab-apftransform /* Action Buttons */
+        .btn-del { background: var(--danger-red); color: white; border: none; border-radius: 3px; cursor: pointer; padding: 2px 5px; font-size: 10px; margin-left: 5px; opacity: 0.5; transition: opacity 0.2s; }
+#tab-apftransform tr:hover .btn-del, #tab-apftransform li:hover .btn-del, #tab-apftransform .scenario-box:hover .btn-del, #tab-apftransform .tech-box:hover .btn-del { opacity: 1; }
+#tab-apftransform .btn-add { background: var(--success-green); color: white; border: none; border-radius: 4px; cursor: pointer; padding: 6px 10px; font-size: 11px; margin-top: 5px; display: flex; align-items: center; gap: 4px; font-weight: bold; }
+#tab-apftransform .btn-add:hover { background: #218838; }
+#tab-apftransform /* Toolbar */
+        .admin-toolbar { position: fixed; bottom: 20px; right: 20px; background: white; padding: 12px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); display: flex; gap: 8px; z-index: 9999; border: 1px solid #ddd; }
+#tab-apftransform .toolbar-btn { padding: 8px 16px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 6px; font-size: 13px; transition: all 0.2s; color: white; }
+#tab-apftransform .btn-toggle-edit { background: var(--primary-blue); }
+#tab-apftransform .btn-toggle-edit.active { background: #FD7E14; }
+#tab-apftransform .btn-save { background: #28A745; }
+#tab-apftransform .btn-print { background: #343A40; }
+#tab-apftransform .btn-toggle-edit:hover, #tab-apftransform .btn-save:hover, #tab-apftransform .btn-print:hover { filter: brightness(1.1); }
+#tab-apftransform:not(.apf-editing) .btn-del, #tab-apftransform:not(.apf-editing) .btn-add, #tab-apftransform:not(.apf-editing) .td-action, #tab-apftransform:not(.apf-editing) .th-action { display: none !important; }
+#tab-apftransform { padding: 0; background: white; }
+#tab-apftransform .dashboard-container { box-shadow: none; max-width: 100%; padding: 0; }
+#tab-apftransform }
+
+        /* --- Header Styles --- */
+        header { border-bottom: 3px solid var(--primary-blue); padding-bottom: 12px; margin-bottom: 15px; }
+#tab-apftransform .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; }
+#tab-apftransform .brand-title { display: flex; align-items: center; gap: 15px; }
+#tab-apftransform .microsoft-logo { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; width: 24px; height: 24px; }
+#tab-apftransform .logo-box { width: 11px; height: 11px; }
+#tab-apftransform .box-1 { background-color: #F25022; }
+#tab-apftransform .box-2 { background-color: #7FBA00; }
+#tab-apftransform .box-3 { background-color: #00A4EF; }
+#tab-apftransform .box-4 { background-color: #FFB900; }
+#tab-apftransform .title-area h1 { font-size: 24px; color: var(--primary-blue); font-weight: 700; display:block; margin-bottom:2px;}
+#tab-apftransform .title-area h2 { font-size: 16px; color: var(--secondary-blue); font-weight: 600; display:block; }
+#tab-apftransform .header-meta-boxes { display: flex; gap: 15px; }
+#tab-apftransform .meta-box { background: #F8F9FA; border: 1px solid var(--border-color); border-radius: 4px; padding: 8px 12px; font-size: 12px; }
+#tab-apftransform .confidential-tag { background-color: var(--danger-red); color: white; padding: 4px 12px; font-weight: bold; border-radius: 4px; display: inline-block; margin-top: 5px; font-size: 11px; text-align: center; }
+#tab-apftransform /* --- Global Layout (Matching the real image) --- */
+        .layout-wrapper { display: grid; grid-template-columns: 59fr 41fr; gap: 12px; align-items: start; }
+#tab-apftransform .layout-left { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+#tab-apftransform .layout-right { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+#tab-apftransform .left-row-1 { display: grid; grid-template-columns: 35fr 65fr; gap: 12px; }
+#tab-apftransform .left-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 1200px) {
+#tab-apftransform .layout-wrapper { grid-template-columns: 1fr; }
+#tab-apftransform .left-row-1, #tab-apftransform .left-row-2 { grid-template-columns: 1fr; }
+}
+#tab-apftransform .card { background: #ffffff; border: 1px solid var(--border-color); border-radius: 6px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.02); display: flex; flex-direction: column;}
+#tab-apftransform .card-header { background: var(--primary-blue); color: white; padding: 6px 10px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+#tab-apftransform .card-header .num-badge { background: white; color: var(--primary-blue); padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold;}
+#tab-apftransform .card-#tab-apftransform { padding: 10px; flex: 1;}
+#tab-apftransform /* Block 1 Specific */
+        .b1-row { display: flex; border-bottom: 1px solid #eee; }
+#tab-apftransform .b1-row:last-child { border-bottom: none; }
+#tab-apftransform .b1-label { width: 120px; display: flex; align-items: center; gap: 6px; font-weight: bold; color: var(--secondary-blue); padding: 8px; border-right: 1px solid #eee; font-size: 11px;}
+#tab-apftransform .b1-label svg { flex-shrink: 0; width: 20px; height: 20px;}
+#tab-apftransform .b1-content { flex: 1; padding: 8px; display: flex; flex-direction: column; justify-content: center;}
+#tab-apftransform .info-list { list-style: none; padding-left: 0; margin: 0;}
+#tab-apftransform .info-list li { margin-bottom: 4px; padding-left: 12px; position: relative; display: flex; align-items: flex-start; justify-content: space-between; font-size: 11px;}
+#tab-apftransform .info-list li:last-child { margin-bottom: 0; }
+#tab-apftransform .info-list li::before { content: "•"; color: var(--secondary-blue); font-weight: bold; position: absolute; left: 0; }
+#tab-apftransform .info-list li > div { flex-grow: 1; }
+#tab-apftransform .warning-box { background: #FFF3CD; border: 1px solid #FFEBAA; color: #856404; padding: 8px; border-radius: 4px; margin-top: 5px; font-size: 11px; font-weight: bold; display: flex; gap: 6px; align-items: flex-start;}
+#tab-apftransform /* Block 2 Specific */
+        .pillar-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; height: 100%;}
+#tab-apftransform .pillar-box { border-radius: 6px; border: 1px solid #E1DFDD; display: flex; flex-direction: column; overflow: hidden; background: #fff;}
+#tab-apftransform .pillar-header { text-align: center; padding: 8px 4px; font-weight: bold; font-size: 12px; color: var(--primary-blue); border-bottom: 1px solid #eee; line-height: 1.2;}
+#tab-apftransform .pillar-header .badge { display: inline-block; padding: 2px 6px; border-radius: 12px; color: white; font-size: 10px; margin-right: 4px; vertical-align: middle;}
+#tab-apftransform .pillar-header.b-blue { border-top: 4px solid var(--secondary-blue); }
+#tab-apftransform .pillar-header.b-green { border-top: 4px solid var(--success-green); }
+#tab-apftransform .pillar-header.b-orange { border-top: 4px solid var(--warning-orange); }
+#tab-apftransform .pillar-sub { text-align: center; font-size: 10px; margin: 4px 0; padding: 0 4px; color: var(--primary-blue); font-weight: 600;}
+#tab-apftransform .pillar-icon { display: flex; justify-content: center; align-items: center; margin: 8px 0; height: 50px;}
+#tab-apftransform .pillar-icon svg { width: 45px; height: 45px; }
+#tab-apftransform .pillar-#tab-apftransform { padding: 0 8px 8px; flex: 1; font-size: 10px;}
+#tab-apftransform .pillar-footer { padding: 6px; text-align: center; color: white; font-weight: bold; font-size: 11px; }
+#tab-apftransform .bg-blue { background-color: var(--secondary-blue); }
+#tab-apftransform .bg-green { background-color: var(--success-green); color: #fff;}
+#tab-apftransform .bg-orange { background-color: var(--warning-orange); }
+#tab-apftransform .bg-grey { background-color: #D2D6DE; color: var(--text-dark); }
+#tab-apftransform /* Block 5 & 6 Shared Stats Row */
+        .stats-row { display: flex; justify-content: space-between; padding: 8px 4px; border: 1px solid #E1DFDD; border-radius: 4px; margin-bottom: 10px; background: #fff; align-items: center;}
+#tab-apftransform .stat-item { display: flex; align-items: center; gap: 6px; font-weight: bold; font-size: 11px; flex: 1; justify-content: center; border-right: 1px solid #eee;}
+#tab-apftransform .stat-item:last-child { border-right: none; }
+#tab-apftransform .stat-item svg { width: 20px; height: 20px; }
+#tab-apftransform .stat-icon-copilot { width: 20px; height: 20px; background: linear-gradient(45deg, #12B5E5, #35E0A1, #FABC12, #E63D13); border-radius: 4px; position: relative;}
+#tab-apftransform .stat-icon-copilot::after { content: ""; position: absolute; inset: 2px; background: white; border-radius: 2px;}
+#tab-apftransform /* Block 5 Specific */
+        .b5-top-table { width: 100%; border-collapse: collapse; margin-bottom: 10px; text-align: center; font-size: 12px; background: #fff;}
+#tab-apftransform .b5-top-table td { padding: 6px; border: 1px solid #E1DFDD; }
+#tab-apftransform .b5-top-table .col-title { font-weight: bold; color: var(--primary-blue); display:block; margin-bottom: 2px;}
+#tab-apftransform table.data-table { width: 100%; border-collapse: collapse; font-size: 11px; table-layout: auto; background: #fff;}
+#tab-apftransform table.data-table th, #tab-apftransform table.data-table td { border: 1px solid #E1DFDD; padding: 6px 4px; text-align: left; vertical-align: middle; }
+#tab-apftransform table.data-table th { background-color: var(--primary-blue); color: white; font-weight: 600; text-align: center;}
+#tab-apftransform table.data-table tr:nth-child(even) { background-color: #F8F9FA; }
+#tab-apftransform table.data-table .text-center { text-align: center; }
+#tab-apftransform .total-row { font-weight: bold; background-color: #F8F9FA !important; }
+#tab-apftransform .total-row td { border-top: 2px solid var(--primary-blue) !important;}
+#tab-apftransform /* Block 6 Specific */
+        .res-row { display: flex; border: 1px solid #E1DFDD; border-radius: 6px; margin-bottom: 8px; background: #fff; overflow: hidden; align-items: stretch;}
+#tab-apftransform .res-info { flex: 0 0 280px; padding: 10px; border-right: 1px solid #eee; display: flex; gap: 8px; align-items: flex-start;}
+#tab-apftransform .res-avatar { width: 28px; height: 28px; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; }
+#tab-apftransform .res-details { font-size: 10px; line-height: 1.3; color: var(--text-dark);}
+#tab-apftransform .res-details strong { font-size: 11px; display: block; margin-bottom: 2px;}
+#tab-apftransform .res-grid { flex: 1; display: grid; grid-template-columns: repeat(5, 1fr); text-align: center;}
+#tab-apftransform .res-col { padding: 8px 4px; border-right: 1px solid #eee; display: flex; flex-direction: column; justify-content: center; align-items: center;}
+#tab-apftransform .res-col:last-child { border-right: none; background: #F8F9FA; border-left: 2px solid #eee;}
+#tab-apftransform .res-header { font-weight: bold; color: var(--primary-blue); margin-bottom: 6px; font-size: 11px;}
+#tab-apftransform .res-val-month { font-weight: bold; font-size: 11px; margin-bottom: 2px;}
+#tab-apftransform .res-val-amt { font-weight: bold; font-size: 12px;}
+#tab-apftransform .res-total-label { color: var(--text-muted); font-size: 10px; margin-bottom: 2px;}
+#tab-apftransform .res-total-amt { color: #6f42c1; font-weight: bold; font-size: 14px;}
+#tab-apftransform .b6-total-bar { background: #5a32a8; color: white; text-align: center; padding: 8px; border-radius: 6px; font-weight: bold; font-size: 13px; margin-top: 8px;}
+#tab-apftransform /* Block 3 & 4 Specific */
+        .section-subtitle { font-weight: bold; color: var(--secondary-blue); margin-top: 8px; margin-bottom: 4px; border-bottom: 1px solid #eee; padding-bottom: 2px; font-size: 12px;}
+#tab-apftransform .tech-flow-container { display: flex; align-items: stretch; justify-content: space-between; background: #fff; padding: 8px; border-radius: 4px; margin-bottom: 10px; border: 1px solid #E1DFDD; gap: 4px; }
+#tab-apftransform .tech-box { border: 1px solid #E1DFDD; border-radius: 4px; padding: 6px; text-align: center; flex: 1; font-size: 9px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;}
+#tab-apftransform .tech-icon { width: 28px; height: 28px; margin-bottom: 4px; display: flex; align-items: center; justify-content: center; }
+#tab-apftransform .tech-icon svg { width: 100%; height: 100%; object-fit: contain; }
+#tab-apftransform .tech-box strong { display: block; color: var(--primary-blue); font-size: 10px; margin-bottom: 2px; }
+#tab-apftransform .tech-box span { color: var(--text-muted); line-height: 1.2; }
+#tab-apftransform .tech-arrow { display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-weight: bold; font-size: 14px; padding: 0 2px;}
+#tab-apftransform .scenario-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 10px; }
+#tab-apftransform .scenario-box { border: 1px solid #E1DFDD; border-radius: 4px; padding: 6px; position: relative; background: #fff; }
+#tab-apftransform .scenario-box h5 { color: var(--secondary-blue); margin-bottom: 2px; font-size: 11px; }
+#tab-apftransform .poe-table { width: 100%; border-collapse: collapse; font-size: 10px;}
+#tab-apftransform .poe-table th { background-color: #fff; border-bottom: 2px solid var(--primary-blue); color: var(--primary-blue); padding: 4px; text-align: left;}
+#tab-apftransform .poe-table td { border: none; border-bottom: 1px solid #eee; padding: 6px 4px; vertical-align: top;}
+#tab-apftransform .poe-q-col { font-weight: bold; color: var(--primary-blue); width: 30px; text-align: center;}
+#tab-apftransform .poe-amt-col { font-weight: bold; text-align: right; width: 80px; }
+#tab-apftransform /* Block 7 Specific */
+        .b7-table { width: 100%; border-collapse: collapse; font-size: 11px; background: #fff; border: 1px solid var(--border-color); }
+#tab-apftransform .b7-table th, #tab-apftransform .b7-table td { border: 1px solid var(--border-color); padding: 6px 8px; text-align: center; vertical-align: middle; }
+#tab-apftransform .b7-th-title { background: #FFF3E0; color: var(--primary-blue); font-weight: bold; font-size: 12px; }
+#tab-apftransform .b7-th-q1 { background: #009B8D; color: white; }
+#tab-apftransform .b7-th-q2 { background: #00A65A; color: white; }
+#tab-apftransform .b7-th-q3 { background: #F39C12; color: white; }
+#tab-apftransform .b7-th-q4 { background: #DD4B39; color: white; }
+#tab-apftransform .b7-th-total { background: #FFF; color: var(--primary-blue); font-weight: bold; font-size: 12px; }
+#tab-apftransform .b7-sub-th { background: #F4F6F9; color: var(--primary-blue); font-size: 10px; font-weight: bold; padding: 4px !important;}
+#tab-apftransform .b7-avatar-col { display: flex; align-items: center; gap: 8px; text-align: left; padding: 8px !important; border: none !important;}
+#tab-apftransform .b7-avatar { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; flex-shrink:0;}
+#tab-apftransform .b7-cell-title { font-weight: bold; color: var(--primary-blue); display: block; margin-bottom: 2px;}
+#tab-apftransform .b7-cell-sub { color: var(--text-muted); }
+#tab-apftransform /* Utility */
+        .td-action, #tab-apftransform .th-action { width: 25px; text-align: center; padding: 2px !important; }
+#tab-apftransform .total-highlight { color: var(--microsoft-red); font-weight: 800; font-size: 1.1em; }
+
+</style>
+<div style="display:flex;gap:8px;margin-bottom:12px;justify-content:flex-end;padding:8px;background:#fff;border-radius:6px;border:1px solid #ddd;">
+    <button class="toolbar-btn btn-toggle-edit" onclick="apfT_toggleEditMode()" id="apf-editToggleBtn" style="padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-weight:bold;display:flex;align-items:center;gap:6px;font-size:12px;color:white;background:#0A2540;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
+        <span>啟用編輯模式</span>
+    </button>
+    <button style="padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-weight:bold;background:#28A745;color:white;font-size:12px;" onclick="apfT_saveDocument()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;vertical-align:middle;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+        儲存並下載
+    </button>
+</div>
+<div class="dashboard-container" id="report-container">
+    <!-- Main Header -->
+    <header>
+        <div class="header-top">
+            <div class="brand-title">
+                <div class="microsoft-logo">
+                    <div class="logo-box box-1"></div><div class="logo-box box-2"></div><div class="logo-box box-3"></div><div class="logo-box box-4"></div>
+                </div>
+                <div class="title-area">
+                    <h1 data-editable="true">FY27 SPF Transform Business Plan</h1>
+                    <h2 data-editable="true">Weblink International Inc. ‧ 彙整版</h2>
+                </div>
+            </div>
+            <div class="header-meta-boxes">
+                <div class="meta-box">
+                    <strong>會議：</strong><span data-editable="true">2026/6/22 15:00</span><br>
+                    <span data-editable="true">Cindy Wu (HSIN-CHUAN)<br>Microsoft GCR PDM</span>
+                </div>
+                <div class="meta-box">
+                    <div style="display:flex; align-items:center; gap:5px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg> <span data-editable="true">初稿提交 6/23</span></div>
+                    <div style="display:flex; align-items:center; gap:5px; margin-top:4px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><path d="M9 15l2 2 4-4"></path></svg> <span data-editable="true">合約簽署截止 7/31</span></div>
+                </div>
+                <div>
+                    <span class="confidential-tag" data-editable="true" style="background:#cc0000; font-size:12px; padding:6px 16px;">Microsoft Confidential - Partner Use Only</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:10px; border-top:1px solid #eee; padding-top:10px;">
+            <div style="color:var(--primary-blue); font-size:14px;">
+                <strong data-editable="true">核心策略：M365 Copilot ≥ 50% ‧ Agent Factory + Partner Offer & Service Creation</strong>
+            </div>
+        </div>
+        <div style="display:flex; gap:20px; align-items:center; font-size:11px; font-weight:bold; color:var(--primary-blue); margin-top:6px;">
+            <div style="display:flex; align-items:center; gap:5px; background:#F4F6F9; padding:4px 8px; border-radius:4px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> 
+                <span data-editable="true">資源: Aaron (首席技術主管) ‧ Lucas (資深技術主管) ‧ 總投資 <span id="global-total-1" style="color:var(--microsoft-red);">$153,000</span></span>
+            </div>
+            <div style="display:flex; align-items:center; gap:5px; background:#F4F6F9; padding:4px 8px; border-radius:4px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 
+                <span data-editable="true">執行期間：FY27 Q1-Q4 (2026/7/1 - 2027/6/30) ‧ 區域：台灣 (Greater China)</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- PERFECTED 2-COLUMN LAYOUT -->
+    <div class="layout-wrapper">
+        <!-- LEFT COLUMN (Blocks 1, 2, 3, 4, 7) -->
+        <div class="layout-left">
+            
+            <!-- Row 1: Blocks 1 & 2 -->
+            <div class="left-row-1">
+                <!-- Block 1 -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="num-badge">1</span> <span data-editable="true">背景與說明 | Background & Context</span>
+                    </div>
+                    <div class="card-body" style="padding:0; display:flex; flex-direction:column;">
+                        <div class="b1-row">
+                            <div class="b1-label">
+                                <svg viewBox="0 0 24 24" fill="#0078D4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v6h6v10H6zm2-8h8v2H8v-2zm0 4h8v2H8v-2z"/></svg>
+                                <span data-editable="true">計畫性質</span>
+                            </div>
+                            <div class="b1-content">
+                                <ul class="info-list" id="list-b1-1">
+                                    <li><div data-editable="true">Transform 為 FY27 SPF 計畫核心，以「已配置資源」為基礎投資，非傳統績效型獎勵</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                    <li><div data-editable="true">Partner 將指定 FTE 投入技能提升，Microsoft 依配置金額給付</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                </ul>
+                                <button class="btn-add" onclick="apfT_addLi('list-b1-1')">+</button>
+                            </div>
+                        </div>
+                        <div class="b1-row">
+                            <div class="b1-label">
+                                <svg viewBox="0 0 24 24" fill="#28A745"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                                <span data-editable="true" style="color:#28A745;">核心衡量指標</span>
+                            </div>
+                            <div class="b1-content">
+                                <ul class="info-list" id="list-b1-2">
+                                    <li><div data-editable="true">FTE Badge 取得數 (Badge Attainment)</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                    <li><div data-editable="true">專業認證 (Certifications)</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                    <li><div data-editable="true">每季資源技能完成率</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                </ul>
+                                <button class="btn-add" onclick="apfT_addLi('list-b1-2')">+</button>
+                            </div>
+                        </div>
+                        <div class="b1-row">
+                            <div class="b1-label">
+                                <svg viewBox="0 0 24 24" fill="#FD7E14"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                                <span data-editable="true" style="color:#FD7E14;">重要規則</span>
+                            </div>
+                            <div class="b1-content">
+                                <ul class="info-list" id="list-b1-3">
+                                    <li><div data-editable="true">每位資源每季均須有獨立項目</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                    <li><div data-editable="true">技能規則以個別資源為計算單位</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                    <li><div data-editable="true">合約簽訂後 6 個月內至少 1 人取得 FTE Badge</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                </ul>
+                                <button class="btn-add" onclick="apfT_addLi('list-b1-3')">+</button>
+                            </div>
+                        </div>
+                        <div class="b1-row" style="flex:1;">
+                            <div class="b1-label">
+                                <svg viewBox="0 0 24 24" fill="#0078D4"><path d="M11 2v10h10c0 5.5-4.5 10-10 10S1 17.5 1 12 5.5 2 11 2zm2 0v8h8c0-4.4-3.6-8-8-8z"/></svg>
+                                <span data-editable="true">投資摘要</span>
+                            </div>
+                            <div class="b1-content">
+                                <ul class="info-list" id="list-b1-4">
+                                    <li><div data-editable="true">合作夥伴：Weblink International Inc.</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                    <li><div data-editable="true">總投資：<span class="val-calc calc-fake" id="b1-invest" style="color:var(--text-dark); background:none; font-weight:normal;">$153,000</span> (估算)</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                    <li><div data-editable="true">資源數：2 人 (Aaron + Lucas)</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                </ul>
+                                <button class="btn-add" onclick="apfT_addLi('list-b1-4')">+</button>
+                            </div>
+                        </div>
+                        <div style="padding: 6px;">
+                            <div class="warning-box">
+                                <span>⚠️</span>
+                                <span data-editable="true">合約簽訂後 6 個月內至少 1 人取得 Frontier Badge (FTE Badge 或 AI-103/AB-100/GH-300 任一認證)，未達標將扣減 20% 付款</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Block 2 -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="num-badge">2</span> <span data-editable="true">三大核心能力架構 | Three Defined Capability Outcomes</span>
+                    </div>
+                    <div class="card-body" style="display:flex; flex-direction:column;">
+                        <p style="margin-bottom: 8px; font-weight: bold; color: var(--primary-blue); font-size:11px;" data-editable="true">本計畫聚焦 Outcome 1 & Outcome 3，以 Agent Factory 工業化部署 + Partner Offer 上架為雙主軸</p>
+                        
+                        <div class="pillar-container" id="pillar-container">
+                            <!-- Pillar 1 -->
+                            <div class="pillar-box">
+                                <button class="btn-del" style="position:absolute; right:5px; top:5px;" onclick="apfT_removeEl(this, '.pillar-box')">✖</button>
+                                <div class="pillar-header b-blue">
+                                    <span class="badge bg-blue" data-editable="true">01</span> <span data-editable="true">Factory Model for<br>Agent Build & Delivery</span>
+                                </div>
+                                <div class="pillar-sub" data-editable="true">Agent 365 ‧ Agent Factory</div>
+                                <div class="pillar-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#0063B1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 20h12"></path><path d="M5 20v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4"></path>
+                                        <path d="M8 14L5 7"></path><circle cx="5" cy="7" r="2"></circle>
+                                        <path d="M5 5l6-4"></path><circle cx="11" cy="1" r="1.5"></circle>
+                                        <path d="M11 1l4 5"></path><circle cx="15" cy="6" r="1.5"></circle>
+                                        <path d="M15 7v3"></path><path d="M13 10c0 2 1 3 2 3s2-1 2-3"></path>
+                                        <path d="M15 20h7"></path><circle cx="17" cy="18" r="1"></circle><circle cx="21" cy="18" r="1"></circle>
+                                    </svg>
+                                </div>
+                                <div class="pillar-body">
+                                    <ul class="info-list" id="list-p1">
+                                        <li><div data-editable="true">工業化建置與部署 AI Agent</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                        <li><div data-editable="true">以可複製模組大規模交付</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                        <li><div data-editable="true">強調跨客戶一致的 AI 導入品質</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                        <li><div data-editable="true"><strong>KPI：</strong>每季 Agent 部署數、FTE 取得數</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                        <li><div data-editable="true"><strong>POE：</strong>架構圖、部署記錄、使用指標</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                    </ul>
+                                    <button class="btn-add" onclick="apfT_addLi('list-p1')">+</button>
+                                </div>
+                                <div class="pillar-footer bg-blue" data-editable="true">★ 本計畫主軸 (Aaron)</div>
+                            </div>
+
+                            <!-- Pillar 2 -->
+                            <div class="pillar-box">
+                                <button class="btn-del" style="position:absolute; right:5px; top:5px;" onclick="apfT_removeEl(this, '.pillar-box')">✖</button>
+                                <div class="pillar-header b-green" style="color:var(--success-green);">
+                                    <span class="badge bg-green" data-editable="true">02</span> <span data-editable="true">Prioritized Center of<br>Excellence (COE)</span>
+                                </div>
+                                <div class="pillar-sub" style="color:var(--success-green);" data-editable="true">Agents ‧ Security ‧ Data ‧ Copilot</div>
+                                <div class="pillar-icon">
+                                    <svg viewBox="0 0 24 24" fill="#28A745">
+                                        <path d="M12 11c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                        <path d="M12 0l1.5 3h3.5l-2.5 2 1.5 3.5-3-2-3 2 1.5-3.5-2.5-2h3.5z"/>
+                                    </svg>
+                                </div>
+                                <div class="pillar-body">
+                                    <ul class="info-list" id="list-p2">
+                                        <li><div data-editable="true">建立前沿技術 COE，集中進階能力</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                        <li><div data-editable="true">聚焦 Agents/Security/Data/Copilot</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                        <li><div data-editable="true">可重複交付的規模化能力</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                        <li><div data-editable="true"><strong>KPI：</strong>COE FTE 數、交付進度</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                        <li><div data-editable="true"><strong>POE：</strong>技能追蹤、訓練記錄</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                    </ul>
+                                    <button class="btn-add" onclick="apfT_addLi('list-p2')">+</button>
+                                </div>
+                                <div class="pillar-footer bg-grey" data-editable="true">(本計畫未直接適用)</div>
+                            </div>
+
+                            <!-- Pillar 3 -->
+                            <div class="pillar-box">
+                                <button class="btn-del" style="position:absolute; right:5px; top:5px;" onclick="apfT_removeEl(this, '.pillar-box')">✖</button>
+                                <div class="pillar-header b-orange" style="color:var(--warning-orange);">
+                                    <span class="badge bg-orange" data-editable="true">03</span> <span data-editable="true">Partner Offer &<br>Service Creation</span>
+                                </div>
+                                <div class="pillar-sub" style="color:var(--warning-orange);" data-editable="true">CSP Offers ‧ Frontier Services</div>
+                                <div class="pillar-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="#FD7E14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="9" cy="21" r="1" fill="#FD7E14"></circle><circle cx="20" cy="21" r="1" fill="#FD7E14"></circle>
+                                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                                        <rect x="9" y="8" width="8" height="6" rx="1" fill="#FD7E14"></rect>
+                                        <path d="M11 8V6a2 2 0 0 1 4 0v2" stroke="#FD7E14"></path>
+                                    </svg>
+                                </div>
+                                <div class="pillar-body">
+                                    <ul class="info-list" id="list-p3">
+                                        <li><div data-editable="true">開發面向客戶 CSP 優惠與服務</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                        <li><div data-editable="true">聚焦前沿優先事項</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                        <li><div data-editable="true">可擴展且能商業化 (Monetization)</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                        <li><div data-editable="true"><strong>KPI：</strong>CSP Offer 數、MBS 收入</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                        <li><div data-editable="true"><strong>POE：</strong>Marketplace listing、Signed SoW</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button></li>
+                                    </ul>
+                                    <button class="btn-add" onclick="apfT_addLi('list-p3')">+</button>
+                                </div>
+                                <div class="pillar-footer bg-orange" data-editable="true">★ 本計畫主軸 (Lucas)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 2: Blocks 3 & 4 -->
+            <div class="left-row-2">
+                <!-- Block 3 -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="num-badge">3</span>
+                        <span data-editable="true">Solution 1 ‧ M365 Copilot 企業 Agent 服務包</span>
+                    </div>
+                    <div class="card-body">
+                        <p style="margin-bottom: 8px; font-size:10px;">Partner Offer & Service Creation ‧ 負責人：Lucas<br>
+                        <strong>投資額：</strong><span id="b3-inv" class="total-highlight" style="font-size:12px;">$81,000</span> | <strong>重點：</strong><span data-editable="true">Copilot 50%</span></p>
+                        
+                        <div class="section-subtitle" data-editable="true">技術架構</div>
+                        <div class="tech-flow-container" id="flow-3">
+                            <div class="tech-box">
+                                <button class="btn-del" style="position:absolute; right:2px; top:2px;" onclick="apfT_removeEl(this, '.tech-box')">✖</button>
+                                <div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#00A4EF" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+                                <strong data-editable="true">Copilot Studio</strong>
+                                <span data-editable="true">AI Agent 設計核心<br>自訂 Bot / Teams</span>
+                            </div>
+                            <div class="tech-arrow">→</div>
+                            <div class="tech-box">
+                                <button class="btn-del" style="position:absolute; right:2px; top:2px;" onclick="apfT_removeEl(this, '.tech-box')">✖</button>
+                                <div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#7719aa" stroke-width="2"><polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon></svg></div>
+                                <strong data-editable="true">Power Platform</strong>
+                                <span data-editable="true">Power Automate<br>Dataverse 整合</span>
+                            </div>
+                            <div class="tech-arrow">→</div>
+                            <div class="tech-box">
+                                <button class="btn-del" style="position:absolute; right:2px; top:2px;" onclick="apfT_removeEl(this, '.tech-box')">✖</button>
+                                <div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#F25022" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg></div>
+                                <strong data-editable="true">M365 Copilot</strong>
+                                <span data-editable="true">Teams / Outlook<br>SharePoint 知識</span>
+                            </div>
+                            <div class="tech-arrow">→</div>
+                            <div class="tech-box">
+                                <button class="btn-del" style="position:absolute; right:2px; top:2px;" onclick="apfT_removeEl(this, '.tech-box')">✖</button>
+                                <div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#E3008C" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg></div>
+                                <strong data-editable="true">Marketplace</strong>
+                                <span data-editable="true">CSP 雲端上架<br>標準化服務包</span>
+                            </div>
+                        </div>
+
+                        <div class="section-subtitle" data-editable="true">客戶情境</div>
+                        <div class="scenario-grid" id="sg-3">
+                            <div class="scenario-box">
+                                <button class="btn-del" style="position:absolute; right:5px; top:5px;" onclick="apfT_removeEl(this, '.scenario-box')">✖</button>
+                                <h5 style="color:#00A65A;"><span data-editable="true">HR Onboarding Agent</span></h5>
+                                <p style="font-size:9px; color:var(--text-muted);" data-editable="true">新員工引導 / 表單填寫<br>整合 HR+SharePoint+Teams<br><strong>目標：</strong>入職時間↓30%</p>
+                            </div>
+                            <div class="scenario-box">
+                                <button class="btn-del" style="position:absolute; right:5px; top:5px;" onclick="apfT_removeEl(this, '.scenario-box')">✖</button>
+                                <h5 style="color:#0073B7;"><span data-editable="true">IT Helpdesk Agent</span></h5>
+                                <p style="font-size:9px; color:var(--text-muted);" data-editable="true">FAQ 回覆 / 工單建立<br>整合 ServiceNow+Azure AD<br><strong>目標：</strong>L1 自解率 40%+</p>
+                            </div>
+                            <div class="scenario-box">
+                                <button class="btn-del" style="position:absolute; right:5px; top:5px;" onclick="apfT_removeEl(this, '.scenario-box')">✖</button>
+                                <h5 style="color:#7719aa;"><span data-editable="true">Sales Copilot Agent</span></h5>
+                                <p style="font-size:9px; color:var(--text-muted);" data-editable="true">提案輔助 / CRM 更新<br>整合 Dynamics365+Outlook<br><strong>目標：</strong>銷售週期↓20%</p>
+                            </div>
+                        </div>
+                        <button class="btn-add" onclick="apfT_addScenario('sg-3')">+ 新增</button>
+
+                        <div class="section-subtitle" data-editable="true">POE 對應 & Deliverables</div>
+                        <table class="poe-table" id="table-poe-3">
+                            <tbody>
+                                <tr>
+                                    <td class="poe-q-col" data-editable="true">Q1</td>
+                                    <td data-editable="true"><strong>Offer Definition & Packaging</strong><br>服務定義文件 (含 Pricing Model, 提案簡報)</td>
+                                    <td class="poe-amt-col val-calc calc-b3" data-editable="true">$18,000 ‧ 2M</td>
+                                    <td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="poe-q-col" data-editable="true">Q2<span style="color:var(--microsoft-red);">★</span></td>
+                                    <td data-editable="true"><strong>Marketplace listing</strong><br>服務啟動 (已發布 listing)</td>
+                                    <td class="poe-amt-col val-calc calc-b3" data-editable="true">$27,000 ‧ 3M</td>
+                                    <td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="poe-q-col" data-editable="true">Q3</td>
+                                    <td data-editable="true"><strong>Sales Enablement & Execution</strong><br>銷售劇本, 提案簡報, GTM 材料</td>
+                                    <td class="poe-amt-col val-calc calc-b3" data-editable="true">$27,000 ‧ 3M</td>
+                                    <td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="poe-q-col" data-editable="true">Q4</td>
+                                    <td data-editable="true"><strong>Customer CSP Monetization</strong><br>已簽署 SoW / CSP 合約；MBS 收入佐證</td>
+                                    <td class="poe-amt-col val-calc calc-b3" data-editable="true">$9,000 ‧ 1M</td>
+                                    <td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn-add" onclick="apfT_addPoeRow('table-poe-3', 'calc-b3')">+</button>
+                    </div>
+                </div>
+
+                <!-- Block 4 -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="num-badge">4</span>
+                        <span data-editable="true">Solution 2 ‧ Azure AI Agent 工廠模型 (SMC-C)</span>
+                    </div>
+                    <div class="card-body">
+                        <p style="margin-bottom: 8px; font-size:10px;">Factory Model for Agent Build & Delivery ‧ 負責人：Aaron<br>
+                        <strong>投資額：</strong><span id="b4-inv" class="total-highlight" style="font-size:12px;">$72,000</span> | <strong>重點：</strong><span data-editable="true">Copilot 50%</span></p>
+                        
+                        <div class="section-subtitle" data-editable="true">技術架構</div>
+                        <div class="tech-flow-container" id="flow-4">
+                            <div class="tech-box">
+                                <button class="btn-del" style="position:absolute; right:2px; top:2px;" onclick="apfT_removeEl(this, '.tech-box')">✖</button>
+                                <div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0078D4" stroke-width="2"><path d="M10 2L2 22h4l2-6h8l2 6h4L14 2h-4zm-1 10l3-8 3 8H9z"></path></svg></div>
+                                <strong data-editable="true">Azure AI Foundry</strong>
+                                <span data-editable="true">LLM Orchestration<br>Prompt Flow / RAG</span>
+                            </div>
+                            <div class="tech-arrow">→</div>
+                            <div class="tech-box">
+                                <button class="btn-del" style="position:absolute; right:2px; top:2px;" onclick="apfT_removeEl(this, '.tech-box')">✖</button>
+                                <div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#00A4EF" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></div>
+                                <strong data-editable="true">Copilot Studio</strong>
+                                <span data-editable="true">Agent UI / 對話流程<br>Teams Channel</span>
+                            </div>
+                            <div class="tech-arrow">→</div>
+                            <div class="tech-box">
+                                <button class="btn-del" style="position:absolute; right:2px; top:2px;" onclick="apfT_removeEl(this, '.tech-box')">✖</button>
+                                <div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#00A65A" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><circle cx="12" cy="12" r="3"></circle></svg></div>
+                                <strong data-editable="true">Agent 365</strong>
+                                <span data-editable="true">Agent 元件庫<br>可複用跨客戶</span>
+                            </div>
+                            <div class="tech-arrow">→</div>
+                            <div class="tech-box">
+                                <button class="btn-del" style="position:absolute; right:2px; top:2px;" onclick="apfT_removeEl(this, '.tech-box')">✖</button>
+                                <div class="tech-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0A2540" stroke-width="2"><path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"></path></svg></div>
+                                <strong data-editable="true">Agent Factory</strong>
+                                <span data-editable="true">標準化交付<br>3+ 客戶部署</span>
+                            </div>
+                        </div>
+
+                        <div class="section-subtitle" data-editable="true">客戶情境</div>
+                        <div class="scenario-grid" id="sg-4">
+                            <div class="scenario-box">
+                                <button class="btn-del" style="position:absolute; right:5px; top:5px;" onclick="apfT_removeEl(this, '.scenario-box')">✖</button>
+                                <h5 style="color:#00A65A;"><span data-editable="true">客服 Agent (零售/電商)</span></h5>
+                                <p style="font-size:9px; color:var(--text-muted);" data-editable="true">FAQ 回覆 / 工單派送<br>整合 ERP+Azure OpenAI<br><strong>目標：</strong>AHT↓35%</p>
+                            </div>
+                            <div class="scenario-box">
+                                <button class="btn-del" style="position:absolute; right:5px; top:5px;" onclick="apfT_removeEl(this, '.scenario-box')">✖</button>
+                                <h5 style="color:#0073B7;"><span data-editable="true">文件處理 Agent (金融)</span></h5>
+                                <p style="font-size:9px; color:var(--text-muted);" data-editable="true">合約審查 / 法規比對<br>整合 SharePoint+Azure AI<br><strong>目標：</strong>處理時間↓50%</p>
+                            </div>
+                            <div class="scenario-box">
+                                <button class="btn-del" style="position:absolute; right:5px; top:5px;" onclick="apfT_removeEl(this, '.scenario-box')">✖</button>
+                                <h5 style="color:#7719aa;"><span data-editable="true">跨部門工作流程 Agent</span></h5>
+                                <p style="font-size:9px; color:var(--text-muted);" data-editable="true">審批/會議記錄/任務<br>整合 Power Automate+M365<br><strong>目標：</strong>自動化率 60%+</p>
+                            </div>
+                        </div>
+                        <button class="btn-add" onclick="apfT_addScenario('sg-4')">+</button>
+
+                        <div class="section-subtitle" data-editable="true">POE 對應 & Deliverables</div>
+                        <table class="poe-table" id="table-poe-4">
+                            <tbody>
+                                <tr>
+                                    <td class="poe-q-col" data-editable="true">Q1</td>
+                                    <td data-editable="true"><strong>Agent/Solution Development</strong><br>架構圖、設計文件 (Architecture diagrams, design docs)</td>
+                                    <td class="poe-amt-col val-calc calc-b4" data-editable="true">$16,000 ‧ 2M</td>
+                                    <td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="poe-q-col" data-editable="true">Q2</td>
+                                    <td data-editable="true"><strong>Production Deployment & Scale</strong><br>部署記錄、版本說明、正式 Agent 截圖</td>
+                                    <td class="poe-amt-col val-calc calc-b4" data-editable="true">$24,000 ‧ 3M</td>
+                                    <td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="poe-q-col" data-editable="true">Q3</td>
+                                    <td data-editable="true"><strong>Performance & Adoption Metrics</strong><br>客戶清單；部署進度；使用量/調用指標</td>
+                                    <td class="poe-amt-col val-calc calc-b4" data-editable="true">$24,000 ‧ 3M</td>
+                                    <td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="poe-q-col" data-editable="true">Q4</td>
+                                    <td data-editable="true"><strong>Performance & Adoption Metrics</strong><br>客戶清單更新；部署進度加追佐證</td>
+                                    <td class="poe-amt-col val-calc calc-b4" data-editable="true">$8,000 ‧ 1M</td>
+                                    <td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button class="btn-add" onclick="apfT_addPoeRow('table-poe-4', 'calc-b4')">+</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Row 3: Block 7 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="num-badge">7</span> <span data-editable="true">執行期程摘要 | Execution Timeline FY27 Q1-Q4</span>
+                    <span style="margin-left:auto; font-size:10px; font-weight:normal;" data-editable="true">來源：繁中版 Excel 執行期程摘要 ‧ 含里程碑、POE 與投資金額</span>
+                </div>
+                <div class="card-body" style="padding:10px;">
+                    <table class="b7-table" id="table-b7">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="b7-th-title" data-editable="true">合約 & 計畫</th>
+                                <th class="b7-th-q1" data-editable="true">第一季 Q1<br>2026/7-9</th>
+                                <th class="b7-th-q2" data-editable="true">第二季 Q2<br>2026/10-12</th>
+                                <th class="b7-th-q3" data-editable="true">第三季 Q3<br>2027/1-3</th>
+                                <th class="b7-th-q4" data-editable="true">第四季 Q4<br>2027/4-6</th>
+                                <th rowspan="2" class="b7-th-total" data-editable="true">總投資</th>
+                            </tr>
+                            <tr>
+                                <th class="b7-sub-th"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" y1="22" x2="4" y2="15"></line></svg> <span data-editable="true">6/23 初稿</span></th>
+                                <th class="b7-sub-th"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg> <span data-editable="true">7/31 合約</span></th>
+                                <th class="b7-sub-th"></th>
+                                <th class="b7-sub-th"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="b7-avatar-col">
+                                    <div class="b7-avatar" style="background:#673AB7;"><svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                                    <div style="line-height:1.2;">
+                                        <strong style="color:#673AB7;" data-editable="true">Lucas</strong><br>
+                                        <span class="b7-cell-sub" data-editable="true">(Sol 1)</span>
+                                    </div>
+                                </td>
+                                <td><span class="b7-cell-title" data-editable="true">Offer Definition</span><span class="b7-cell-sub" data-editable="true">$18k ‧ 2M</span></td>
+                                <td><span class="b7-cell-title" data-editable="true">Marketplace 上架 <span style="color:var(--microsoft-red);">★</span></span><span class="b7-cell-sub" data-editable="true">$27k ‧ 3M</span></td>
+                                <td><span class="b7-cell-title" data-editable="true">Sales Enablement</span><span class="b7-cell-sub" data-editable="true">$27k ‧ 3M</span></td>
+                                <td><span class="b7-cell-title" data-editable="true">CSP 簽約</span><span class="b7-cell-sub" data-editable="true">$9k ‧ 1M</span></td>
+                                <td style="color:#673AB7; font-weight:bold; font-size:13px;" id="b7-lucas-total">$81,000</td>
+                            </tr>
+                            <tr>
+                                <td class="b7-avatar-col">
+                                    <div class="b7-avatar" style="background:#0078D4;"><svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                                    <div style="line-height:1.2;">
+                                        <strong style="color:#0078D4;" data-editable="true">Aaron</strong><br>
+                                        <span class="b7-cell-sub" data-editable="true">(Sol 2)</span>
+                                    </div>
+                                </td>
+                                <td><span class="b7-cell-title" data-editable="true">Agent 開發</span><span class="b7-cell-sub" data-editable="true">$16k ‧ 2M</span></td>
+                                <td><span class="b7-cell-title" data-editable="true">正式部署 3+客戶</span><span class="b7-cell-sub" data-editable="true">$24k ‧ 3M</span></td>
+                                <td><span class="b7-cell-title" data-editable="true">效能指標</span><span class="b7-cell-sub" data-editable="true">$24k ‧ 3M</span></td>
+                                <td><span class="b7-cell-title" data-editable="true">持續優化</span><span class="b7-cell-sub" data-editable="true">$8k ‧ 1M</span></td>
+                                <td style="color:#0078D4; font-weight:bold; font-size:13px;" id="b7-aaron-total">$72,000</td>
+                            </tr>
+                            <tr style="background:#FDF5E6;">
+                                <td class="b7-avatar-col">
+                                    <div class="b7-avatar" style="background:none;"><svg width="20" height="20" viewBox="0 0 24 24" fill="#F39C12"><path d="M12 15l-3.09 1.63.59-3.45L7 10.74l3.46-.5L12 7l1.54 3.24 3.46.5-2.5 2.44.59 3.45L12 15z"></path><circle cx="12" cy="11" r="8" fill="none" stroke="#F39C12" stroke-width="2"></circle><path d="M8.5 17.5l-2.5 5h12l-2.5-5" fill="#F39C12"></path></svg></div>
+                                    <div><strong style="color:var(--text-dark);" data-editable="true">FTE Badge</strong></div>
+                                </td>
+                                <td><span class="b7-cell-title" style="color:var(--text-dark);" data-editable="true">AI-103/AB-100</span><span class="b7-cell-sub" style="color:var(--text-dark); font-weight:bold;" data-editable="true">Month 1-2</span></td>
+                                <td><span class="b7-cell-title" style="color:var(--text-dark);" data-editable="true">Project Ready</span><span class="b7-cell-sub" style="color:var(--text-dark); font-weight:bold;" data-editable="true">Month 2-4</span></td>
+                                <td><span class="b7-cell-title" style="color:var(--text-dark);" data-editable="true">FTE Badge <span style="color:var(--microsoft-red);">★</span></span><span class="b7-cell-sub" style="color:var(--text-dark); font-weight:bold;" data-editable="true">≤ 6 months</span></td>
+                                <td></td>
+                                <td style="color:var(--microsoft-red); font-weight:bold;">
+                                    <div data-editable="true">投資總計</div>
+                                    <div style="font-size:16px;" id="b7-global-total">$153,000</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN (Blocks 5, 6, 8) -->
+        <div class="layout-right">
+            
+            <!-- Block 5 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="num-badge">5</span> <span data-editable="true">Transform 商業計畫書摘要 | Business Plan Summary</span>
+                </div>
+                <div class="card-body">
+                    <table class="b5-top-table">
+                        <tr>
+                            <td><span class="col-title">合作夥伴</span><span data-editable="true">Weblink International Inc.</span></td>
+                            <td><span class="col-title">總投資額</span><span id="global-total-2" class="total-highlight" style="font-size:14px;">$153,000</span></td>
+                            <td><span class="col-title">資源人數</span><span data-editable="true">2 人</span></td>
+                            <td><span class="col-title">適用地區</span><span data-editable="true">台灣 (Greater China)</span></td>
+                        </tr>
+                    </table>
+
+                    <div class="stats-row">
+                        <div class="stat-item">
+                            <svg viewBox="0 0 24 24" fill="#0078D4"><path d="M17.5 19C19.98 19 22 16.98 22 14.5c0-2.31-1.74-4.2-4-4.46v-.04c0-3.31-2.69-6-6-6-2.91 0-5.34 2.08-5.9 4.84A4.5 4.5 0 0 0 2 13.5C2 15.98 4.02 18 6.5 18H17z"/></svg>
+                            <div>Azure<br><span data-editable="true">20%</span></div>
+                        </div>
+                        <div class="stat-item">
+                            <svg viewBox="0 0 24 24" fill="#0A2540"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                            <div>AI工作力<br><span data-editable="true">10%</span></div>
+                        </div>
+                        <div class="stat-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#0A2540" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><path d="M10 6h4"></path><path d="M17 10v4"></path></svg>
+                            <div>AI流程<br><span data-editable="true">10%</span></div>
+                        </div>
+                        <div class="stat-item">
+                            <svg viewBox="0 0 24 24" fill="#0A2540"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 15h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>
+                            <div>資安<br><span data-editable="true">10%</span></div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon-copilot"></div>
+                            <div>Copilot<br><span data-editable="true" style="color:var(--microsoft-red);">50% ★</span></div>
+                        </div>
+                    </div>
+
+                    <table id="table-b5" class="data-table">
+                        <thead>
+                            <tr>
+                                <th data-editable="true" style="width:30px;">編號</th>
+                                <th data-editable="true">前沿能力成果</th>
+                                <th data-editable="true">成功指標</th>
+                                <th data-editable="true">資源 ID</th>
+                                <th data-editable="true" style="width:40px;">季度</th>
+                                <th data-editable="true" style="width:30px;">月數</th>
+                                <th data-editable="true" style="width:60px;">投資金額</th>
+                                <th class="th-action"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td class="text-center" data-editable="true">1</td><td data-editable="true">合作夥伴服務與解決方案建立</td><td data-editable="true">服務定義與包裝</td><td data-editable="true">WeblinkIntl_Lucas_Q1</td><td class="text-center" data-editable="true">FY27 Q1</td><td class="text-center" data-editable="true">2</td><td class="val-calc calc-b5 text-center" data-editable="true">$18,000</td><td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td></tr>
+                            <tr><td class="text-center" data-editable="true">2</td><td data-editable="true">合作夥伴服務與解決方案建立</td><td data-editable="true">服務啟動 (Marketplace 上架) <span style="color:var(--microsoft-red);">★</span></td><td data-editable="true">WeblinkIntl_Lucas_Q2</td><td class="text-center" data-editable="true">FY27 Q2</td><td class="text-center" data-editable="true">3</td><td class="val-calc calc-b5 text-center" data-editable="true">$27,000</td><td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td></tr>
+                            <tr><td class="text-center" data-editable="true">3</td><td data-editable="true">合作夥伴服務與解決方案建立</td><td data-editable="true">銷售賦能與執行</td><td data-editable="true">WeblinkIntl_Lucas_Q3</td><td class="text-center" data-editable="true">FY27 Q3</td><td class="text-center" data-editable="true">3</td><td class="val-calc calc-b5 text-center" data-editable="true">$27,000</td><td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td></tr>
+                            <tr><td class="text-center" data-editable="true">4</td><td data-editable="true">合作夥伴服務與解決方案建立</td><td data-editable="true">客戶 CSP 採用與商業化</td><td data-editable="true">WeblinkIntl_Lucas_Q4</td><td class="text-center" data-editable="true">FY27 Q4</td><td class="text-center" data-editable="true">1</td><td class="val-calc calc-b5 text-center" data-editable="true">$9,000</td><td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td></tr>
+                            <tr><td class="text-center" data-editable="true">5</td><td data-editable="true">Agent 建置與交付工廠模型</td><td data-editable="true">Agent / 解決方案開發</td><td data-editable="true">WeblinkIntl_Aaron_Q1</td><td class="text-center" data-editable="true">FY27 Q1</td><td class="text-center" data-editable="true">2</td><td class="val-calc calc-b5 text-center" data-editable="true">$16,000</td><td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td></tr>
+                            <tr><td class="text-center" data-editable="true">6</td><td data-editable="true">Agent 建置與交付工廠模型</td><td data-editable="true">正式部署與規模化</td><td data-editable="true">WeblinkIntl_Aaron_Q2</td><td class="text-center" data-editable="true">FY27 Q2</td><td class="text-center" data-editable="true">3</td><td class="val-calc calc-b5 text-center" data-editable="true">$24,000</td><td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td></tr>
+                            <tr><td class="text-center" data-editable="true">7</td><td data-editable="true">Agent 建置與交付工廠模型</td><td data-editable="true">效能與採用率指標</td><td data-editable="true">WeblinkIntl_Aaron_Q3</td><td class="text-center" data-editable="true">FY27 Q3</td><td class="text-center" data-editable="true">3</td><td class="val-calc calc-b5 text-center" data-editable="true">$24,000</td><td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td></tr>
+                            <tr><td class="text-center" data-editable="true">8</td><td data-editable="true">Agent 建置與交付工廠模型</td><td data-editable="true">效能與採用率指標</td><td data-editable="true">WeblinkIntl_Aaron_Q4</td><td class="text-center" data-editable="true">FY27 Q4</td><td class="text-center" data-editable="true">1</td><td class="val-calc calc-b5 text-center" data-editable="true">$8,000</td><td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td></tr>
+                        </tbody>
+                        <tfoot id="tfoot-b5">
+                            <tr class="total-row">
+                                <td colspan="6" style="text-align:right;">投資總計</td>
+                                <td id="b5-total" class="total-highlight text-center">$153,000</td>
+                                <td class="td-action"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    <button class="btn-add" onclick="apfT_addRowB5()">+ 新增投資項目</button>
+                </div>
+            </div>
+
+            <!-- Block 6 -->
+            <div class="card">
+                <div class="card-header" style="background:#4b2c91;">
+                    <span class="num-badge" style="color:#4b2c91;">6</span> <span data-editable="true">資源配置 & 預算分配</span>
+                </div>
+                <div class="card-body">
+                    <p style="margin-bottom: 5px; color: #4b2c91; font-weight: bold; font-size:10px;" data-editable="true">兩位資源均須符合 Copilot ≥ 50% ‧ CSA 時間分配：Azure 20% / AI工作力 10% / AI流程 10% / 資安 10% / Copilot 50%</p>
+                    
+                    <div class="stats-row" style="margin-bottom: 10px; background:#f4f6f9;">
+                        <div style="font-weight:bold; color:var(--primary-blue); padding-right:10px; border-right:1px solid #ddd; font-size:10px;" data-editable="true">Partner Level CSA<br>時間分配 (兩位)</div>
+                        <div class="stat-item">
+                            <svg viewBox="0 0 24 24" fill="#0078D4"><path d="M17.5 19C19.98 19 22 16.98 22 14.5c0-2.31-1.74-4.2-4-4.46v-.04c0-3.31-2.69-6-6-6-2.91 0-5.34 2.08-5.9 4.84A4.5 4.5 0 0 0 2 13.5C2 15.98 4.02 18 6.5 18H17z"/></svg>
+                            <div>Azure<br><span data-editable="true">20%</span></div>
+                        </div>
+                        <div class="stat-item">
+                            <svg viewBox="0 0 24 24" fill="#0A2540"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                            <div>AI工作力<br><span data-editable="true">10%</span></div>
+                        </div>
+                        <div class="stat-item">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="#0A2540" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                            <div>AI流程<br><span data-editable="true">10%</span></div>
+                        </div>
+                        <div class="stat-item">
+                            <svg viewBox="0 0 24 24" fill="#0A2540"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 15h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>
+                            <div>資安<br><span data-editable="true">10%</span></div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-icon-copilot" style="width:16px; height:16px;"></div>
+                            <div>Copilot<br><span data-editable="true" style="color:var(--microsoft-red);">50%★</span></div>
+                        </div>
+                    </div>
+
+                    <div class="res-row">
+                        <div class="res-info">
+                            <div class="res-avatar" style="background:#673AB7;"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                            <div class="res-details">
+                                <strong data-editable="true" style="color:#673AB7;">WeblinkIntl_Lucas</strong>
+                                <span data-editable="true">資深技術主管 (Senior Technical Lead)</span><br>
+                                <span data-editable="true"><strong>方案：</strong>M365 Copilot 企業 Agent 服務包</span>
+                                <span data-editable="true"><strong>成果：</strong>合作夥伴服務與解決方案建立</span>
+                                <span data-editable="true"><strong>Badge：</strong>AI-103/AB-100/GH-300任一</span>
+                            </div>
+                        </div>
+                        <div class="res-grid" id="table-r1">
+                            <div class="res-col">
+                                <div class="res-header">Q1</div>
+                                <div class="res-val-month" data-editable="true">2 個月</div>
+                                <div class="res-val-amt val-calc calc-r1" data-editable="true">$18,000</div>
+                            </div>
+                            <div class="res-col">
+                                <div class="res-header">Q2</div>
+                                <div class="res-val-month" data-editable="true">3 個月</div>
+                                <div class="res-val-amt val-calc calc-r1" data-editable="true">$27,000</div>
+                            </div>
+                            <div class="res-col">
+                                <div class="res-header">Q3</div>
+                                <div class="res-val-month" data-editable="true">3 個月</div>
+                                <div class="res-val-amt val-calc calc-r1" data-editable="true">$27,000</div>
+                            </div>
+                            <div class="res-col">
+                                <div class="res-header">Q4</div>
+                                <div class="res-val-month" data-editable="true">1 個月</div>
+                                <div class="res-val-amt val-calc calc-r1" data-editable="true">$9,000</div>
+                            </div>
+                            <div class="res-col">
+                                <div class="res-total-label">合計投資：</div>
+                                <div class="res-total-amt" id="r1-total" style="color:#673AB7;">$81,000</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="res-row">
+                        <div class="res-info">
+                            <div class="res-avatar" style="background:#0078D4;"><svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+                            <div class="res-details">
+                                <strong data-editable="true" style="color:#0078D4;">WeblinkIntl_Aaron</strong>
+                                <span data-editable="true">首席技術主管 (Principal Technical Lead)</span><br>
+                                <span data-editable="true"><strong>方案：</strong>Azure AI Agent 工廠模型</span>
+                                <span data-editable="true"><strong>成果：</strong>Agent 建置與交付工廠模型</span>
+                                <span data-editable="true"><strong>Badge：</strong>AI-102/103/GH-300任一</span>
+                            </div>
+                        </div>
+                        <div class="res-grid" id="table-r2">
+                            <div class="res-col">
+                                <div class="res-header">Q1</div>
+                                <div class="res-val-month" data-editable="true">2 個月</div>
+                                <div class="res-val-amt val-calc calc-r2" data-editable="true">$16,000</div>
+                            </div>
+                            <div class="res-col">
+                                <div class="res-header">Q2</div>
+                                <div class="res-val-month" data-editable="true">3 個月</div>
+                                <div class="res-val-amt val-calc calc-r2" data-editable="true">$24,000</div>
+                            </div>
+                            <div class="res-col">
+                                <div class="res-header">Q3</div>
+                                <div class="res-val-month" data-editable="true">3 個月</div>
+                                <div class="res-val-amt val-calc calc-r2" data-editable="true">$24,000</div>
+                            </div>
+                            <div class="res-col">
+                                <div class="res-header">Q4</div>
+                                <div class="res-val-month" data-editable="true">1 個月</div>
+                                <div class="res-val-amt val-calc calc-r2" data-editable="true">$8,000</div>
+                            </div>
+                            <div class="res-col">
+                                <div class="res-total-label">合計投資：</div>
+                                <div class="res-total-amt" id="r2-total" style="color:#0078D4;">$72,000</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="b6-total-bar">
+                        總計 <span id="b6-global-total">$153,000</span> <span style="font-weight:normal; font-size:11px;">(Lucas <span id="b6-lucas-total">$81,000</span> + Aaron <span id="b6-aaron-total">$72,000</span>)</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Block 8 -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="num-badge">8</span> <span data-editable="true">POE 佐證對應表 | Proof of Execution Mapping</span>
+                </div>
+                <div class="card-body">
+                    <table id="table-b8" class="data-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 25%;" data-editable="true">前沿能力成果</th>
+                                <th style="width: 25%;" data-editable="true">成功指標</th>
+                                <th style="width: 35%;" data-editable="true">可接受的 POE 佐證</th>
+                                <th style="width: 15%;" data-editable="true">負責人</th>
+                                <th class="th-action"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td rowspan="3" data-editable="true" style="color:var(--primary-blue); font-weight:bold;">Agent 建置與交付工廠模型</td><td data-editable="true">Agent / 解決方案開發</td><td data-editable="true">完整系統架構圖、設計說明書、正式 Agent 規格文件。</td><td data-editable="true">Aaron (Q1)</td><td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td></tr>
+                            <tr><td data-editable="true">正式部署與規模化</td><td data-editable="true">實際環境部署紀錄、版本說明、正式環境運行截圖或影片。</td><td data-editable="true">Aaron (Q2)</td><td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td></tr>
+                            <tr><td data-editable="true">效能與採用率指標</td><td data-editable="true">交付客戶清單（含 Configuration 說明）、部署進度追蹤表、實際調用與使用量數據。</td><td data-editable="true">Aaron (Q3, Q4)</td><td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td></tr>
+                            <tr><td rowspan="4" data-editable="true" style="color:var(--microsoft-red); font-weight:bold;">合作夥伴服務與解決方案建立</td><td data-editable="true">服務定義與包裝</td><td data-editable="true">服務定義文件、價格模型、銷售提案簡報。</td><td data-editable="true">Lucas (Q1)</td><td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td></tr>
+                            <tr><td data-editable="true">服務啟動 (Marketplace上架)★</td><td data-editable="true">Microsoft Marketplace 產品上架 Listing 成功截圖、頁面公開連結。</td><td data-editable="true">Lucas (Q2)</td><td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td></tr>
+                            <tr><td data-editable="true">銷售賦能與執行</td><td data-editable="true">對內/對外銷售劇本 (Playbook)、GTM 行銷材料、活動執行紀錄。</td><td data-editable="true">Lucas (Q3)</td><td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td></tr>
+                            <tr><td data-editable="true">客戶 CSP 採用與商業化</td><td data-editable="true">客戶簽署之 SoW、正式合約、MBS 收入對帳單或發票憑證。</td><td data-editable="true">Lucas (Q4)</td><td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td></tr>
+                        </tbody>
+                    </table>
+                    <button class="btn-add" onclick="apfT_addRow('table-b8', 4, true)">+ 新增一列</button>
+                    <p style="margin-top: 6px; font-size:10px; color: var(--text-muted);" data-editable="true">★ 標記項目為本計畫之關鍵核心里程碑。</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 </div>
 
 <!-- ── TAB: Cert Tracker ─────────────────────────────────────── -->
@@ -3653,6 +4548,198 @@ function saveWtModal(id, isEdit){
   closeWtModal();
   renderWebtoolsTab();
 }
+
+// ─────────────────────────────────────────────────────────────
+// FY27 APF Transform Tab (apfT_ namespace)
+// ─────────────────────────────────────────────────────────────
+
+    // --- State Management ---
+    let apfT_isEditMode = false;
+
+    function apfT_toggleEditMode() {
+        apfT_isEditMode = !apfT_isEditMode;
+        document.getElementById('tab-apftransform').classList.toggle('apf-editing', apfT_isEditMode);
+        
+        const editables = document.querySelectorAll('[data-editable]');
+        editables.forEach(el => {
+            if(apfT_isEditMode) {
+                el.setAttribute('contenteditable', 'true');
+            } else {
+                el.removeAttribute('contenteditable');
+            }
+        });
+
+        const btn = document.getElementById('apf-editToggleBtn');
+        if(apfT_isEditMode) {
+            btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg><span>儲存並退出編輯模式</span>';
+            btn.classList.add('active');
+        } else {
+            btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right:4px;"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg><span>啟用編輯模式</span>';
+            btn.classList.remove('active');
+        }
+    }
+
+    // --- Dynamic DOM Elements ---
+    function apfT_removeEl(btn, selector) {
+        if(!apfT_isEditMode) return;
+        if(selector) {
+            btn.closest(selector).remove();
+        } else {
+            btn.parentElement.remove();
+        }
+        apfT_recalculateAll(); 
+    }
+
+    function apfT_removeRow(btn) {
+        if(!apfT_isEditMode) return;
+        btn.closest('tr').remove();
+        apfT_recalculateAll();
+    }
+
+    function apfT_addLi(listId) {
+        if(!apfT_isEditMode) return;
+        const ul = document.getElementById(listId);
+        const li = document.createElement('li');
+        li.innerHTML = `<div data-editable="true" contenteditable="true">輸入新內容...</div><button class="btn-del" onclick="apfT_removeEl(this)">✖</button>`;
+        ul.appendChild(li);
+    }
+
+    function apfT_addRow(tableId, colCount, hasTbody = false) {
+        if(!apfT_isEditMode) return;
+        const target = hasTbody ? document.querySelector(`#${tableId} tbody`) : document.querySelector(`#${tableId} tbody`) || document.getElementById(tableId);
+        const tr = document.createElement('tr');
+        let html = '';
+        for(let i=0; i<colCount; i++){
+            html += `<td data-editable="true" contenteditable="true">點擊編輯</td>`;
+        }
+        html += '<td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>';
+        tr.innerHTML = html;
+        target.appendChild(tr);
+    }
+    
+    function apfT_addRowB5() {
+        if(!apfT_isEditMode) return;
+        const target = document.querySelector(`#table-b5 tbody`);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td class="text-center" data-editable="true" contenteditable="true">新編號</td>
+            <td data-editable="true" contenteditable="true">方案建立</td>
+            <td data-editable="true" contenteditable="true">指標</td>
+            <td data-editable="true" contenteditable="true">ID</td>
+            <td class="text-center" data-editable="true" contenteditable="true">Q X</td>
+            <td class="text-center" data-editable="true" contenteditable="true">1</td>
+            <td class="val-calc calc-b5 text-center" data-editable="true" contenteditable="true">$0</td>
+            <td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>
+        `;
+        target.appendChild(tr);
+    }
+
+    function apfT_addPoeRow(tableId, calcClass) {
+        if(!apfT_isEditMode) return;
+        const target = document.querySelector(`#${tableId} tbody`);
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td class="poe-q-col" data-editable="true" contenteditable="true">QX</td>
+            <td data-editable="true" contenteditable="true"><strong>新任務名稱</strong><br>細節描述...</td>
+            <td class="poe-amt-col val-calc ${calcClass}" data-editable="true" contenteditable="true">$0 ‧ 1M</td>
+            <td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>
+        `;
+        target.appendChild(tr);
+    }
+
+    function apfT_addScenario(gridId) {
+        if(!apfT_isEditMode) return;
+        const grid = document.getElementById(gridId);
+        const div = document.createElement('div');
+        div.className = 'scenario-box';
+        div.innerHTML = `
+            <button class="btn-del" style="position:absolute; right:5px; top:5px;" onclick="apfT_removeEl(this, '.scenario-box')">✖</button>
+            <h5 style="color:#0A2540;"><span data-editable="true" contenteditable="true">新情境名稱</span></h5>
+            <p style="font-size:9px; color:var(--text-muted);" data-editable="true" contenteditable="true">描述內容...<br><strong>目標：</strong>...</p>
+        `;
+        grid.appendChild(div);
+    }
+
+    // --- Auto Calculation Logic ---
+    function apfT_extractNumber(str) {
+        const val = str.split('‧')[0]; 
+        let num = parseFloat(val.replace(/[^0-9.-]+/g,"")) || 0;
+        if(val.toLowerCase().includes('k')) num *= 1000;
+        return num;
+    }
+    
+    function apfT_formatNumber(num) {
+        return '$' + num.toLocaleString('en-US');
+    }
+
+    function apfT_sumByClass(className) {
+        let total = 0;
+        document.querySelectorAll('.' + className).forEach(cell => {
+            total += apfT_extractNumber(cell.innerText);
+        });
+        return total;
+    }
+
+    function apfT_recalculateAll() {
+        // Block 5 controls the global total
+        const totalB5 = apfT_sumByClass('calc-b5');
+        document.getElementById('b5-total').innerText = apfT_formatNumber(totalB5);
+        document.getElementById('global-total-1').innerText = apfT_formatNumber(totalB5);
+        document.getElementById('global-total-2').innerText = apfT_formatNumber(totalB5);
+        document.getElementById('b6-global-total').innerText = apfT_formatNumber(totalB5);
+        document.getElementById('b1-invest').innerText = apfT_formatNumber(totalB5);
+        document.getElementById('b7-global-total').innerText = apfT_formatNumber(totalB5);
+
+        // Block 6 controls individual Resource totals and their Block 3/4 headers + Block 7 rows
+        const totalR1 = apfT_sumByClass('calc-r1');
+        document.getElementById('r1-total').innerText = apfT_formatNumber(totalR1);
+        document.getElementById('b6-lucas-total').innerText = apfT_formatNumber(totalR1);
+        document.getElementById('b7-lucas-total').innerText = apfT_formatNumber(totalR1);
+
+        const totalR2 = apfT_sumByClass('calc-r2');
+        document.getElementById('r2-total').innerText = apfT_formatNumber(totalR2);
+        document.getElementById('b6-aaron-total').innerText = apfT_formatNumber(totalR2);
+        document.getElementById('b7-aaron-total').innerText = apfT_formatNumber(totalR2);
+
+        // Block 3 POE logic
+        const totalB3 = apfT_sumByClass('calc-b3');
+        document.getElementById('b3-inv').innerText = apfT_formatNumber(totalB3);
+
+        // Block 4 POE logic
+        const totalB4 = apfT_sumByClass('calc-b4');
+        document.getElementById('b4-inv').innerText = apfT_formatNumber(totalB4);
+    }
+
+    document.addEventListener('input', function(e) { if(!e.target.closest('#tab-apftransform')) return;
+        if (!apfT_isEditMode) return;
+        if (e.target.classList.contains('val-calc')) {
+            apfT_recalculateAll();
+        }
+    });
+
+    // --- Save File Logic ---
+    function apfT_saveDocument() {
+        if(apfT_isEditMode) {
+            apfT_toggleEditMode();
+        }
+        
+        const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+        const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        
+        const dateStr = new Date().toISOString().slice(0,10);
+        a.download = `Business_Plan_Perfected_${dateStr}.html`;
+        
+        document.body.appendChild(a);
+        a.click();
+        
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+
+
 </script>
 </body>
 </html>
