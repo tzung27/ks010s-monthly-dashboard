@@ -2276,6 +2276,7 @@ tr:hover .iur-edit-btn{opacity:1}
           <th class="fte-name-col"><span class="fte-sub" data-editable="true">Lucas</span><span data-editable="true">FTE03</span></th>
           <th class="fte-name-col"><span class="fte-sub" data-editable="true">Eric</span><span data-editable="true">FTE04</span></th>
           <th class="fte-name-col"><span class="fte-sub" data-editable="true">Guo</span><span data-editable="true">FTE05</span></th>
+          <th class="th-action"></th>
         </tr>
       </thead>
       <tbody>
@@ -2293,6 +2294,7 @@ tr:hover .iur-edit-btn{opacity:1}
           <td class="badge-cell"><div class="fte-badge ph1" data-editable="true">必修</div></td>
           <td class="badge-cell"><div class="fte-badge ph1" data-editable="true">必修</div></td>
           <td class="badge-cell"><div class="fte-badge ph1" data-editable="true">必修</div></td>
+          <td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>
         </tr>
         <tr class="row-ph1 row-ph1-b">
           <td class="phase-cell" data-editable="true">Phase 1</td>
@@ -2307,6 +2309,7 @@ tr:hover .iur-edit-btn{opacity:1}
           <td class="badge-cell"><div class="fte-badge ph1" data-editable="true">必修</div></td>
           <td class="badge-cell"><div class="fte-badge ph1" data-editable="true">必修</div></td>
           <td class="badge-cell"><div class="fte-badge ph1" data-editable="true">必修</div></td>
+          <td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>
         </tr>
         <tr class="row-ph1 row-ph1-a">
           <td class="phase-cell" data-editable="true">Phase 1</td>
@@ -2321,9 +2324,11 @@ tr:hover .iur-edit-btn{opacity:1}
           <td class="badge-cell"><div class="fte-badge ph1" data-editable="true">必修</div></td>
           <td class="badge-cell"><div class="fte-badge ph1" data-editable="true">必修</div></td>
           <td class="badge-cell"><div class="fte-badge ph1" data-editable="true">必修</div></td>
+          <td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>
         </tr>
+        <tr class="add-row"><td colspan="10" style="padding:2px 0;"><button class="btn-add" onclick="apfFte_addRow(this,'ph1')" style="margin:0 auto;">＋ 新增 Phase 1 任務</button></td></tr>
         <!-- Phase separator -->
-        <tr class="phase-sep"><td colspan="9"></td></tr>
+        <tr class="phase-sep"><td colspan="10"></td></tr>
         <!-- Phase 2 -->
         <tr class="row-ph2 row-ph2-a">
           <td class="phase-cell" data-editable="true">Phase 2</td>
@@ -2338,6 +2343,7 @@ tr:hover .iur-edit-btn{opacity:1}
           <td class="badge-cell"><div class="fte-badge ph2" data-editable="true">必修</div></td>
           <td class="badge-cell"><div class="fte-badge ph2" data-editable="true">必修</div></td>
           <td class="badge-cell"><div class="fte-badge ph2" data-editable="true">必修</div></td>
+          <td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>
         </tr>
         <tr class="row-ph2 row-ph2-b">
           <td class="phase-cell" data-editable="true">Phase 2</td>
@@ -2352,6 +2358,7 @@ tr:hover .iur-edit-btn{opacity:1}
           <td class="badge-cell"><div class="fte-badge ph2" data-editable="true">必修</div></td>
           <td class="badge-cell"><div class="fte-badge ph2" data-editable="true">必修</div></td>
           <td class="badge-cell"><div class="fte-badge ph2" data-editable="true">必修</div></td>
+          <td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>
         </tr>
         <tr class="row-ph2 row-ph2-a">
           <td class="phase-cell" data-editable="true">Phase 2</td>
@@ -2366,9 +2373,11 @@ tr:hover .iur-edit-btn{opacity:1}
           <td class="badge-cell"><div class="fte-badge ph2" data-editable="true">必修</div></td>
           <td class="badge-cell"><div class="fte-badge ph2" data-editable="true">必修</div></td>
           <td class="badge-cell"><div class="fte-badge ph2" data-editable="true">必修</div></td>
+          <td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>
         </tr>
+        <tr class="add-row"><td colspan="10" style="padding:2px 0;"><button class="btn-add" onclick="apfFte_addRow(this,'ph2')" style="margin:0 auto;">＋ 新增 Phase 2 任務</button></td></tr>
         <!-- Phase 3 separator -->
-        <tr class="phase-sep-3"><td colspan="9"></td></tr>
+        <tr class="phase-sep-3"><td colspan="10"></td></tr>
         <!-- Phase 3 -->
         <tr class="row-ph3 row-ph3-a">
           <td class="phase-cell" data-editable="true">Phase 3</td>
@@ -2383,6 +2392,7 @@ tr:hover .iur-edit-btn{opacity:1}
           <td class="badge-cell"><div class="fte-badge ph3" data-editable="true">必修</div></td>
           <td class="badge-cell"><div class="fte-badge ph3" data-editable="true">必修</div></td>
           <td class="badge-cell"><div class="fte-badge ph3" data-editable="true">必修</div></td>
+          <td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>
         </tr>
         <tr class="row-badge">
           <td class="phase-cell" data-editable="true">Phase 3</td>
@@ -2397,7 +2407,9 @@ tr:hover .iur-edit-btn{opacity:1}
           <td class="badge-cell"><div class="fte-badge goal" data-editable="true">目標</div></td>
           <td class="badge-cell"><div class="fte-badge goal" data-editable="true">目標</div></td>
           <td class="badge-cell"><div class="fte-badge goal" data-editable="true">目標</div></td>
+          <td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>
         </tr>
+        <tr class="add-row"><td colspan="10" style="padding:2px 0;"><button class="btn-add" onclick="apfFte_addRow(this,'ph3')" style="margin:0 auto;">＋ 新增 Phase 3 任務</button></td></tr>
       </tbody>
     </table>
   </div>
@@ -5794,6 +5806,7 @@ function saveWtModal(id, isEdit){
         apfT_isEditMode = !apfT_isEditMode;
         document.getElementById('tab-apftransform').classList.toggle('apf-editing', apfT_isEditMode);
         
+        if(apfT_isEditMode) { apfT_injectDelButtons(); }
         const editables = document.querySelectorAll('[data-editable]');
         editables.forEach(el => {
             if(apfT_isEditMode) {
@@ -5834,6 +5847,76 @@ function saveWtModal(id, isEdit){
         btn.closest('tr').remove();
         apfT_recalculateAll();
     }
+
+    function apfT_injectDelButtons() {
+        // Auto-inject btn-del to existing arch/invest items that don't have one
+        var tab = document.getElementById('tab-apftransform');
+        tab.querySelectorAll('.tech-card').forEach(function(el) {
+            if (el.querySelector('.btn-del')) return;
+            var b = document.createElement('button');
+            b.className = 'btn-del';
+            b.textContent = '✖ 刪除';
+            b.style.cssText = 'display:block;width:calc(100% - 16px);margin:4px 8px 2px;';
+            b.setAttribute('onclick', "apfT_removeEl(this,'.tech-card')");
+            el.appendChild(b);
+        });
+        tab.querySelectorAll('.sc-card').forEach(function(el) {
+            if (el.querySelector('.btn-del')) return;
+            var b = document.createElement('button');
+            b.className = 'btn-del';
+            b.textContent = '✖ 刪除';
+            b.style.cssText = 'display:block;width:calc(100% - 16px);margin:4px 8px 2px;';
+            b.setAttribute('onclick', "apfT_removeEl(this,'.sc-card')");
+            el.appendChild(b);
+        });
+        tab.querySelectorAll('.gantt-row').forEach(function(el) {
+            if (el.querySelector('.btn-del')) return;
+            var b = document.createElement('button');
+            b.className = 'btn-del';
+            b.textContent = '✖';
+            b.style.cssText = 'flex-shrink:0;height:22px;margin-left:4px;';
+            b.setAttribute('onclick', "apfT_removeEl(this,'.gantt-row')");
+            el.appendChild(b);
+        });
+        tab.querySelectorAll('.invest-card').forEach(function(el) {
+            if (el.querySelector('.btn-del')) return;
+            var b = document.createElement('button');
+            b.className = 'btn-del';
+            b.textContent = '✖ 刪除';
+            b.style.cssText = 'display:block;width:calc(100% - 16px);margin:4px 8px 2px;';
+            b.setAttribute('onclick', "apfT_removeEl(this,'.invest-card')");
+            el.appendChild(b);
+        });
+        tab.querySelectorAll('.kpi-item').forEach(function(el) {
+            if (el.querySelector('.btn-del')) return;
+            var b = document.createElement('button');
+            b.className = 'btn-del';
+            b.textContent = '✖';
+            b.style.cssText = 'margin-left:4px;vertical-align:middle;';
+            b.setAttribute('onclick', "apfT_removeEl(this,'.kpi-item')");
+            el.appendChild(b);
+        });
+    }
+
+    function apfFte_addRow(btn, phaseClass) {
+        if (!apfT_isEditMode) return;
+        var phaseNum = phaseClass === 'ph1' ? '1' : phaseClass === 'ph2' ? '2' : '3';
+        var tr = document.createElement('tr');
+        tr.className = 'row-' + phaseClass + ' row-' + phaseClass + '-a';
+        tr.innerHTML = '<td class="phase-cell" data-editable="true" contenteditable="true">Phase ' + phaseNum + '</td>'
+            + '<td class="task-cell"><span class="task-title" data-editable="true" contenteditable="true">新任務名稱</span>'
+            + '<span class="task-desc" data-editable="true" contenteditable="true">說明</span></td>'
+            + '<td class="fte-host" data-editable="true" contenteditable="true">平台</td>'
+            + '<td class="url-cell" data-editable="true" contenteditable="true">連結</td>'
+            + '<td class="badge-cell"><div class="fte-badge ' + phaseClass + '" data-editable="true" contenteditable="true">必修</div></td>'
+            + '<td class="badge-cell"><div class="fte-badge ' + phaseClass + '" data-editable="true" contenteditable="true">必修</div></td>'
+            + '<td class="badge-cell"><div class="fte-badge ' + phaseClass + '" data-editable="true" contenteditable="true">必修</div></td>'
+            + '<td class="badge-cell"><div class="fte-badge ' + phaseClass + '" data-editable="true" contenteditable="true">必修</div></td>'
+            + '<td class="badge-cell"><div class="fte-badge ' + phaseClass + '" data-editable="true" contenteditable="true">必修</div></td>'
+            + '<td class="td-action"><button class="btn-del" onclick="apfT_removeRow(this)">✖</button></td>';
+        btn.closest('tr').parentNode.insertBefore(tr, btn.closest('tr'));
+    }
+
 
     function apfT_addLi(listId) {
         if(!apfT_isEditMode) return;
@@ -5907,7 +5990,7 @@ function saveWtModal(id, isEdit){
         arrowEl.textContent = '→';
         var card = document.createElement('div');
         card.className = 'tech-card' + (colorClass ? ' ' + colorClass : '');
-        card.innerHTML = '<div class="tech-card-hdr' + (colorClass ? ' ' + colorClass : '') + '" data-editable="true" contenteditable="true">新元件</div><div class="tech-card-body"><div data-editable="true" contenteditable="true">功能說明</div></div>';
+        card.innerHTML = '<div class="tech-card-hdr' + (colorClass ? ' ' + colorClass : '') + '" data-editable="true" contenteditable="true">新元件</div><div class="tech-card-body"><div data-editable="true" contenteditable="true">功能說明</div></div><button class="btn-del" onclick="apfT_removeEl(this,\'.tech-card\')">✖ 刪除</button>';
         stack.insertBefore(arrowEl, btn);
         stack.insertBefore(card, btn);
     }
@@ -5917,21 +6000,21 @@ function saveWtModal(id, isEdit){
         var resCard = scenarios.querySelector('.res-card');
         var card = document.createElement('div');
         card.className = 'sc-card' + (colorClass ? ' ' + colorClass : '');
-        card.innerHTML = '<div class="sc-card-hdr' + (colorClass ? ' ' + colorClass : '') + '" data-editable="true" contenteditable="true">新情境</div><div class="sc-card-body"><div data-editable="true" contenteditable="true">說明內容</div><div class="sc-goal' + (colorClass ? ' ' + colorClass : '') + '" data-editable="true" contenteditable="true">目標：</div></div>';
+        card.innerHTML = '<div class="sc-card-hdr' + (colorClass ? ' ' + colorClass : '') + '" data-editable="true" contenteditable="true">新情境</div><div class="sc-card-body"><div data-editable="true" contenteditable="true">說明內容</div><div class="sc-goal' + (colorClass ? ' ' + colorClass : '') + '" data-editable="true" contenteditable="true">目標：</div><button class="btn-del" onclick="apfT_removeEl(this,\'.sc-card\')">✖ 刪除</button></div>';
         scenarios.insertBefore(card, resCard);
     }
     function apfArch_addGanttRow(btn, colorClass) {
         if (!apfT_isEditMode) return;
         var row = document.createElement('div');
         row.className = 'gantt-row';
-        row.innerHTML = '<div class="gantt-label" data-editable="true" contenteditable="true">新任務</div><div class="gantt-bars"><div class="gantt-vline-q3"></div><div class="gantt-bar ' + (colorClass || 'dark') + '" style="left:0%;width:27%;" data-editable="true" contenteditable="true">說明  ·  $0  ·  1M</div></div>';
+        row.innerHTML = '<div class="gantt-label" data-editable="true" contenteditable="true">新任務</div><div class="gantt-bars"><div class="gantt-vline-q3"></div><div class="gantt-bar ' + (colorClass || 'dark') + '" style="left:0%;width:27%;" data-editable="true" contenteditable="true">說明  ·  $0  ·  1M</div></div><button class="btn-del" onclick="apfT_removeEl(this,\'.gantt-row\')">✖</button>';
         btn.parentNode.insertBefore(row, btn);
     }
     function apfInvest_addCard(btn, colorClass) {
         if (!apfT_isEditMode) return;
         var card = document.createElement('div');
         card.className = 'invest-card ' + colorClass;
-        card.innerHTML = '<div class="invest-card-title ' + colorClass + '" data-editable="true" contenteditable="true">新項目</div><div class="invest-card-desc ' + colorClass + '" data-editable="true" contenteditable="true">說明</div>';
+        card.innerHTML = '<div class="invest-card-title ' + colorClass + '" data-editable="true" contenteditable="true">新項目</div><div class="invest-card-desc ' + colorClass + '" data-editable="true" contenteditable="true">說明</div><button class="btn-del" onclick="apfT_removeEl(this,\'.invest-card\')">✖ 刪除</button>';
         btn.parentNode.insertBefore(card, btn);
     }
     function apfInvest_addKpi(btn) {
@@ -5940,7 +6023,7 @@ function saveWtModal(id, isEdit){
         item.className = 'kpi-item';
         item.setAttribute('data-editable', 'true');
         item.setAttribute('contenteditable', 'true');
-        item.textContent = '新 KPI 指標';
+        item.innerHTML = '新 KPI 指標 <button class="btn-del" onclick="apfT_removeEl(this,\'.kpi-item\')">✖</button>';
         btn.parentNode.insertBefore(item, btn);
     }
 
