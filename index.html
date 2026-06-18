@@ -951,6 +951,13 @@ tr:hover .iur-edit-btn{opacity:1}
 #tab-apftransform .res-grid { overflow: visible !important; flex: 1 1 auto; min-width: 0; }
 #tab-apftransform .res-col:last-child { min-width: 90px; padding: 8px 12px; overflow: visible; }
 #tab-apftransform .res-total-amt { font-size: 13px !important; white-space: nowrap; }
+
+/* === Block 6 overflow fix === */
+#tab-apftransform .card { overflow: visible !important; }
+#tab-apftransform .res-row { overflow: visible !important; flex-wrap: nowrap; }
+#tab-apftransform .res-grid { overflow: visible !important; grid-template-columns: repeat(4, 1fr) minmax(110px, auto) !important; }
+#tab-apftransform .res-col:last-child { min-width: 110px; padding: 8px 14px; overflow: visible; flex-shrink: 0; }
+#tab-apftransform .res-total-amt { white-space: nowrap; font-size: 14px !important; }
 </style>
 <div style="display:flex;gap:8px;margin-bottom:12px;justify-content:flex-end;padding:8px;background:#fff;border-radius:6px;border:1px solid #ddd;">
     <button class="toolbar-btn btn-toggle-edit" onclick="apfT_toggleEditMode()" id="apf-editToggleBtn" style="padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-weight:bold;display:flex;align-items:center;gap:6px;font-size:12px;color:white;background:#0A2540;">
