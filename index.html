@@ -958,7 +958,24 @@ tr:hover .iur-edit-btn{opacity:1}
 #tab-apftransform .res-grid { overflow: visible !important; grid-template-columns: repeat(4, 1fr) minmax(110px, auto) !important; }
 #tab-apftransform .res-col:last-child { min-width: 110px; padding: 8px 14px; overflow: visible; flex-shrink: 0; }
 #tab-apftransform .res-total-amt { white-space: nowrap; font-size: 14px !important; }
+
+/* === APF Sub-tabs === */
+#tab-apftransform .apf-subtab-nav { display:flex; gap:4px; padding:8px 0 0; margin-bottom:12px; border-bottom:2px solid #e2e8f0; flex-wrap:wrap; }
+#tab-apftransform .apf-subtab-btn { padding:6px 16px; border:none; background:#f1f5f9; color:#475569; border-radius:6px 6px 0 0; cursor:pointer; font-size:12px; font-weight:600; transition:all .2s; border-bottom:2px solid transparent; margin-bottom:-2px; }
+#tab-apftransform .apf-subtab-btn:hover { background:#e2e8f0; color:#1e293b; }
+#tab-apftransform .apf-subtab-btn.active { background:#fff; color:#0A2540; border-color:#0A2540; }
+#tab-apftransform .apf-subtab-panel { display:none; }
+#tab-apftransform .apf-subtab-panel.active { display:block; }
+#tab-apftransform .apf-svg-wrap { width:100%; overflow-x:auto; background:#fff; border-radius:8px; padding:12px; border:1px solid #e2e8f0; }
+#tab-apftransform .apf-svg-wrap svg { width:100%; height:auto; display:block; }
+
 </style>
+<div class="apf-subtab-nav">
+  <button class="apf-subtab-btn active" onclick="apfSwitchSubtab('apf-sub-plan',this)">📋 業務計畫</button>
+  <button class="apf-subtab-btn" onclick="apfSwitchSubtab('apf-sub-timeline',this)">📅 SPF Task Timeline</button>
+  <button class="apf-subtab-btn" onclick="apfSwitchSubtab('apf-sub-fte',this)">📊 FTE 任務分配與期程</button>
+</div>
+<div id="apf-sub-plan" class="apf-subtab-panel active">
 <div style="display:flex;gap:8px;margin-bottom:12px;justify-content:flex-end;padding:8px;background:#fff;border-radius:6px;border:1px solid #ddd;">
     <button class="toolbar-btn btn-toggle-edit" onclick="apfT_toggleEditMode()" id="apf-editToggleBtn" style="padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-weight:bold;display:flex;align-items:center;gap:6px;font-size:12px;color:white;background:#0A2540;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
@@ -1679,6 +1696,523 @@ tr:hover .iur-edit-btn{opacity:1}
     </div>
 </div>
 </div>
+</div>
+<div id="apf-sub-timeline" class="apf-subtab-panel">
+  <div class="apf-svg-wrap">
+    <svg width="100%" viewBox="0 0 680 540" role="img" style="" xmlns="http://www.w3.org/2000/svg">
+<title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">FY27 SPF Transform 任務配置與期程圖</title>
+<desc style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">從 6/17 到 9/30 的四個關鍵里程碑，以及對應的負責角色與任務分工</desc>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+
+<text x="340" y="32" text-anchor="middle" dominant-baseline="central" style="fill:rgb(20, 20, 19);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central">任務配置與關鍵期程</text>
+<text x="340" y="50" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">FY27 Transform Business Plan · FY27/7/1 – 9/30</text>
+
+
+<line x1="60" y1="102" x2="620" y2="102" stroke="var(--b)" stroke-width="1.5" opacity="0.25" style="fill:rgb(0, 0, 0);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:1.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.25;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+
+
+
+<circle cx="90" cy="102" r="9" stroke-width="0.5" style="fill:rgb(225, 245, 238);stroke:rgb(15, 110, 86);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="90" y="79" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">6/23</text>
+<text x="90" y="64" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">週二</text>
+<line x1="90" y1="111" x2="90" y2="128" stroke="var(--b)" stroke-width="0.5" opacity="0.4" style="fill:rgb(0, 0, 0);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.4;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+
+<circle cx="250" cy="102" r="9" stroke-width="0.5" style="fill:rgb(250, 236, 231);stroke:rgb(153, 60, 29);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="250" y="79" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">7/1</text>
+<text x="250" y="64" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">週</text>
+<line x1="250" y1="111" x2="250" y2="128" stroke="var(--b)" stroke-width="0.5" opacity="0.4" style="fill:rgb(0, 0, 0);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.4;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+
+<circle cx="430" cy="102" r="11" stroke-width="0.5" style="fill:rgb(250, 238, 218);stroke:rgb(133, 79, 11);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="430" y="79" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">7/31</text>
+<line x1="430" y1="113" x2="430" y2="128" stroke="var(--b)" stroke-width="0.5" opacity="0.4" style="fill:rgb(0, 0, 0);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.4;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+
+<circle cx="590" cy="102" r="11" stroke-width="0.5" style="fill:rgb(238, 237, 254);stroke:rgb(83, 74, 183);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="590" y="79" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">9/30</text>
+<line x1="590" y1="113" x2="590" y2="128" stroke="var(--b)" stroke-width="0.5" opacity="0.4" style="fill:rgb(0, 0, 0);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.4;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+
+<line x1="60" y1="102" x2="90" y2="102" stroke="var(--t)" stroke-width="2.5" opacity="0.5" style="fill:rgb(0, 0, 0);stroke:rgb(115, 114, 108);color:rgb(0, 0, 0);stroke-width:2.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.5;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+
+<g style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">
+  <rect x="30" y="130" width="160" height="118" rx="10" stroke-width="0.5" style="fill:rgb(225, 245, 238);stroke:rgb(15, 110, 86);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <rect x="30" y="130" width="160" height="34" rx="10" stroke-width="0" style="fill:rgb(225, 245, 238);stroke:rgb(15, 110, 86);color:rgb(0, 0, 0);stroke-width:0px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <rect x="30" y="148" width="160" height="16" stroke-width="0" style="fill:rgb(225, 245, 238);stroke:rgb(15, 110, 86);color:rgb(0, 0, 0);stroke-width:0px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="110" y="150" text-anchor="middle" dominant-baseline="central" style="fill:rgb(8, 80, 65);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central">初步想法提交</text>
+</g>
+<text x="42" y="178" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:central">負責：Partner 團隊</text>
+<text x="42" y="196" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:central">+ Cindy Wu</text>
+<rect x="42" y="208" width="136" height="0.5" fill="none" stroke="var(--b)" stroke-width="0.5" opacity="0.3" style="fill:none;stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.3;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="42" y="222" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:central">· 三大方向初稿</text>
+<text x="42" y="238" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:central">· 與 Allen Chung 討論</text>
+
+
+<g style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">
+  <rect x="170" y="130" width="160" height="118" rx="10" stroke-width="0.5" style="fill:rgb(250, 236, 231);stroke:rgb(153, 60, 29);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <rect x="170" y="130" width="160" height="34" rx="10" stroke-width="0" style="fill:rgb(250, 236, 231);stroke:rgb(153, 60, 29);color:rgb(0, 0, 0);stroke-width:0px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <rect x="170" y="148" width="160" height="16" stroke-width="0" style="fill:rgb(250, 236, 231);stroke:rgb(153, 60, 29);color:rgb(0, 0, 0);stroke-width:0px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="250" y="150" text-anchor="middle" dominant-baseline="central" style="fill:rgb(113, 43, 19);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central">MS QC Feedback</text>
+</g>
+<text x="182" y="178" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:central">負責：Microsoft PDM</text>
+<text x="182" y="196" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:central">+ Partner</text>
+<rect x="182" y="208" width="136" height="0.5" fill="none" stroke="var(--b)" stroke-width="0.5" opacity="0.3" style="fill:none;stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.3;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="182" y="222" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:central">· QC 意見回饋開始</text>
+<text x="182" y="238" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:central">· 鼓勵提前提交</text>
+
+
+<g style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">
+  <rect x="350" y="130" width="160" height="118" rx="10" stroke-width="0.5" style="fill:rgb(250, 238, 218);stroke:rgb(133, 79, 11);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <rect x="350" y="130" width="160" height="34" rx="10" stroke-width="0" style="fill:rgb(250, 238, 218);stroke:rgb(133, 79, 11);color:rgb(0, 0, 0);stroke-width:0px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <rect x="350" y="148" width="160" height="16" stroke-width="0" style="fill:rgb(250, 238, 218);stroke:rgb(133, 79, 11);color:rgb(0, 0, 0);stroke-width:0px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="430" y="150" text-anchor="middle" dominant-baseline="central" style="fill:rgb(99, 56, 6);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central">Transform 計畫截止</text>
+</g>
+<text x="362" y="178" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:central">負責：Partner</text>
+<rect x="362" y="208" width="136" height="0.5" fill="none" stroke="var(--b)" stroke-width="0.5" opacity="0.3" style="fill:none;stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.3;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="362" y="222" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:central">· Biz Plan 最終版</text>
+<text x="362" y="238" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:central">· Transform 合約簽署</text>
+
+
+<g style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">
+  <rect x="510" y="130" width="150" height="118" rx="10" stroke-width="0.5" style="fill:rgb(238, 237, 254);stroke:rgb(83, 74, 183);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <rect x="510" y="130" width="150" height="34" rx="10" stroke-width="0" style="fill:rgb(238, 237, 254);stroke:rgb(83, 74, 183);color:rgb(0, 0, 0);stroke-width:0px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <rect x="510" y="148" width="150" height="16" stroke-width="0" style="fill:rgb(238, 237, 254);stroke:rgb(83, 74, 183);color:rgb(0, 0, 0);stroke-width:0px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+  <text x="585" y="150" text-anchor="middle" dominant-baseline="central" style="fill:rgb(60, 52, 137);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central">Perform 合約截止</text>
+</g>
+<text x="522" y="178" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:central">負責：Partner</text>
+<rect x="522" y="208" width="126" height="0.5" fill="none" stroke="var(--b)" stroke-width="0.5" opacity="0.3" style="fill:none;stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.3;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="522" y="222" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:central">· Perform 合約簽署</text>
+<text x="522" y="238" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:start;dominant-baseline:central">· 追溯至 2026/7/1</text>
+
+
+<line x1="30" y1="270" x2="650" y2="270" stroke="var(--b)" stroke-width="0.5" opacity="0.2" style="fill:rgb(0, 0, 0);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.2;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+
+<text x="340" y="292" text-anchor="middle" dominant-baseline="central" style="fill:rgb(20, 20, 19);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central">責任分工矩陣</text>
+
+
+<rect x="30" y="308" width="116" height="30" rx="6" stroke-width="0.5" style="fill:rgb(241, 239, 232);stroke:rgb(95, 94, 90);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="88" y="323" text-anchor="middle" dominant-baseline="central" style="fill:rgb(20, 20, 19);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central">角色</text>
+
+<rect x="156" y="308" width="108" height="30" rx="6" stroke-width="0.5" style="fill:rgb(225, 245, 238);stroke:rgb(15, 110, 86);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="210" y="323" text-anchor="middle" dominant-baseline="central" style="fill:rgb(20, 20, 19);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central">6/23</text>
+
+<rect x="274" y="308" width="108" height="30" rx="6" stroke-width="0.5" style="fill:rgb(250, 236, 231);stroke:rgb(153, 60, 29);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="328" y="323" text-anchor="middle" dominant-baseline="central" style="fill:rgb(20, 20, 19);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central">6/30</text>
+
+<rect x="392" y="308" width="108" height="30" rx="6" stroke-width="0.5" style="fill:rgb(250, 238, 218);stroke:rgb(133, 79, 11);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="446" y="323" text-anchor="middle" dominant-baseline="central" style="fill:rgb(20, 20, 19);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central">7/31</text>
+
+<rect x="510" y="308" width="140" height="30" rx="6" stroke-width="0.5" style="fill:rgb(238, 237, 254);stroke:rgb(83, 74, 183);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="580" y="323" text-anchor="middle" dominant-baseline="central" style="fill:rgb(20, 20, 19);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:14px;font-weight:500;text-anchor:middle;dominant-baseline:central">9/30</text>
+
+
+<rect x="30" y="348" width="116" height="36" rx="6" fill="var(--bg2)" stroke="var(--b)" stroke-width="0.5" style="fill:rgb(245, 244, 237);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="88" y="366" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">Partner 內部</text>
+
+<rect x="156" y="348" width="108" height="36" rx="6" fill="var(--bg2)" stroke="var(--b)" stroke-width="0.5" style="fill:rgb(245, 244, 237);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="210" y="357" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">三大方向初稿</text>
+<text x="210" y="374" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">討論與確認</text>
+
+<rect x="274" y="348" width="108" height="36" rx="6" fill="var(--bg2)" stroke="var(--b)" stroke-width="0.5" opacity="0.3" style="fill:rgb(245, 244, 237);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.3;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="328" y="366" text-anchor="middle" dominant-baseline="central" opacity="0.35" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.35;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">—</text>
+
+<rect x="392" y="348" width="108" height="36" rx="6" fill="var(--bg2)" stroke="var(--b)" stroke-width="0.5" style="fill:rgb(245, 244, 237);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="446" y="357" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">Biz Plan</text>
+<text x="446" y="374" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">最終提交</text>
+
+<rect x="510" y="348" width="140" height="36" rx="6" fill="var(--bg2)" stroke="var(--b)" stroke-width="0.5" style="fill:rgb(245, 244, 237);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="580" y="357" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">Perform 合約</text>
+<text x="580" y="374" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">簽署</text>
+
+
+<rect x="30" y="394" width="116" height="36" rx="6" fill="var(--bg2)" stroke="var(--b)" stroke-width="0.5" style="fill:rgb(245, 244, 237);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="88" y="403" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">Cindy Wu</text>
+<text x="88" y="420" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">PDM</text>
+
+<rect x="156" y="394" width="108" height="36" rx="6" fill="var(--bg2)" stroke="var(--b)" stroke-width="0.5" style="fill:rgb(245, 244, 237);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="210" y="403" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">集合討論</text>
+<text x="210" y="420" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">提供指導</text>
+
+<rect x="274" y="394" width="108" height="36" rx="6" fill="var(--bg2)" stroke="var(--b)" stroke-width="0.5" opacity="0.3" style="fill:rgb(245, 244, 237);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.3;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="328" y="412" text-anchor="middle" dominant-baseline="central" opacity="0.35" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.35;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">—</text>
+
+<rect x="392" y="394" width="108" height="36" rx="6" fill="var(--bg2)" stroke="var(--b)" stroke-width="0.5" style="fill:rgb(245, 244, 237);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="446" y="403" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">QC review</text>
+<text x="446" y="420" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">意見回饋</text>
+
+<rect x="510" y="394" width="140" height="36" rx="6" fill="var(--bg2)" stroke="var(--b)" stroke-width="0.5" opacity="0.3" style="fill:rgb(245, 244, 237);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.3;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="580" y="412" text-anchor="middle" dominant-baseline="central" opacity="0.35" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.35;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">—</text>
+
+
+<rect x="30" y="440" width="116" height="36" rx="6" fill="var(--bg2)" stroke="var(--b)" stroke-width="0.5" style="fill:rgb(245, 244, 237);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="88" y="449" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">Partner</text>
+<text x="88" y="466" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">法務</text>
+
+<rect x="156" y="440" width="108" height="36" rx="6" fill="var(--bg2)" stroke="var(--b)" stroke-width="0.5" opacity="0.3" style="fill:rgb(245, 244, 237);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.3;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="210" y="458" text-anchor="middle" dominant-baseline="central" opacity="0.35" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.35;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">—</text>
+
+<rect x="274" y="440" width="108" height="36" rx="6" fill="var(--bg2)" stroke="var(--b)" stroke-width="0.5" style="fill:rgb(245, 244, 237);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="328" y="449" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">SPF 草約</text>
+<text x="328" y="466" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">審查啟動</text>
+
+<rect x="392" y="440" width="108" height="36" rx="6" fill="var(--bg2)" stroke="var(--b)" stroke-width="0.5" style="fill:rgb(245, 244, 237);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="446" y="449" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">Transform</text>
+<text x="446" y="466" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">合約簽署</text>
+
+<rect x="510" y="440" width="140" height="36" rx="6" fill="var(--bg2)" stroke="var(--b)" stroke-width="0.5" style="fill:rgb(245, 244, 237);stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="580" y="449" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">Perform</text>
+<text x="580" y="466" text-anchor="middle" dominant-baseline="central" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">合約簽署</text>
+
+
+<rect x="30" y="490" width="620" height="30" rx="6" fill="none" stroke="var(--b)" stroke-width="0.5" stroke-dasharray="4 3" opacity="0.4" style="fill:none;stroke:rgba(31, 30, 29, 0.3);color:rgb(0, 0, 0);stroke-width:0.5px;stroke-dasharray:4px, 3px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.4;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<text x="340" y="505" text-anchor="middle" dominant-baseline="central" opacity="0.6" style="fill:rgb(61, 61, 58);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:0.6;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:12px;font-weight:400;text-anchor:middle;dominant-baseline:central">⚠  Perform 合約須於 9/30 前簽署，方可取得 Q1 追溯款項（追溯至 2026/7/1）</text>
+
+</svg>
+  </div>
+</div>
+<div id="apf-sub-fte" class="apf-subtab-panel">
+  <div class="apf-svg-wrap" style="overflow-x:auto;">
+    <svg viewBox="0 0 1120 912" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" font-family="Arial, sans-serif">
+  <rect width="1120" height="740" fill="#F1EFE8"/>
+
+  <defs>
+    <clipPath id="cp-phase">
+    <rect x="8" y="0" width="60" height="9999"/></clipPath>
+    <clipPath id="cp-task">
+    <rect x="68" y="0" width="310" height="9999"/></clipPath>
+    <clipPath id="cp-host">
+    <rect x="378" y="0" width="138" height="9999"/></clipPath>
+    <clipPath id="cp-url">
+    <rect x="516" y="0" width="178" height="9999"/></clipPath>
+  </defs>
+
+  <!-- Header -->
+  <rect x="0" y="0" width="1120" height="50" fill="#0F2D60"/>
+  <text x="560" y="31" text-anchor="middle" font-size="18" font-weight="bold" fill="white">FTE01–FTE05 任務分配與執行期程</text>
+
+  <!-- Timeline -->
+  <rect x="28" y="74" width="1064" height="8" rx="4" fill="#B4B2A9"/>
+  <rect x="28"  y="74" width="266" height="8" rx="4" fill="#1565C0"/>
+  <rect x="296" y="74" width="388" height="8"        fill="#0F6E56"/>
+  <rect x="686" y="74" width="406" height="8" rx="4" fill="#534AB7"/>
+  <circle cx="28"  cy="78" r="7" fill="#0F2D60" stroke="white" stroke-width="1.5"/>
+  <circle cx="294" cy="78" r="7" fill="#1565C0" stroke="white" stroke-width="1.5"/>
+  <circle cx="684" cy="78" r="7" fill="#0F6E56"  stroke="white" stroke-width="1.5"/>
+  <circle cx="868" cy="78" r="7" fill="#534AB7" stroke="white" stroke-width="1.5"/>
+  <circle cx="1092" cy="78" r="8" fill="#A32D2D" stroke="white" stroke-width="1.5"/>
+  <text x="28"   y="64" text-anchor="middle" font-size="9.5" fill="#0F2D60" font-weight="bold">D+0</text>
+  <text x="294"  y="64" text-anchor="middle" font-size="9.5" fill="#1565C0" font-weight="bold">Month 1</text>
+  <text x="684"  y="64" text-anchor="middle" font-size="9.5" fill="#0F6E56"  font-weight="bold">Month 3</text>
+  <text x="868"  y="64" text-anchor="middle" font-size="9.5" fill="#534AB7" font-weight="bold">Month 5</text>
+  <text x="1092" y="64" text-anchor="middle" font-size="9.5" fill="#A32D2D" font-weight="bold">M6 截止</text>
+  <rect x="28"  y="90" width="266" height="18" rx="4" fill="#1565C0"/>
+  <text x="161" y="103" text-anchor="middle" font-size="9.5" fill="white" font-weight="bold">Phase 1：基礎認證</text>
+  <rect x="298" y="90" width="386" height="18" rx="4" fill="#0F6E56"/>
+  <text x="491" y="103" text-anchor="middle" font-size="9.5" fill="white" font-weight="bold">Phase 2：Project Ready + Labs（7月開放）</text>
+  <rect x="688" y="90" width="404" height="18" rx="4" fill="#534AB7"/>
+  <text x="890" y="103" text-anchor="middle" font-size="9.5" fill="white" font-weight="bold">Phase 3：COE + HVE + Badge 申請</text>
+
+  <!-- Column layout:
+    階段  x=8,   w=60  → center=38
+    任務  x=68,  w=310 → text x=74   ← WIDER
+    主辦  x=378, w=138 → text x=384
+    網址  x=516, w=178 → text x=522
+    FTE01 x=694, w=71  → cx=729   Allen
+    FTE02 x=765, w=71  → cx=800   Aaron
+    FTE03 x=836, w=71  → cx=871   Lucas
+    FTE04 x=907, w=71  → cx=942   Eric
+    FTE05 x=978, w=134 → cx=1045  Guo
+    total = 8+60+310+138+178+71*4+134+8 = 1120
+  -->
+
+  <!-- Table header -->
+  <rect x="8" y="118" width="1104" height="32" fill="#0F2D60"/>
+  <g clip-path="url(#cp-phase)"><text x="38"  y="130" text-anchor="middle" font-size="10.5" font-weight="bold" fill="white">階段</text></g>
+  <g clip-path="url(#cp-task)"> <text x="74"  y="130" font-size="10.5" font-weight="bold" fill="white">任務項目</text></g>
+  <g clip-path="url(#cp-host)"> <text x="384" y="130" font-size="10.5" font-weight="bold" fill="white">主辦 / 平台</text></g>
+  <g clip-path="url(#cp-url)">  <text x="522" y="130" font-size="10.5" font-weight="bold" fill="white">網址 / 資源</text></g>
+  <!-- FTE name + code headers -->
+  <text x="729"  y="127" text-anchor="middle" font-size="9" fill="#90CAF9">Allen</text>
+  <text x="729"  y="142" text-anchor="middle" font-size="10.5" font-weight="bold" fill="white">FTE01</text>
+  <text x="800"  y="127" text-anchor="middle" font-size="9" fill="#90CAF9">Aaron</text>
+  <text x="800"  y="142" text-anchor="middle" font-size="10.5" font-weight="bold" fill="white">FTE02</text>
+  <text x="871"  y="127" text-anchor="middle" font-size="9" fill="#90CAF9">Lucas</text>
+  <text x="871"  y="142" text-anchor="middle" font-size="10.5" font-weight="bold" fill="white">FTE03</text>
+  <text x="942"  y="127" text-anchor="middle" font-size="9" fill="#90CAF9">Eric</text>
+  <text x="942"  y="142" text-anchor="middle" font-size="10.5" font-weight="bold" fill="white">FTE04</text>
+  <text x="1045" y="127" text-anchor="middle" font-size="9" fill="#90CAF9">Guo</text>
+  <text x="1045" y="142" text-anchor="middle" font-size="10.5" font-weight="bold" fill="white">FTE05</text>
+
+  <!-- ══ ROW 0 y=126  AI-103 ══ -->
+  <rect x="8" y="150" width="1104" height="48" fill="#EBF5FF"/>
+  <rect x="8" y="150" width="60"   height="48" fill="#1565C0" opacity="0.22"/>
+  <g clip-path="url(#cp-phase)"><text x="38" y="178" text-anchor="middle" font-size="8.5" fill="#0C447C" font-weight="bold">Phase 1</text></g>
+  <g clip-path="url(#cp-task)">
+    <text x="74" y="167" font-size="11"  font-weight="bold" fill="#0F2D60">AI-103：Developing AI Apps &amp; Agents on Azure</text>
+    <text x="74" y="186" font-size="9.5" fill="#546E7A">基礎認證，約 10 小時，通過 700/1000 分</text>
+  </g>
+  <g clip-path="url(#cp-host)">
+    <text x="384" y="167" font-size="9.5" fill="#1A237E">Microsoft Learn /</text>
+    <text x="384" y="185" font-size="9.5" fill="#1A237E">Pearson VUE</text>
+  </g>
+  <g clip-path="url(#cp-url)">
+    <a xlink:href="https://learn.microsoft.com/zh-tw/credentials/certifications/azure-ai-engineer/?practice-assessment-type=certification" target="_blank">
+      <text x="522" y="170" font-size="9.5" fill="#185FA5" text-decoration="underline">learn.microsoft.com/zh-tw/</text>
+      <text x="522" y="186" font-size="9.5" fill="#185FA5" text-decoration="underline">certifications/azure-ai-engineer</text>
+    </a>
+  </g>
+  <circle cx="729"  cy="174" r="14" fill="#1565C0"/><text x="729"  y="178" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="800"  cy="174" r="14" fill="#1565C0"/><text x="800"  y="178" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="871"  cy="174" r="14" fill="#1565C0"/><text x="871"  y="178" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="942"  cy="174" r="14" fill="#1565C0"/><text x="942"  y="178" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="1045" cy="174" r="14" fill="#1565C0"/><text x="1045" y="178" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+
+  <!-- ══ ROW 1 y=174  AB-100 ══ -->
+  <rect x="8" y="198" width="1104" height="48" fill="white"/>
+  <rect x="8" y="198" width="60"   height="48" fill="#1565C0" opacity="0.12"/>
+  <g clip-path="url(#cp-phase)"><text x="38" y="226" text-anchor="middle" font-size="8.5" fill="#0C447C" font-weight="bold">Phase 1</text></g>
+  <g clip-path="url(#cp-task)">
+    <text x="74" y="215" font-size="11"  font-weight="bold" fill="#0F2D60">AB-100：Agentic AI Business Solutions Architect</text>
+    <text x="74" y="234" font-size="9.5" fill="#546E7A">基礎認證，約 10 小時，通過 700/1000 分</text>
+  </g>
+  <g clip-path="url(#cp-host)">
+    <text x="384" y="215" font-size="9.5" fill="#1A237E">Microsoft Learn /</text>
+    <text x="384" y="233" font-size="9.5" fill="#1A237E">Pearson VUE</text>
+  </g>
+  <g clip-path="url(#cp-url)">
+    <a xlink:href="https://learn.microsoft.com/zh-tw/credentials/certifications/agentic-ai-business-solutions-architect/?practice-assessment-type=certification" target="_blank">
+      <text x="522" y="218" font-size="9.5" fill="#185FA5" text-decoration="underline">learn.microsoft.com/zh-tw/</text>
+      <text x="522" y="234" font-size="9.5" fill="#185FA5" text-decoration="underline">agentic-ai-business-solutions-architect</text>
+    </a>
+  </g>
+  <circle cx="729"  cy="222" r="14" fill="#1565C0"/><text x="729"  y="226" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="800"  cy="222" r="14" fill="#1565C0"/><text x="800"  y="226" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="871"  cy="222" r="14" fill="#1565C0"/><text x="871"  y="226" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="942"  cy="222" r="14" fill="#1565C0"/><text x="942"  y="226" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="1045" cy="222" r="14" fill="#1565C0"/><text x="1045" y="226" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+
+  <!-- ══ ROW 2 y=222  GH-300 ══ -->
+  <rect x="8" y="246" width="1104" height="48" fill="#EBF5FF"/>
+  <rect x="8" y="246" width="60"   height="48" fill="#1565C0" opacity="0.22"/>
+  <g clip-path="url(#cp-phase)"><text x="38" y="274" text-anchor="middle" font-size="8.5" fill="#0C447C" font-weight="bold">Phase 1</text></g>
+  <g clip-path="url(#cp-task)">
+    <text x="74" y="263" font-size="11"  font-weight="bold" fill="#0F2D60">GH-300：GitHub Copilot Certification</text>
+    <text x="74" y="282" font-size="9.5" fill="#546E7A">基礎認證，約 10 小時，通過 700/1000 分</text>
+  </g>
+  <g clip-path="url(#cp-host)">
+    <text x="384" y="263" font-size="9.5" fill="#1A237E">GitHub /</text>
+    <text x="384" y="281" font-size="9.5" fill="#1A237E">Pearson VUE</text>
+  </g>
+  <g clip-path="url(#cp-url)">
+    <a xlink:href="https://learn.microsoft.com/zh-tw/credentials/certifications/github-copilot/?practice-assessment-type=certification" target="_blank">
+      <text x="522" y="266" font-size="9.5" fill="#185FA5" text-decoration="underline">learn.microsoft.com/zh-tw/</text>
+      <text x="522" y="282" font-size="9.5" fill="#185FA5" text-decoration="underline">certifications/github-copilot</text>
+    </a>
+  </g>
+  <circle cx="729"  cy="270" r="14" fill="#1565C0"/><text x="729"  y="274" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="800"  cy="270" r="14" fill="#1565C0"/><text x="800"  y="274" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="871"  cy="270" r="14" fill="#1565C0"/><text x="871"  y="274" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="942"  cy="270" r="14" fill="#1565C0"/><text x="942"  y="274" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="1045" cy="270" r="14" fill="#1565C0"/><text x="1045" y="274" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+
+  <line x1="8" y1="294" x2="1112" y2="294" stroke="#0F6E56" stroke-width="2"/>
+
+  <!-- ══ ROW 3 y=270  Project Ready ══ -->
+  <rect x="8" y="294" width="1104" height="48" fill="#E8F5F0"/>
+  <rect x="8" y="294" width="60"   height="48" fill="#0F6E56" opacity="0.22"/>
+  <g clip-path="url(#cp-phase)"><text x="38" y="322" text-anchor="middle" font-size="8.5" fill="#085041" font-weight="bold">Phase 2</text></g>
+  <g clip-path="url(#cp-task)">
+    <text x="74" y="311" font-size="11"  font-weight="bold" fill="#0F2D60">Project Ready Workshop + Labs</text>
+    <text x="74" y="330" font-size="9.5" fill="#546E7A">Work IQ / Agentic AI / Fabric IQ / Agent 365 ｜ 51 小時 ｜ 7月開放</text>
+  </g>
+  <g clip-path="url(#cp-host)">
+    <text x="384" y="315" font-size="9.5" fill="#1A237E">Microsoft 主辦</text>
+  </g>
+  <g clip-path="url(#cp-url)">
+    <a xlink:href="https://aka.ms/projectreadyworkshop" target="_blank">
+      <text x="522" y="320" font-size="9.5" fill="#185FA5" text-decoration="underline">aka.ms/projectreadyworkshop</text>
+    </a>
+  </g>
+  <circle cx="729"  cy="318" r="14" fill="#0F6E56"/><text x="729"  y="322" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="800"  cy="318" r="14" fill="#0F6E56"/><text x="800"  y="322" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="871"  cy="318" r="14" fill="#0F6E56"/><text x="871"  y="322" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="942"  cy="318" r="14" fill="#0F6E56"/><text x="942"  y="322" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="1045" cy="318" r="14" fill="#0F6E56"/><text x="1045" y="322" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+
+  <!-- ══ ROW 4 y=318  Copilot Studio ══ -->
+  <rect x="8" y="342" width="1104" height="48" fill="white"/>
+  <rect x="8" y="342" width="60"   height="48" fill="#0F6E56" opacity="0.12"/>
+  <g clip-path="url(#cp-phase)"><text x="38" y="370" text-anchor="middle" font-size="8.5" fill="#085041" font-weight="bold">Phase 2</text></g>
+  <g clip-path="url(#cp-task)">
+    <text x="74" y="359" font-size="11"  font-weight="bold" fill="#0F2D60">Copilot Studio + Azure AI Foundry 實作</text>
+    <text x="74" y="378" font-size="9.5" fill="#546E7A">低程式碼 Agent 建立 + AI 模型部署管理 ｜ 7月開放</text>
+  </g>
+  <g clip-path="url(#cp-host)">
+    <text x="384" y="359" font-size="9.5" fill="#1A237E">Microsoft</text>
+    <text x="384" y="377" font-size="9.5" fill="#1A237E">Learn</text>
+  </g>
+  <g clip-path="url(#cp-url)">
+    <a xlink:href="https://copilotstudio.microsoft.com" target="_blank">
+      <text x="522" y="362" font-size="9.5" fill="#185FA5" text-decoration="underline">copilotstudio.microsoft.com</text>
+    </a>
+    <a xlink:href="https://ai.azure.com" target="_blank">
+      <text x="522" y="379" font-size="9.5" fill="#185FA5" text-decoration="underline">ai.azure.com</text>
+    </a>
+  </g>
+  <circle cx="729"  cy="366" r="14" fill="#0F6E56"/><text x="729"  y="370" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="800"  cy="366" r="14" fill="#0F6E56"/><text x="800"  y="370" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="871"  cy="366" r="14" fill="#0F6E56"/><text x="871"  y="370" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="942"  cy="366" r="14" fill="#0F6E56"/><text x="942"  y="370" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="1045" cy="366" r="14" fill="#0F6E56"/><text x="1045" y="370" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+
+  <!-- ══ ROW 5 y=366  Fabric ══ -->
+  <rect x="8" y="390" width="1104" height="48" fill="#E8F5F0"/>
+  <rect x="8" y="390" width="60"   height="48" fill="#0F6E56" opacity="0.22"/>
+  <g clip-path="url(#cp-phase)"><text x="38" y="418" text-anchor="middle" font-size="8.5" fill="#085041" font-weight="bold">Phase 2</text></g>
+  <g clip-path="url(#cp-task)">
+    <text x="74" y="407" font-size="11"  font-weight="bold" fill="#0F2D60">Microsoft Fabric IQ &amp; Data Agents 實作</text>
+    <text x="74" y="426" font-size="9.5" fill="#546E7A">資料工程 + Analytics 整合平台 + AI Agent ｜ 8 小時 ｜ 7月開放</text>
+  </g>
+  <g clip-path="url(#cp-host)">
+    <text x="384" y="407" font-size="9.5" fill="#1A237E">Microsoft</text>
+    <text x="384" y="425" font-size="9.5" fill="#1A237E">Learn</text>
+  </g>
+  <g clip-path="url(#cp-url)">
+    <a xlink:href="https://learn.microsoft.com/zh-tw/fabric/" target="_blank">
+      <text x="522" y="416" font-size="9.5" fill="#185FA5" text-decoration="underline">learn.microsoft.com/zh-tw/fabric</text>
+    </a>
+  </g>
+  <circle cx="729"  cy="414" r="14" fill="#0F6E56"/><text x="729"  y="418" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="800"  cy="414" r="14" fill="#0F6E56"/><text x="800"  y="418" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="871"  cy="414" r="14" fill="#0F6E56"/><text x="871"  y="418" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="942"  cy="414" r="14" fill="#0F6E56"/><text x="942"  y="418" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="1045" cy="414" r="14" fill="#0F6E56"/><text x="1045" y="418" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+
+  <line x1="8" y1="438" x2="1112" y2="438" stroke="#534AB7" stroke-width="2"/>
+
+  <!-- ══ ROW 6 y=414  COE+HVE ══ -->
+  <rect x="8" y="438" width="1104" height="48" fill="#F0EEFE"/>
+  <rect x="8" y="438" width="60"   height="48" fill="#534AB7" opacity="0.22"/>
+  <g clip-path="url(#cp-phase)"><text x="38" y="466" text-anchor="middle" font-size="8.5" fill="#3C3489" font-weight="bold">Phase 3</text></g>
+  <g clip-path="url(#cp-task)">
+    <text x="74" y="455" font-size="11"  font-weight="bold" fill="#0F2D60">Frontier COE 訓練 + Hypervelocity Engineering（必修）</text>
+    <text x="74" y="474" font-size="9.5" fill="#546E7A">AI 卓越中心建立 + 超速工程框架 ｜ 3.5 小時 ｜ 7月開放</text>
+  </g>
+  <g clip-path="url(#cp-host)">
+    <text x="384" y="455" font-size="9.5" fill="#1A237E">Microsoft</text>
+    <text x="384" y="473" font-size="9.5" fill="#1A237E">Partner</text>
+  </g>
+  <g clip-path="url(#cp-url)">
+    <a xlink:href="https://aka.ms/frontierpartnerskilling" target="_blank">
+      <text x="522" y="464" font-size="9.5" fill="#185FA5" text-decoration="underline">aka.ms/frontierpartnerskilling</text>
+    </a>
+  </g>
+  <circle cx="729"  cy="462" r="14" fill="#534AB7"/><text x="729"  y="466" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="800"  cy="462" r="14" fill="#534AB7"/><text x="800"  y="466" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="871"  cy="462" r="14" fill="#534AB7"/><text x="871"  y="466" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="942"  cy="462" r="14" fill="#534AB7"/><text x="942"  y="466" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+  <circle cx="1045" cy="462" r="14" fill="#534AB7"/><text x="1045" y="466" text-anchor="middle" font-size="9" fill="white" font-weight="bold">必修</text>
+
+  <!-- ══ ROW 7 y=462  FTE Badge ══ -->
+  <rect x="8" y="486" width="1104" height="48" fill="#3C3489"/>
+  <g clip-path="url(#cp-phase)"><text x="38" y="514" text-anchor="middle" font-size="8.5" fill="#CECBF6" font-weight="bold">Phase 3</text></g>
+  <g clip-path="url(#cp-task)">
+    <text x="74" y="503" font-size="11.5" font-weight="bold" fill="white">FTE Badge 申請（個人數位徽章）</text>
+    <text x="74" y="522" font-size="9.5"  fill="#AFA9EC">完成全部課程 → LevelUp 平台申請 → 取得 Microsoft 認可個人徽章</text>
+  </g>
+  <g clip-path="url(#cp-host)">
+    <text x="384" y="499" font-size="9.5" fill="#CECBF6">Microsoft Partner /</text>
+    <text x="384" y="517" font-size="9.5" fill="#CECBF6">LevelUp</text>
+  </g>
+  <g clip-path="url(#cp-url)">
+    <a xlink:href="https://aka.ms/frontierpartnerskilling" target="_blank">
+      <text x="522" y="508" font-size="9.5" fill="#5DCAA5" text-decoration="underline">aka.ms/frontierpartnerskilling</text>
+    </a>
+  </g>
+  <circle cx="729"  cy="510" r="14" fill="#0F6E56"/><text x="729"  y="514" text-anchor="middle" font-size="9" fill="white" font-weight="bold">目標</text>
+  <circle cx="800"  cy="510" r="14" fill="#0F6E56"/><text x="800"  y="514" text-anchor="middle" font-size="9" fill="white" font-weight="bold">目標</text>
+  <circle cx="871"  cy="510" r="14" fill="#0F6E56"/><text x="871"  y="514" text-anchor="middle" font-size="9" fill="white" font-weight="bold">目標</text>
+  <circle cx="942"  cy="510" r="14" fill="#0F6E56"/><text x="942"  y="514" text-anchor="middle" font-size="9" fill="white" font-weight="bold">目標</text>
+  <circle cx="1045" cy="510" r="14" fill="#0F6E56"/><text x="1045" y="514" text-anchor="middle" font-size="9" fill="white" font-weight="bold">目標</text>
+
+  <!-- Table border + col dividers -->
+  <rect x="8" y="150" width="1104" height="384" fill="none" stroke="#B4B2A9" stroke-width="1"/>
+  <line x1="68"  y1="118" x2="68"  y2="534" stroke="#D3D1C7" stroke-width="0.6"/>
+  <line x1="378" y1="118" x2="378" y2="534" stroke="#D3D1C7" stroke-width="0.6"/>
+  <line x1="516" y1="118" x2="516" y2="534" stroke="#D3D1C7" stroke-width="0.6"/>
+  <line x1="694" y1="118" x2="694" y2="534" stroke="#D3D1C7" stroke-width="0.6"/>
+  <line x1="765" y1="118" x2="765" y2="534" stroke="#D3D1C7" stroke-width="0.6"/>
+  <line x1="836" y1="118" x2="836" y2="534" stroke="#D3D1C7" stroke-width="0.6"/>
+  <line x1="907" y1="118" x2="907" y2="534" stroke="#D3D1C7" stroke-width="0.6"/>
+  <line x1="978" y1="118" x2="978" y2="534" stroke="#D3D1C7" stroke-width="0.6"/>
+
+  <!-- ══ Footer ══ -->
+  
+  <!-- ══ Summary Block ══ -->
+  <rect x="8" y="546" width="1104" height="140" rx="8" fill="white" stroke="#D3D1C7" stroke-width="0.8"/>
+
+  <!-- 總計 label -->
+  <text x="22" y="564" font-size="11" fill="#5F5E5A">總計</text>
+  <!-- Stats line -->
+  <text x="22" y="584" font-size="13" font-weight="bold" fill="#0F2D60">10 項任務　／　3 項認證　＋　5 項實作訓練　＋　2 項進階訓練　＋　FTE Badge 申請　＝　86＋ 學習小時</text>
+
+  <!-- 3 month columns -->
+  <!-- col borders -->
+  <line x1="383" y1="596" x2="383" y2="646" stroke="#D3D1C7" stroke-width="0.8"/>
+  <line x1="754" y1="596" x2="754" y2="646" stroke="#D3D1C7" stroke-width="0.8"/>
+  <rect x="18" y="596" width="1086" height="50" rx="4" fill="#F1EFE8" stroke="#D3D1C7" stroke-width="0.5"/>
+
+  <!-- Month labels -->
+  <text x="200" y="612" text-anchor="middle" font-size="10" fill="#5F5E5A">Month 1</text>
+  <text x="568" y="612" text-anchor="middle" font-size="10" fill="#5F5E5A">Month 2 – 3</text>
+  <text x="930" y="612" text-anchor="middle" font-size="10" fill="#5F5E5A">Month 4 – 6</text>
+
+  <!-- Phase pills inside month cols -->
+  <rect x="100" y="619" width="200" height="20" rx="10" fill="#1565C0"/>
+  <text x="200" y="633" text-anchor="middle" font-size="10" fill="white" font-weight="bold">Phase 1：基礎認證</text>
+
+  <rect x="418" y="619" width="200" height="20" rx="10" fill="#0F6E56"/>
+  <text x="518" y="633" text-anchor="middle" font-size="10" fill="white" font-weight="bold">Phase 2：工作坊 &amp; 實作</text>
+
+  <rect x="800" y="619" width="254" height="20" rx="10" fill="#534AB7"/>
+  <text x="927" y="633" text-anchor="middle" font-size="10" fill="white" font-weight="bold">Phase 3：進階訓練 &amp; FTE Badge 取得</text>
+
+  <!-- 付款關鍵 -->
+  <text x="22" y="660" font-size="11" font-weight="bold" fill="#0F2D60">付款關鍵：</text>
+  <text x="96" y="660" font-size="10.5" fill="#37474F">每位 SPF 資助工程師須於加入後 6 個月內取得 FTE Badge 或對齊認證，否則 Transform 付款暫停。</text>
+  <text x="22" y="678" font-size="10.5" fill="#37474F">5 人全員達標：全額付款。未達 5 人 FTE Badge（已滿 6 個月群組）：付款扣減 20%。計算基準：每季季末快照。</text>
+
+  <rect x="8" y="690" width="1104" height="214" rx="8" fill="white" stroke="#D3D1C7" stroke-width="0.8"/>
+  <text x="22" y="709" font-size="13" font-weight="bold" fill="#0F2D60">付款影響</text>
+  <rect x="18" y="715" width="510" height="30" rx="5" fill="#E1F5EE"/>
+  <text x="30" y="735" font-size="11" fill="#085041" font-weight="bold">✓  6個月內全員達標  →  全額付款</text>
+  <rect x="18" y="749" width="510" height="30" rx="5" fill="#FAEEDA"/>
+  <text x="30" y="769" font-size="11" fill="#633806" font-weight="bold">⚠  5+ 夥伴未達 5 人 FTE Badge  →  扣減 20%</text>
+  <rect x="18" y="783" width="510" height="30" rx="5" fill="#FCEBEB"/>
+  <text x="30" y="803" font-size="11" fill="#791F1F" font-weight="bold">✗  超過 6 個月無任何認證  →  付款暫停</text>
+  <rect x="18" y="817" width="510" height="24" rx="5" fill="#E6F1FB"/>
+  <text x="30" y="833" font-size="10" fill="#0C447C">ℹ  計算基準：每季季末快照（Quarter-end Snapshot），非即時</text>
+  <line x1="546" y1="698" x2="546" y2="896" stroke="#E0DED6" stroke-width="1"/>
+  <text x="560" y="709" font-size="13" font-weight="bold" fill="#0F2D60">立即行動</text>
+  <text x="568" y="730" font-size="11" fill="#0F2D60">①  登錄 aka.ms/frontierpartnerskilling，建立個人帳號</text>
+  <text x="568" y="752" font-size="11" fill="#0F2D60">②  集中完成 AI-103 → AB-100 → GH-300（可即刻開始）</text>
+  <text x="568" y="774" font-size="11" fill="#0F2D60">③  Phase 2/3 課程 7 月開放，提前排定行事曆</text>
+  <text x="568" y="796" font-size="11" fill="#0F2D60">④  考試一律用個人 MSA 帳號（非公司帳號）</text>
+  <text x="568" y="818" font-size="11" fill="#0F2D60">⑤  5 人季末前全員達標 → 確保全額 SPF Transform 付款</text>
+  <text x="568" y="838" font-size="10" fill="#BA7517">⚠  Phase 2 &amp; 3 預計 2026 年 7 月開放，請留意 Microsoft 公告</text>
+</svg>
+  </div>
+</div>
+
 
 <!-- ── TAB: Cert Tracker ─────────────────────────────────────── -->
 <div id="tab-certs" class="tab-panel">
@@ -4772,6 +5306,14 @@ function saveWtModal(id, isEdit){
         URL.revokeObjectURL(url);
     }
 
+
+
+function apfSwitchSubtab(id, btn) {
+  document.querySelectorAll('#tab-apftransform .apf-subtab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('#tab-apftransform .apf-subtab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
 
 </script>
 </body>
