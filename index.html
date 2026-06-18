@@ -1002,7 +1002,7 @@ tr:hover .iur-edit-btn{opacity:1}
 .svg-edit-active svg text:hover,
 .svg-edit-active svg tspan:hover { opacity: 0.75 !important; outline: 1px dashed #3b82f6; }
 .svg-edit-active svg { pointer-events: auto !important; cursor: default; }
-#apf-svg-inline-editor {
+#apf-svg-editor-wrap {
   position: fixed; z-index: 99999; border: 2px solid #3b82f6;
   border-radius: 4px; padding: 2px 6px; background: #fff;
   box-shadow: 0 4px 12px rgba(0,0,0,.25); outline: none;
@@ -6007,7 +6007,7 @@ function apfSvgSetupEditing(tabId) {
   var svgEl = panel.querySelector('svg');
   if (!svgEl) return;
 
-  // Force all children to receive pointer events
+  // Force all SVG children to receive pointer events
   svgEl.style.pointerEvents = 'auto';
   svgEl.querySelectorAll('*').forEach(function(el) {
     if (window.getComputedStyle(el).pointerEvents === 'none') {
@@ -6015,20 +6015,25 @@ function apfSvgSetupEditing(tabId) {
     }
   });
 
-  // Single delegated click handler on the SVG itself
+  // Prevent browser text-selection inside SVG on mousedown (which steals focus)
+  svgEl._apfMD = function(e) {
+    if (!apfSvgActiveEdits[tabId]) return;
+    e.preventDefault();
+  };
+  svgEl.addEventListener('mousedown', svgEl._apfMD);
+
+  // Delegated click handler
   svgEl._apfEdit = function(e) {
     if (!apfSvgActiveEdits[tabId]) return;
-
-    // Walk up from target to find <text> ancestor
     var node = e.target;
     var textEl = null;
     while (node && node !== svgEl) {
-      var tag = node.tagName ? node.tagName.toLowerCase() : '';
+      var tag = (node.tagName || '').toLowerCase();
       if (tag === 'text') { textEl = node; break; }
       if (tag === 'tspan') {
         var p = node.parentElement;
         while (p && p !== svgEl) {
-          if (p.tagName && p.tagName.toLowerCase() === 'text') { textEl = p; break; }
+          if ((p.tagName || '').toLowerCase() === 'text') { textEl = p; break; }
           p = p.parentElement;
         }
         if (textEl) break;
@@ -6036,13 +6041,9 @@ function apfSvgSetupEditing(tabId) {
       node = node.parentElement;
     }
     if (!textEl) return;
-
     e.stopPropagation();
-    e.preventDefault();
-
     if (e.shiftKey) {
-      var preview = textEl.textContent.trim().slice(0, 60);
-      if (confirm('刪除此文字？\n「' + preview + '」')) textEl.remove();
+      if (confirm('刪除此文字？\n「' + textEl.textContent.trim().slice(0,60) + '」')) textEl.remove();
       return;
     }
     apfSvgShowEditor(textEl);
@@ -6054,62 +6055,70 @@ function apfSvgTeardownEditing(tabId) {
   var panel = document.getElementById(tabId);
   if (!panel) return;
   var svgEl = panel.querySelector('svg');
-  if (svgEl && svgEl._apfEdit) {
-    svgEl.removeEventListener('click', svgEl._apfEdit);
-    delete svgEl._apfEdit;
+  if (svgEl) {
+    if (svgEl._apfEdit) { svgEl.removeEventListener('click', svgEl._apfEdit); delete svgEl._apfEdit; }
+    if (svgEl._apfMD)   { svgEl.removeEventListener('mousedown', svgEl._apfMD); delete svgEl._apfMD; }
   }
-  var editor = document.getElementById('apf-svg-inline-editor');
+  var editor = document.getElementById('apf-svg-editor-wrap');
   if (editor) editor.remove();
 }
 
 function apfSvgShowEditor(textEl) {
-  var old = document.getElementById('apf-svg-inline-editor');
-  if (old) old.remove();
+  // Remove any existing editor
+  var old = document.getElementById('apf-svg-editor-wrap');
+  if (old) { try { old._commit(); } catch(x) { old.remove(); } }
 
-  // Get dominant text (first tspan child or direct text)
   var firstTspan = textEl.querySelector('tspan');
   var editTarget = firstTspan || textEl;
   var currentVal = editTarget.textContent.trim();
 
   var bbox = textEl.getBoundingClientRect();
   var cs   = window.getComputedStyle(textEl);
-  var fs   = Math.max(parseFloat(cs.fontSize) || 13, 11);
+  var fs   = Math.max(parseFloat(cs.fontSize) || 13, 12);
+
+  // Wrapper div (high z-index, pointer-events:auto)
+  var wrap = document.createElement('div');
+  wrap.id = 'apf-svg-editor-wrap';
+  wrap.style.cssText = 'position:fixed;z-index:2147483647;pointer-events:auto;' +
+    'left:' + Math.max(bbox.left - 4, 0) + 'px;' +
+    'top:'  + Math.max(bbox.top  - 2, 0) + 'px;';
 
   var input = document.createElement('input');
-  input.id    = 'apf-svg-inline-editor';
-  input.type  = 'text';
+  input.type = 'text';
   input.value = currentVal;
-  // Must include position:fixed so it appears over SVG regardless of scroll
-  input.style.cssText = [
-    'position:fixed',
-    'left:' + Math.max(bbox.left - 2, 4) + 'px',
-    'top:'  + Math.max(bbox.top  - 4, 4) + 'px',
-    'min-width:' + Math.max(bbox.width + 60, 140) + 'px',
-    'font-size:' + fs + 'px',
-    'font-family:' + (cs.fontFamily || "'Segoe UI',sans-serif"),
-    'z-index:99999',
-    'border:2px solid #3b82f6',
-    'border-radius:4px',
-    'padding:3px 8px',
-    'background:#fff',
-    'box-shadow:0 4px 16px rgba(0,0,0,.3)',
-    'outline:none',
-    'color:#1e293b'
-  ].join(';');
+  input.style.cssText =
+    'display:block;' +
+    'min-width:' + Math.max(bbox.width + 80, 180) + 'px;' +
+    'font-size:' + fs + 'px;' +
+    'font-family:' + (cs.fontFamily || 'sans-serif') + ';' +
+    'border:2px solid #3b82f6;border-radius:4px;' +
+    'padding:4px 10px;background:#fff;outline:none;color:#1e293b;' +
+    'box-shadow:0 4px 20px rgba(0,0,0,.35);';
 
-  document.body.appendChild(input);
-  input.focus();
-  input.select();
+  wrap.appendChild(input);
+  document.body.appendChild(wrap);
 
   function commit() {
     var v = input.value.trim();
     if (v) editTarget.textContent = v;
-    if (input.parentNode) input.remove();
+    if (wrap.parentNode) wrap.remove();
   }
-  input.addEventListener('blur', commit);
-  input.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter')  { e.preventDefault(); commit(); }
-    if (e.key === 'Escape') { if (input.parentNode) input.remove(); }
+  wrap._commit = commit;
+
+  // Focus via rAF to let the click event fully settle first
+  requestAnimationFrame(function() {
+    input.focus();
+    input.select();
+    // Only attach blur listener AFTER a short delay so it
+    // doesn't fire during the initial focus handoff
+    var blurTimer = setTimeout(function() {
+      input.addEventListener('blur', commit);
+    }, 300);
+
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter')  { clearTimeout(blurTimer); e.preventDefault(); commit(); }
+      if (e.key === 'Escape') { clearTimeout(blurTimer); if (wrap.parentNode) wrap.remove(); }
+    });
   });
 }
 
