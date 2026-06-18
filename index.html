@@ -587,7 +587,7 @@ tr:hover .iur-edit-btn{opacity:1}
   <button class="tab-btn" onclick="switchTab('history',this)">📈 歷史比較</button>
   <button class="tab-btn" onclick="switchTab('kpi',this);renderKPITab()">🎯 年度 KPI</button>
   <button class="tab-btn" onclick="switchTab('checklist',this);renderChecklistTab()">☑️ KPI 查核表</button>
-  <button class="tab-btn" onclick="switchTab('apftransform',this)">📋 FY27_APF_transform</button>
+  <button class="tab-btn" onclick="switchTab('apftransform',this)">📋 FY27 SPF Transform</button>
   <button class="tab-btn" onclick="switchTab('certs',this);renderCertTab()">🏅 認證追蹤</button>
   <button class="tab-btn" onclick="switchTab('asp',this);renderAspTab()">🎯 ASP 專長</button>
   <button class="tab-btn" onclick="switchTab('iur',this);renderIurTab()">📦 內部使用權</button>
@@ -800,7 +800,7 @@ tr:hover .iur-edit-btn{opacity:1}
 #tab-apftransform }
 
         /* --- Header Styles --- */
-        header { border-bottom: 3px solid var(--primary-blue); padding-bottom: 12px; margin-bottom: 15px; }
+        
 #tab-apftransform .header-top { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; }
 #tab-apftransform .brand-title { display: flex; align-items: center; gap: 15px; }
 #tab-apftransform .microsoft-logo { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2px; width: 24px; height: 24px; }
@@ -925,6 +925,32 @@ tr:hover .iur-edit-btn{opacity:1}
         .td-action, #tab-apftransform .th-action { width: 25px; text-align: center; padding: 2px !important; }
 #tab-apftransform .total-highlight { color: var(--microsoft-red); font-weight: 800; font-size: 1.1em; }
 
+
+#tab-apftransform .apf-header { border-bottom: 3px solid var(--primary-blue); padding-bottom: 12px; margin-bottom: 15px; background: #fff; color: var(--text-dark); }
+#tab-apftransform .meta-box { background: #F8F9FA !important; border: 1px solid var(--border-color); border-radius: 4px; padding: 8px 12px; font-size: 12px; color: #333 !important; }
+#tab-apftransform .meta-box strong, #tab-apftransform .meta-box span { color: #333 !important; }
+#tab-apftransform .header-meta-boxes { display: flex; gap: 15px; margin-left: 20px; }
+
+#tab-apftransform .res-row { overflow: visible; }
+#tab-apftransform .res-grid { overflow: visible; }
+#tab-apftransform .res-col:last-child { min-width: 80px; padding: 8px 10px; }
+#tab-apftransform .res-total-amt { font-size: 14px; white-space: nowrap; }
+
+/* === APF Header & Meta-box overrides === */
+#tab-apftransform .apf-header { background: #fff; color: #333; border-bottom: 3px solid #0A2540; padding-bottom: 12px; margin-bottom: 15px; }
+#tab-apftransform .meta-box { background: #F8F9FA !important; border: 1px solid #D2D6DE; border-radius: 4px; padding: 8px 12px; font-size: 12px; color: #333 !important; }
+#tab-apftransform .meta-box strong, #tab-apftransform .meta-box span, #tab-apftransform .meta-box div { color: #333 !important; }
+#tab-apftransform .meta-box svg { stroke: #333 !important; }
+#tab-apftransform .header-meta-boxes { display: flex; gap: 15px; margin-left: 24px; }
+/* Block 2 pillar alignment */
+#tab-apftransform .pillar-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; align-items: stretch; }
+#tab-apftransform .pillar-box { display: flex; flex-direction: column; height: 100%; }
+#tab-apftransform .pillar-body { flex: 1; }
+/* Block 6 overflow fix */
+#tab-apftransform .res-row { overflow: visible !important; }
+#tab-apftransform .res-grid { overflow: visible !important; flex: 1 1 auto; min-width: 0; }
+#tab-apftransform .res-col:last-child { min-width: 90px; padding: 8px 12px; overflow: visible; }
+#tab-apftransform .res-total-amt { font-size: 13px !important; white-space: nowrap; }
 </style>
 <div style="display:flex;gap:8px;margin-bottom:12px;justify-content:flex-end;padding:8px;background:#fff;border-radius:6px;border:1px solid #ddd;">
     <button class="toolbar-btn btn-toggle-edit" onclick="apfT_toggleEditMode()" id="apf-editToggleBtn" style="padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-weight:bold;display:flex;align-items:center;gap:6px;font-size:12px;color:white;background:#0A2540;">
@@ -938,7 +964,7 @@ tr:hover .iur-edit-btn{opacity:1}
 </div>
 <div class="dashboard-container" id="report-container">
     <!-- Main Header -->
-    <header>
+    <div class="apf-header">
         <div class="header-top">
             <div class="brand-title">
                 <div class="microsoft-logo">
@@ -979,7 +1005,7 @@ tr:hover .iur-edit-btn{opacity:1}
                 <span data-editable="true">執行期間：FY27 Q1-Q4 (2026/7/1 - 2027/6/30) ‧ 區域：台灣 (Greater China)</span>
             </div>
         </div>
-    </header>
+    </div>
 
     <!-- PERFECTED 2-COLUMN LAYOUT -->
     <div class="layout-wrapper">
