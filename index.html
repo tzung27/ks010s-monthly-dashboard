@@ -964,18 +964,18 @@ tr:hover .iur-edit-btn{opacity:1}
 #tab-apftransform .apf-subtab-btn { padding:6px 16px; border:none; background:#f1f5f9; color:#475569; border-radius:6px 6px 0 0; cursor:pointer; font-size:12px; font-weight:600; transition:all .2s; border-bottom:2px solid transparent; margin-bottom:-2px; }
 #tab-apftransform .apf-subtab-btn:hover { background:#e2e8f0; color:#1e293b; }
 #tab-apftransform .apf-subtab-btn.active { background:#fff; color:#0A2540; border-color:#0A2540; }
-#tab-apftransform .apf-subtab-panel { display:none; }
-#tab-apftransform .apf-subtab-panel.active { display:block; }
+#tab-apftransform .apf-subtab-panel { }
+#tab-apftransform .apf-subtab-panel.active { }
 #tab-apftransform .apf-svg-wrap { width:100%; overflow-x:auto; background:#fff; border-radius:8px; padding:12px; border:1px solid #e2e8f0; }
 #tab-apftransform .apf-svg-wrap svg { width:100%; height:auto; display:block; }
 
-</style>
-<div class="apf-subtab-nav">
+</style><div class="apf-subtab-nav">
   <button class="apf-subtab-btn active" onclick="apfSwitchSubtab('apf-sub-plan',this)">📋 業務計畫</button>
   <button class="apf-subtab-btn" onclick="apfSwitchSubtab('apf-sub-timeline',this)">📅 SPF Task Timeline</button>
   <button class="apf-subtab-btn" onclick="apfSwitchSubtab('apf-sub-fte',this)">📊 FTE 任務分配與期程</button>
 </div>
-<div id="apf-sub-plan" class="apf-subtab-panel active">
+<div id="apf-sub-plan" class="apf-subtab-panel active" style="display:block">
+
 <div style="display:flex;gap:8px;margin-bottom:12px;justify-content:flex-end;padding:8px;background:#fff;border-radius:6px;border:1px solid #ddd;">
     <button class="toolbar-btn btn-toggle-edit" onclick="apfT_toggleEditMode()" id="apf-editToggleBtn" style="padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-weight:bold;display:flex;align-items:center;gap:6px;font-size:12px;color:white;background:#0A2540;">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
@@ -1697,7 +1697,7 @@ tr:hover .iur-edit-btn{opacity:1}
 </div>
 </div>
 </div>
-<div id="apf-sub-timeline" class="apf-subtab-panel">
+<div id="apf-sub-timeline" class="apf-subtab-panel" style="display:none">
   <div class="apf-svg-wrap">
     <svg width="100%" viewBox="0 0 680 540" role="img" style="" xmlns="http://www.w3.org/2000/svg">
 <title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">FY27 SPF Transform 任務配置與期程圖</title>
@@ -1879,7 +1879,7 @@ tr:hover .iur-edit-btn{opacity:1}
 </svg>
   </div>
 </div>
-<div id="apf-sub-fte" class="apf-subtab-panel">
+<div id="apf-sub-fte" class="apf-subtab-panel" style="display:none">
   <div class="apf-svg-wrap" style="overflow-x:auto;">
     <svg viewBox="0 0 1120 912" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" font-family="Arial, sans-serif">
   <rect width="1120" height="740" fill="#F1EFE8"/>
@@ -5309,10 +5309,13 @@ function saveWtModal(id, isEdit){
 
 
 function apfSwitchSubtab(id, btn) {
-  document.querySelectorAll('#tab-apftransform .apf-subtab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('#tab-apftransform .apf-subtab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  btn.classList.add('active');
+  ['apf-sub-plan','apf-sub-timeline','apf-sub-fte'].forEach(function(pid){
+    var el=document.getElementById(pid);
+    if(el) el.style.display = (pid===id)?'block':'none';
+  });
+  document.querySelectorAll('#tab-apftransform .apf-subtab-btn').forEach(function(b){
+    b.classList.toggle('active', b===btn);
+  });
 }
 
 </script>
