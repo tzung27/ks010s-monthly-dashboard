@@ -998,9 +998,10 @@ tr:hover .iur-edit-btn{opacity:1}
 
 /* === Per-tab SVG edit mode === */
 .svg-edit-active svg text,
-.svg-edit-active svg tspan { cursor: pointer !important; }
+.svg-edit-active svg tspan { cursor: pointer !important; pointer-events: auto !important; }
 .svg-edit-active svg text:hover,
 .svg-edit-active svg tspan:hover { opacity: 0.75 !important; outline: 1px dashed #3b82f6; }
+.svg-edit-active svg { pointer-events: auto !important; cursor: default; }
 #apf-svg-inline-editor {
   position: fixed; z-index: 99999; border: 2px solid #3b82f6;
   border-radius: 4px; padding: 2px 6px; background: #fff;
@@ -5979,25 +5980,23 @@ var apfSvgActiveEdits = {};
 function apfSvgToggleEdit(tabId, btn) {
   var isOn = apfSvgActiveEdits[tabId];
   apfSvgActiveEdits[tabId] = !isOn;
-  var panel = document.getElementById(tabId);
+  var panel   = document.getElementById(tabId);
   var addBtn  = document.getElementById('svgedit-add-' + tabId);
   var hintEl  = document.getElementById('svgedit-hint-' + tabId);
 
   if (!isOn) {
-    // Enter edit mode
     btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:middle"><polyline points="20 6 9 17 4 12"/></svg> 停止編輯';
     btn.style.background = '#059669';
     panel.classList.add('svg-edit-active');
-    if (addBtn)  addBtn.style.display = '';
-    if (hintEl)  hintEl.style.display = '';
+    if (addBtn) addBtn.style.display = '';
+    if (hintEl) hintEl.style.display = '';
     apfSvgSetupEditing(tabId);
   } else {
-    // Exit edit mode
     btn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="vertical-align:middle"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg> 啟用編輯模式';
     btn.style.background = '#1E3A5F';
     panel.classList.remove('svg-edit-active');
-    if (addBtn)  addBtn.style.display = 'none';
-    if (hintEl)  hintEl.style.display = 'none';
+    if (addBtn) addBtn.style.display = 'none';
+    if (hintEl) hintEl.style.display = 'none';
     apfSvgTeardownEditing(tabId);
   }
 }
@@ -6007,73 +6006,109 @@ function apfSvgSetupEditing(tabId) {
   if (!panel) return;
   var svgEl = panel.querySelector('svg');
   if (!svgEl) return;
-  svgEl.querySelectorAll('text').forEach(function(el) {
-    el._apfHandler = function(e) { apfSvgTextClick(e, tabId); };
-    el.addEventListener('click', el._apfHandler);
+
+  // Force all children to receive pointer events
+  svgEl.style.pointerEvents = 'auto';
+  svgEl.querySelectorAll('*').forEach(function(el) {
+    if (window.getComputedStyle(el).pointerEvents === 'none') {
+      el.style.pointerEvents = 'auto';
+    }
   });
+
+  // Single delegated click handler on the SVG itself
+  svgEl._apfEdit = function(e) {
+    if (!apfSvgActiveEdits[tabId]) return;
+
+    // Walk up from target to find <text> ancestor
+    var node = e.target;
+    var textEl = null;
+    while (node && node !== svgEl) {
+      var tag = node.tagName ? node.tagName.toLowerCase() : '';
+      if (tag === 'text') { textEl = node; break; }
+      if (tag === 'tspan') {
+        var p = node.parentElement;
+        while (p && p !== svgEl) {
+          if (p.tagName && p.tagName.toLowerCase() === 'text') { textEl = p; break; }
+          p = p.parentElement;
+        }
+        if (textEl) break;
+      }
+      node = node.parentElement;
+    }
+    if (!textEl) return;
+
+    e.stopPropagation();
+    e.preventDefault();
+
+    if (e.shiftKey) {
+      var preview = textEl.textContent.trim().slice(0, 60);
+      if (confirm('刪除此文字？\n「' + preview + '」')) textEl.remove();
+      return;
+    }
+    apfSvgShowEditor(textEl);
+  };
+  svgEl.addEventListener('click', svgEl._apfEdit);
 }
 
 function apfSvgTeardownEditing(tabId) {
   var panel = document.getElementById(tabId);
   if (!panel) return;
   var svgEl = panel.querySelector('svg');
-  if (svgEl) {
-    svgEl.querySelectorAll('text').forEach(function(el) {
-      if (el._apfHandler) { el.removeEventListener('click', el._apfHandler); delete el._apfHandler; }
-    });
+  if (svgEl && svgEl._apfEdit) {
+    svgEl.removeEventListener('click', svgEl._apfEdit);
+    delete svgEl._apfEdit;
   }
   var editor = document.getElementById('apf-svg-inline-editor');
   if (editor) editor.remove();
-}
-
-function apfSvgTextClick(e, tabId) {
-  e.stopPropagation();
-  var textEl = e.currentTarget;
-  if (e.shiftKey) {
-    if (confirm('刪除此文字元素？\n「' + textEl.textContent.trim().slice(0, 60) + '」')) {
-      textEl.remove();
-    }
-    return;
-  }
-  apfSvgShowEditor(textEl);
 }
 
 function apfSvgShowEditor(textEl) {
   var old = document.getElementById('apf-svg-inline-editor');
   if (old) old.remove();
 
+  // Get dominant text (first tspan child or direct text)
+  var firstTspan = textEl.querySelector('tspan');
+  var editTarget = firstTspan || textEl;
+  var currentVal = editTarget.textContent.trim();
+
   var bbox = textEl.getBoundingClientRect();
   var cs   = window.getComputedStyle(textEl);
-  var fs   = parseFloat(cs.fontSize) || 13;
+  var fs   = Math.max(parseFloat(cs.fontSize) || 13, 11);
 
   var input = document.createElement('input');
-  input.id   = 'apf-svg-inline-editor';
-  input.type = 'text';
-  input.value = textEl.textContent.trim();
-  input.style.cssText =
-    'left:' + (bbox.left - 2) + 'px;' +
-    'top:'  + (bbox.top  - 4) + 'px;' +
-    'min-width:' + Math.max(bbox.width + 60, 120) + 'px;' +
-    'font-size:' + fs + 'px;' +
-    'font-family:' + (cs.fontFamily || 'inherit') + ';';
+  input.id    = 'apf-svg-inline-editor';
+  input.type  = 'text';
+  input.value = currentVal;
+  // Must include position:fixed so it appears over SVG regardless of scroll
+  input.style.cssText = [
+    'position:fixed',
+    'left:' + Math.max(bbox.left - 2, 4) + 'px',
+    'top:'  + Math.max(bbox.top  - 4, 4) + 'px',
+    'min-width:' + Math.max(bbox.width + 60, 140) + 'px',
+    'font-size:' + fs + 'px',
+    'font-family:' + (cs.fontFamily || "'Segoe UI',sans-serif"),
+    'z-index:99999',
+    'border:2px solid #3b82f6',
+    'border-radius:4px',
+    'padding:3px 8px',
+    'background:#fff',
+    'box-shadow:0 4px 16px rgba(0,0,0,.3)',
+    'outline:none',
+    'color:#1e293b'
+  ].join(';');
+
   document.body.appendChild(input);
-  input.focus(); input.select();
+  input.focus();
+  input.select();
 
   function commit() {
     var v = input.value.trim();
-    if (v) {
-      // Handle tspan children
-      if (textEl.querySelector('tspan')) {
-        textEl.querySelectorAll('tspan').forEach(function(ts, i) { if (i === 0) ts.textContent = v; else ts.textContent = ''; });
-      } else {
-        textEl.textContent = v;
-      }
-    }
+    if (v) editTarget.textContent = v;
     if (input.parentNode) input.remove();
   }
   input.addEventListener('blur', commit);
   input.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') { e.preventDefault(); commit(); }
+    if (e.key === 'Enter')  { e.preventDefault(); commit(); }
     if (e.key === 'Escape') { if (input.parentNode) input.remove(); }
   });
 }
@@ -6088,20 +6123,17 @@ function apfSvgAddText(tabId) {
   var vb = (svgEl.getAttribute('viewBox') || '0 0 800 600').split(/\s+/);
   var newEl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
   newEl.setAttribute('x', (parseFloat(vb[0]) + 16).toString());
-  newEl.setAttribute('y', (parseFloat(vb[1]) + 24).toString());
-  newEl.setAttribute('font-size', '13');
+  newEl.setAttribute('y', (parseFloat(vb[1]) + 40).toString());
+  newEl.setAttribute('font-size', '14');
   newEl.setAttribute('fill', '#1e293b');
   newEl.setAttribute('font-family', "'Segoe UI',Arial,sans-serif");
+  newEl.style.pointerEvents = 'auto';
   newEl.textContent = text.trim();
-  newEl._apfHandler = function(e) { apfSvgTextClick(e, tabId); };
-  newEl.addEventListener('click', newEl._apfHandler);
   svgEl.appendChild(newEl);
-  // Open inline editor immediately
   setTimeout(function() { apfSvgShowEditor(newEl); }, 50);
 }
 
 function apfSvgDownload() {
-  // Reuse existing APF save function if available, else fallback
   if (typeof apfT_saveDownload === 'function') { apfT_saveDownload(); return; }
   var blob = new Blob([document.documentElement.outerHTML], {type:'text/html;charset=utf-8'});
   var a = document.createElement('a');
