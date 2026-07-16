@@ -215,6 +215,9 @@ li:hover .partner-li-del{opacity:1}
 .asp-card-header{display:flex;align-items:center;justify-content:space-between;padding:20px 28px;gap:12px}
 .asp-copilot{background:linear-gradient(135deg,#1E3A5F 0%,#2563EB 100%)}
 .asp-security{background:linear-gradient(135deg,#1a2744 0%,#7C3AED 100%)}
+.asp-datasecurity{background:linear-gradient(135deg,#064e3b 0%,#0d9488 100%)}
+.asp-copilotnew{background:linear-gradient(135deg,#1e1b4b 0%,#4f46e5 100%)}
+.asp-infra{background:linear-gradient(135deg,#164e63 0%,#0891b2 100%)}
 .asp-header-left{display:flex;align-items:center;gap:16px}
 .asp-icon{font-size:2.2rem;filter:drop-shadow(0 2px 4px rgba(0,0,0,.3))}
 .asp-title{font-size:1.3rem;font-weight:800;color:#fff;letter-spacing:.02em}
@@ -4860,7 +4863,7 @@ function renderAspCard(key,asp){
   let totalDone=0,totalReq=0;
   asp.certs.forEach(c=>{
     const done=Object.values(c.members).reduce((a,v)=>a+v,0);
-    totalDone+=done; totalReq+=c.required;
+    totalDone+=Math.min(done,c.required); totalReq+=c.required;
   });
   const pct=totalReq?Math.round(totalDone/totalReq*100):0;
   const allDone=pct>=100;
@@ -4878,10 +4881,10 @@ function renderAspCard(key,asp){
 
   const certsHtml=asp.certs.map(c=>{
     const done=Object.values(c.members).reduce((a,v)=>a+v,0);
-    const fillPct=Math.round(done/c.required*100);
-    const statClass=done===c.required?'done':'warn';
-    const barColor=done===c.required?'#22C55E':fillPct>=60?'#F59E0B':'#EF4444';
-    const statIcon=done===c.required?'✅':'⚠️';
+    const fillPct=Math.min(100,Math.round(done/c.required*100));
+    const statClass=done>=c.required?'done':'warn';
+    const barColor=done>=c.required?'#22C55E':fillPct>=60?'#F59E0B':'#EF4444';
+    const statIcon=done>=c.required?'✅':'⚠️';
     const chipsHtml=Object.entries(c.members).map(([m,v])=>
       `<button class="asp-mchip ${v?'done':'miss'}" onclick="toggleAspMember('${key}','${c.id}','${m}')" title="點擊切換">${m} ${v?'✓':'✗'}</button>`
     ).join('');
