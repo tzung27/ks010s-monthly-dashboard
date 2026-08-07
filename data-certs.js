@@ -1,12 +1,12 @@
 // ─────────────────────────────────────────────────────────────
 // Microsoft 認證追蹤資料（依 2026-07 更新）
-// Allen=12, Nick=11, Lucas=15, Aaron=14, Bruno=1 → 合計53
+// Allen=12, Nick=11, Lucas=16, Aaron=15, Bruno=2 → 合計56
 // ─────────────────────────────────────────────────────────────
 const CERT_MEMBERS_LIST = ['Allen', 'Nick', 'Lucas', 'Aaron', 'Bruno'];
 
 const CERT_DATA_DEFAULT = [
   // id          name                                                           code      expiry        csa                          cat1                   cat2                                                   note           Allen Nick Lucas Aaron Bruno
-  { id:'CR001', name:'Azure AI Engineer Associate',                           code:'AI-102', expiry:'2026-06-30', csa:'Cloud & AI Platforms',  cat1:'Data & AI',          cat2:'Data & AI',                                       note:'',             Allen:0, Nick:1, Lucas:0, Aaron:1, Bruno:1 },
+  { id:'CR001', name:'Azure AI Engineer Associate',                           code:'AI-102', expiry:'2026-06-30', csa:'Cloud & AI Platforms',  cat1:'Data & AI',          cat2:'Data & AI',                                       note:'',             Allen:0, Nick:1, Lucas:1, Aaron:1, Bruno:1 },
   { id:'CR002', name:'(新認證 取代 AI-102)',                                   code:'AI-103', expiry:'',           csa:'Cloud & AI Platforms',  cat1:'Data & AI',          cat2:'Data & AI',                                       note:'取代 AI-102',  Allen:0, Nick:0, Lucas:0, Aaron:0, Bruno:0 },
   { id:'CR003', name:'Administrator Expert',                                  code:'MS-102', expiry:'',           csa:'AI Business Solutions', cat1:'Modern Work',        cat2:'Modern Work',                                     note:'',             Allen:1, Nick:1, Lucas:1, Aaron:1, Bruno:0 },
   { id:'CR004', name:'Security Administrator Associate',                      code:'MS-500', expiry:'expired',    csa:'AI Business Solutions', cat1:'Security',           cat2:'Security',                                        note:'已汰換',       Allen:0, Nick:0, Lucas:0, Aaron:1, Bruno:0 },
@@ -34,13 +34,13 @@ const CERT_DATA_DEFAULT = [
   { id:'CR026', name:'Dynamics 365 Customer Insights (Data) Specialty',      code:'MB-260', expiry:'',           csa:'AI Business Solutions', cat1:'Dynamics 365/Data & AI',cat2:'Business Applications/Data & AI',             note:'',             Allen:0, Nick:0, Lucas:0, Aaron:1, Bruno:0 },
   { id:'CR027', name:'Security Operations Analyst Associate',                 code:'SC-200', expiry:'',           csa:'Security',              cat1:'Security',           cat2:'Security',                                        note:'',             Allen:0, Nick:1, Lucas:1, Aaron:1, Bruno:0 },
   { id:'CR028', name:'Identity and Access Administrator Associate',           code:'SC-300', expiry:'',           csa:'Security',              cat1:'Security',           cat2:'Modern Work',                                     note:'',             Allen:0, Nick:1, Lucas:0, Aaron:0, Bruno:0 },
-  { id:'CR029', name:'Administering Information Security in Microsoft 365',   code:'SC-401', expiry:'',           csa:'Security',              cat1:'Security',           cat2:'Security',                                        note:'',             Allen:1, Nick:0, Lucas:1, Aaron:0, Bruno:0 },
+  { id:'CR029', name:'Administering Information Security in Microsoft 365',   code:'SC-401', expiry:'',           csa:'Security',              cat1:'Security',           cat2:'Security',                                        note:'',             Allen:1, Nick:0, Lucas:1, Aaron:1, Bruno:1 },
   { id:'CR030',    name:'Security, Compliance, and Identity Fundamentals',     code:'SC-900', expiry:'',           csa:'Security',              cat1:'Security',           cat2:'Security',                                        note:'',             Allen:0, Nick:1, Lucas:1, Aaron:1, Bruno:0 },
   { id:'CR711513', name:'Agentic AI Business Solutions Architect',            code:'AB-100', expiry:'',           csa:'Cloud & AI Platforms',  cat1:'Data and AI',        cat2:'Agentic AI',                                      note:'',             Allen:1, Nick:0, Lucas:1, Aaron:1, Bruno:0 },
   { id:'CR770063', name:'GitHub Copilot Certification',                       code:'GH-300', expiry:'',           csa:'Cloud & AI Platforms',  cat1:'Data and AI',        cat2:'Copilot',                                         note:'',             Allen:0, Nick:0, Lucas:1, Aaron:1, Bruno:0 },
   { id:'CR832320', name:'Developing AI-Enabled Database Solutions',           code:'DB-800', expiry:'',           csa:'Cloud & AI Platforms',  cat1:'Data and AI',        cat2:'Database AI',                                     note:'',             Allen:0, Nick:0, Lucas:0, Aaron:0, Bruno:0 },
 ];
-// 驗證合計: Allen=12, Nick=11, Lucas=15, Aaron=14, Bruno=1 → 53
+// 驗證合計: Allen=12, Nick=11, Lucas=16, Aaron=15, Bruno=2 → 56
 
 function loadCertData(){
   const s=localStorage.getItem('ks_cert_data');
