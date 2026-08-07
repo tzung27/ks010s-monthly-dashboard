@@ -12,6 +12,7 @@
 <script src="data-202604.js"></script>
 <script src="data-202605.js"></script>
 <script src="data-202606.js"></script>
+<script src="data-202607.js"></script>
 <script src="data-certs.js"></script>
 <script src="data-asp.js"></script>
 <script src="data-iur.js"></script>
@@ -3154,6 +3155,7 @@ function getAllData(){
   stored['2026-04']=DATA_202604;
   stored['2026-05']=DATA_202605;
   stored['2026-06']=DATA_202606;
+  stored['2026-07']=DATA_202607;
   return stored;
 }
 
@@ -3274,6 +3276,25 @@ function getHighlightsAndImprovements(period){
         'Lucas 線上課程收費（NT$12,000 虛擬）尚未實際收款，應盡速確認課程服務正式報價與收款流程',
         '部門 Nick 仍無案件紀錄，需確認服務管線狀態，必要時重新分配案件資源'
       ]
+    },
+    '2026-07':{
+      report:`2026年7月，KS010S 部門完成 285+ 件服務案件，合計虛擬費用 NT$778,000，實際確認收費 NT$53,333。Aaron 以 94 件 Microsoft CSP 技術支援領銜，同時取得 SC-401 資安新認證與 AZ-500 續證（合計認證虛擬產值 NT$60,000），本月最高單案為國喬石油 M365 協作教育訓練（NT$12,000）；Denny 完成 55 件 Apple MDM 與 Trend Micro 服務，實際收費 NT$35,000（中華賓士 NT$1,667、華航資訊處 NT$25,000、彰銀資訊處 NT$8,333），並完成 10 項知識資產產出；William 完成 34 件技術支援（Kaspersky 20件、Apple MDM 12件、活動 2件），台設院健診與稽核實收 NT$10,000，量趨科技 MDM 實收 NT$8,333，並以 Claude AI 輔助 KB 產出效率從 2hr 壓縮至 40min；Lucas 完成 42 件 Azure 技術支援，取得 GH-300 GitHub Copilot 新認證與 SC-401 續約，合計認證虛擬產值 NT$60,000；Adobe/Jimmy 完成 60+ 件企業技術支援，完成 Adobe Firefly AI Assistant 推廣教學影片並發布至 YouTube，合計虛擬費用 NT$110,000。`,
+      highlights:[
+        '🏅 Aaron 取得 SC-401 資安新認證＋AZ-500 續證，資安顧問能量再強化，認證虛擬產值 NT$60,000',
+        '📊 Aaron 94 件 Microsoft CSP 支援，Copilot Cowork 自動化郵件分流穩定支撐多線工單',
+        '💰 Denny 實際收費 NT$35,000（中華賓士 + 華航資訊處 + 彰銀資訊處），Apple MDM 收費服務持續擴大',
+        '📚 Denny 完成 10 項知識資產產出（PPT 4份、KB 4篇、教學影片 2支），Apple Business 線上課程 2 場',
+        '🛡️ William 20 件卡巴斯基技術支援＋台設院健診稽核收費 NT$10,000，量趨科技 MDM 收費 NT$8,333',
+        '🤖 William Claude AI 輔助 KB/文件產出效率 2hr → 40min，AI 工具全面融入日常工作',
+        '🎓 Lucas 取得 GH-300 GitHub Copilot 新認證＋SC-401 續約，認證虛擬產值 NT$60,000',
+        '🎨 Adobe Firefly AI Assistant 推廣教學影片發布 YouTube，建立可重複使用的企業客戶教材資源'
+      ],
+      improvements:[
+        'Aaron 94 件中 MFA 重設類仍佔相當比例，建議建立客戶自助 SOP，降低低價值重複案件比重',
+        'Lucas 42 件 Azure 支援實際收費 NT$0，建議加強 Azure Migration / Sentinel 顧問收費轉換',
+        'William 共享案件（William & Denny）的計費歸屬建議明確化，避免績效認定模糊',
+        'Nick 本月暫無案件紀錄，需確認服務管線狀態，必要時重新分配案件資源'
+      ]
     }
   };
   return map[period]||{
@@ -3286,8 +3307,8 @@ function getHighlightsAndImprovements(period){
 // ─────────────────────────────────────────────────────────────
 // State
 // ─────────────────────────────────────────────────────────────
-let selectedPeriods=['2026-06'];
-let currentPeriod='2026-06'; // always = selectedPeriods last element
+let selectedPeriods=['2026-07'];
+let currentPeriod='2026-07'; // always = selectedPeriods last element
 let filteredCases=[];
 let currentPage=1;
 const PAGE_SIZE=50;
@@ -5665,6 +5686,23 @@ const MR3_DEFAULTS = {
       Adobe:['Adobe CC / Firefly AI 應用','Acrobat Sign 電子簽署導入','實體教育訓練 (工藝中心)','建立收費服務課程框架'],
     }
   },
+  '2026-07':{
+    aiItems:[
+      {icon:'🏅',title:'雙認證里程碑',sub:'Aaron SC-401 新取得 + Lucas GH-300 GitHub Copilot',desc:'本月 Aaron 取得 SC-401 資安新認證，Lucas 取得 GH-300 GitHub Copilot 認證，合計 4 張認證（含各自續約），強化資安與 AI 技術顧問能量，合計認證虛擬產值 NT$120,000。'},
+      {icon:'🤖',title:'AI 工具全面融入工作流程',sub:'Copilot Cowork + Claude AI + ChatGPT 多元應用',desc:'Aaron 以 Copilot Cowork 自動化郵件分流支撐多線工單；William 用 Claude 將 KB 產出從 2hr 壓縮至 40min；Adobe 以 ChatGPT 規劃教學架構，AI 工具導入已成部門標準作業。'},
+      {icon:'🎨',title:'Adobe Firefly AI 技術推廣',sub:'教學影片 + YouTube 頻道 + 可複用教材',desc:'Adobe(Jimmy) 完成 Firefly AI Assistant 推廣專案，製作完整教學影片與技術文件並發布至 YouTube，建立可持續更新的企業客戶教材資源庫，虛擬產值 NT$110,000。'},
+      {icon:'🍎',title:'Apple SMB 知識體系建構',sub:'10 項知識資產 + Apple Business 線上課程 2 場',desc:'Denny 完成 10 項知識資產產出（PPT 4份、KB 4篇、教學影片 2支）；William 產出 Apple Business 教學影片 3 支與 KB 3 篇，共同建立完整 Apple SMB 技術知識體系。'},
+      {icon:'💰',title:'雙收費里程碑',sub:'Denny NT$35,000 + William NT$18,333',desc:'Denny 本月達成實際收費 NT$35,000（中華賓士、華航資訊處、彰銀資訊處），William 達成 NT$18,333（量趨科技 + 台設院健診稽核），合計實際收費 NT$53,333。'},
+    ],
+    memberTasks:{
+      Aaron:['94 件 Microsoft CSP 技術支援','國喬石油 M365 協作教育訓練 NT$12,000','取得 SC-401 新認證 + AZ-500 續證','Copilot Cowork 自動化郵件分類管理'],
+      Denny:['Apple MDM 41 件（彰銀 19 次、華航 4 次）','Trend Micro 11 件 Apex One / WFBS-Svc 支援','Apple Business 線上課程 × 2 + 10 項知識產出','實際收費 NT$35,000（中華賓士 + 華航 + 彰銀）'],
+      William:['Kaspersky 20 件技術支援（台設院健診稽核收費）','凱基人壽 Jamf App / iPad 系列管理 4 件','卡巴斯基線上教育訓練 × 2（基礎 + 優選）','Claude AI 輔助 KB 產出效率 2hr → 40min'],
+      Lucas:['Azure 42 件技術支援（VM / Sentinel / VPN）','取得 GH-300 GitHub Copilot + SC-401 續約','VALA 展碁線上課 Azure 操作知識分享','規劃 Frontier Transformation 工程培訓'],
+      Nick:['本月暫無案件紀錄','','',''],
+      Adobe:['Firefly AI Assistant 教學影片製作與 YouTube 發布','Admin Console / Acrobat / Sign 技術支援 60+','ChatGPT + Firefly AI 教材製作效率提升','客戶端產品介紹 3 件（AI 功能推廣）'],
+    }
+  },
   '2026-06':{
     aiItems:[
       {icon:'📚',title:'Copilot 教育服務擴展',sub:'中國電器+中華電信收費交付',desc:'Aaron 完成中國電器到府 Copilot 教育訓練（NT$8,000）與中華電信 Copilot 課程（NT$6,000），顧問教育服務延伸至電信與製造業，Copilot 品牌持續深化。'},
@@ -5691,6 +5729,7 @@ const MR3_ACTUAL_LABELS = {
   '2026-04':{William:'華航年度合約'},
   '2026-05':{Denny:'華航專案',William:'基隆關稅局',Lucas:'易利華專案'},
   '2026-06':{Denny:'和泰+華航',William:'卡巴斯基+Apple',Lucas:'翻頁國際+海能風力'},
+  '2026-07':{Denny:'中華賓士+華航+彰銀',William:'台設院健診+量趨科技'},
 };
 
 let mr3EditMode=false;
