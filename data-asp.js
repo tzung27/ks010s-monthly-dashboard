@@ -28,21 +28,21 @@ const ASP_DATA_DEFAULT = {
       {name:'客戶推薦資料 03', who:'Lucas', date:'2026/03/31', done:true},
     ],
     certs:[
-      {id:'sec-az500', code:'AZ-500', name:'Microsoft Azure Security Engineer',    required:6, members:{Allen:1,Nick:0,Lucas:1,Aaron:1,Guo:0,Eric:0}},
+      {id:'sec-az500', code:'AZ-500', name:'Microsoft Azure Security Engineer',    required:6, members:{Allen:0,Nick:0,Lucas:1,Aaron:1,Guo:0,Eric:0}},
       {id:'sec-sc200', code:'SC-200', name:'Microsoft Security Operations Analyst',required:5, members:{Allen:0,Nick:1,Lucas:1,Aaron:1,Guo:0}},
     ]
   },
   infra: {
     label:'Infra and Database Migration to Microsoft Azure ASP', subtitle:'Microsoft Azure 基礎架構與資料庫遷移專長方案',
     icon:'☁️', theme:'asp-infra', deadline:'2026/10/26',
-    dlNote:'評估期間 2026/07/28～2026/10/26，Module B 由 Lucas 與 Allen 共同負責，AZ-104 尚缺 Allen，DP-300 全員待考。',
+    dlNote:'評估期間 2026/07/28～2026/10/26，Module B 由 Lucas 與 Allen 共同負責，尚缺一人考取左列任一認證 (洽詢高雄趨勢工程師 AZ-104)。',
     refs:[
       {name:'Audit',    who:'',              date:'',           done:false},
       {name:'Module A', who:'',              date:'',           done:false},
       {name:'Module B', who:'Lucas / Allen', date:'2026/10/26', done:false},
     ],
     certs:[
-      {id:'infra-az104', code:'AZ-104', name:'Microsoft Azure Administrator Associate', required:1, members:{Allen:0,Somebody01:1,Lucas:1,Aaron:1}},
+      {id:'infra-az104', code:'AZ-104', name:'Microsoft Azure Administrator Associate', required:1, members:{Allen:1,Somebody01:0,Lucas:1,Aaron:1}},
       {id:'infra-az500', code:'AZ-500', name:'Azure Security Engineer Associate',        required:1, members:{Allen:0,Somebody01:0,Lucas:1,Aaron:1}},
       {id:'infra-dp300', code:'DP-300', name:'Azure 資料庫管理師助理',                   required:1, members:{Allen:0,Somebody01:0,Lucas:0,Aaron:0}},
       {id:'infra-az400', code:'AZ-400', name:'DevOps Engineer Expert',                   required:1, members:{Allen:1,Somebody01:0,Lucas:0,Aaron:0}},
@@ -58,8 +58,8 @@ const ASP_DATA_DEFAULT = {
       {name:'Module B', who:'Aaron', date:'2026/09/30', done:false},
     ],
     certs:[
-      {id:'cnew-sc401', code:'SC-401', name:'Information Security Administrator Associate', required:5, members:{Allen:1,Somebody:0,Lucas:1,Aaron:0,Guo:0}},
-      {id:'cnew-ab100', code:'AB-100', name:'Agentic AI Business Solutions Architect',       required:5, members:{Allen:0,Somebody:0,Lucas:0,Aaron:0,Guo:0}},
+      {id:'cnew-sc401', code:'SC-401', name:'Information Security Administrator Associate', required:5, members:{Allen:1,Somebody:0,Lucas:1,Aaron:1,Guo:1}},
+      {id:'cnew-ab100', code:'AB-100', name:'Agentic AI Business Solutions Architect',       required:5, members:{Allen:1,Somebody:0,Lucas:1,Aaron:1,Guo:0}},
     ]
   },
   datasecurity: {
@@ -72,8 +72,8 @@ const ASP_DATA_DEFAULT = {
       {name:'客戶推薦資料 03', who:'Aaron', date:'2026/08/31', done:false},
     ],
     certs:[
-      {id:'ds-sc401',  code:'SC-401',        name:'Information Security Administrator Associate',                       required:6, members:{Allen:1,Somebody01:0,Lucas:1,Aaron:0,Guo:0,Eric:0}},
-      {id:'ds-as-pur', code:'Applied Skills', name:'使用 Microsoft Purview 實作資訊保護和資料外洩防護', required:4, members:{Allen:0,Lucas:0,Aaron:0,Guo:0}},
+      {id:'ds-sc401',  code:'SC-401',        name:'Information Security Administrator Associate',                       required:6, members:{Allen:1,Somebody01:0,Lucas:1,Aaron:1,Guo:1,Eric:0}},
+      {id:'ds-as-pur', code:'Applied Skills', name:'使用 Microsoft Purview 實作資訊保護和資料外洩防護', required:4, members:{Allen:1,Lucas:1,Aaron:1,Guo:1}},
     ]
   }
 };
