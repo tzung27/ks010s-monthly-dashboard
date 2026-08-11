@@ -35,9 +35,9 @@ const ASP_DATA_DEFAULT = {
   infra: {
     label:'Infra and Database Migration to Microsoft Azure ASP', subtitle:'Microsoft Azure 基礎架構與資料庫遷移專長方案',
     icon:'☁️', theme:'asp-infra', deadline:'2026/10/26',
+    refsTitle:'Audit',
     dlNote:'評估期間 2026/07/28～2026/10/26，Module B 由 Lucas 與 Allen 共同負責，尚缺一人考取左列任一認證 (洽詢高雄趨勢工程師 AZ-104)。',
     refs:[
-      {name:'Audit',    who:'',              date:'',           done:false},
       {name:'Module A', who:'',              date:'',           done:false},
       {name:'Module B', who:'Lucas / Allen', date:'2026/10/26', done:false},
     ],
