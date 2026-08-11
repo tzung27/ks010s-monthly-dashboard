@@ -6105,13 +6105,43 @@ function saveWtModal(id, isEdit){
     const APF_PANELS = ['apf-sub-fte','apf-sub-plan','apf-sub-timeline','apf-sub-arch','apf-sub-invest'];
 
     function apfT_persistSubpanels() {
-        APF_PANELS.forEach(function(pid) {
+        // FTE: save gallery and wrap as separate keys so gallery is never wiped
+        var fteBg = document.getElementById('fte-badge-gallery');
+        if (fteBg) localStorage.setItem('ks_spf_fte-bg', fteBg.innerHTML);
+        var fteWrap = document.querySelector('#apf-sub-fte .apf-fte-wrap');
+        if (fteWrap) localStorage.setItem('ks_spf_apf-sub-fte-wrap', fteWrap.innerHTML);
+        // Other panels: save full innerHTML as before
+        APF_PANELS.filter(function(p){return p!=='apf-sub-fte';}).forEach(function(pid) {
             var el = document.getElementById(pid);
             if (el) localStorage.setItem('ks_spf_'+pid, el.innerHTML);
         });
     }
     function apfT_restoreSubpanels() {
-        APF_PANELS.forEach(function(pid) {
+        // Migrate legacy full-panel save → split keys (one-time, removes old key)
+        var legacyFte = localStorage.getItem('ks_spf_apf-sub-fte');
+        if (legacyFte && !localStorage.getItem('ks_spf_apf-sub-fte-wrap')) {
+            var tmp = document.createElement('div');
+            tmp.innerHTML = legacyFte;
+            var legWrap = tmp.querySelector('.apf-fte-wrap');
+            if (legWrap) localStorage.setItem('ks_spf_apf-sub-fte-wrap', legWrap.innerHTML);
+            var legBg = tmp.querySelector('#fte-badge-gallery');
+            if (legBg) localStorage.setItem('ks_spf_fte-bg', legBg.innerHTML);
+        }
+        if (legacyFte) localStorage.removeItem('ks_spf_apf-sub-fte');
+        // Restore FTE wrap (gallery stays from source HTML, never overwritten)
+        var savedWrap = localStorage.getItem('ks_spf_apf-sub-fte-wrap');
+        if (savedWrap) {
+            var wrap = document.querySelector('#apf-sub-fte .apf-fte-wrap');
+            if (wrap) wrap.innerHTML = savedWrap;
+        }
+        // Restore gallery state (user-added cards)
+        var savedBg = localStorage.getItem('ks_spf_fte-bg');
+        if (savedBg) {
+            var bg = document.getElementById('fte-badge-gallery');
+            if (bg) bg.innerHTML = savedBg;
+        }
+        // Restore other panels normally
+        APF_PANELS.filter(function(p){return p!=='apf-sub-fte';}).forEach(function(pid) {
             var saved = localStorage.getItem('ks_spf_'+pid);
             if (!saved) return;
             var el = document.getElementById(pid);
