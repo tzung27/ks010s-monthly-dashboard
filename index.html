@@ -6132,6 +6132,9 @@ function saveWtModal(id, isEdit){
             } else if (txt === '必修') {
                 b.style.outline = '2px solid rgba(255,255,255,0.6)';
                 b.style.outlineOffset = '2px';
+            } else if (txt === '完成') {
+                b.style.background = '#D97706';
+                b.style.boxShadow = '0 0 0 2px rgba(251,191,36,0.5), 0 2px 8px rgba(251,191,36,0.5)';
             }
         });
     }
@@ -6172,7 +6175,8 @@ function saveWtModal(id, isEdit){
 
     function apfFte_onBadgeClick() {
         if (!apfT_isEditMode) return;
-        var seq = ['必修','OK','選修'];
+        var isGoalRow = !!this.closest('.row-badge');
+        var seq = isGoalRow ? ['目標','完成'] : ['必修','OK','選修'];
         var idx = seq.indexOf(this.textContent.trim());
         this.textContent = seq[(idx + 1) % seq.length];
         apfT_applyBadgeStyles();
@@ -6181,7 +6185,7 @@ function saveWtModal(id, isEdit){
         document.querySelectorAll('#apf-sub-fte .apf-fte-table .fte-badge').forEach(function(b) {
             b.removeEventListener('click', apfFte_onBadgeClick);
             b.removeAttribute('contenteditable');
-            if (enable && !b.closest('.row-badge')) {
+            if (enable) {
                 b.addEventListener('click', apfFte_onBadgeClick);
             }
         });
