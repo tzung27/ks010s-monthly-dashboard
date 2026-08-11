@@ -51,9 +51,9 @@ const ASP_DATA_DEFAULT = {
   copilotnew: {
     label:'Copilot ASP (New)', subtitle:'Microsoft Copilot 下一代專長方案',
     icon:'🤖', theme:'asp-copilotnew', deadline:'2026/09/30',
+    refsTitle:'Audit',
     dlNote:'SC-401 與 AB-100 全員已完成；Audit / Module A / Module B 稽核進行中，Module B 由 Aaron 負責，截止日 2026/09/30。',
     refs:[
-      {name:'Audit',    who:'',    date:'',           done:false},
       {name:'Module A', who:'',    date:'',           done:false},
       {name:'Module B', who:'Aaron', date:'2026/09/30', done:false},
     ],
