@@ -126,20 +126,23 @@ function savePartnerData(d){localStorage.setItem('ks_partner_data',JSON.stringif
 function resetPartnerData(){localStorage.removeItem('ks_partner_data');}
 
 function loadAspData(){
-  let d;
-  try{
-    const s=localStorage.getItem('ks_asp_data');
-    d=s?JSON.parse(s):JSON.parse(JSON.stringify(ASP_DATA_DEFAULT));
-  }catch(e){d=JSON.parse(JSON.stringify(ASP_DATA_DEFAULT));}
-  // 補入 DEFAULT 中有但快取沒有的新 key（例如新增 ASP 方案時）
-  Object.entries(ASP_DATA_DEFAULT).forEach(([k,v])=>{
-    if(!d[k]) d[k]=JSON.parse(JSON.stringify(v));
-  });
-  // 確保每個 ASP key 下的 certs / refs 是陣列
-  Object.values(d).forEach(asp=>{
-    if(!Array.isArray(asp.certs)) asp.certs=[];
-    if(!Array.isArray(asp.refs))  asp.refs=[];
-  });
+  // DEFAULT 是 certs/refs 結構的唯一來源；localStorage 只保留用戶可編輯欄位
+  const d = JSON.parse(JSON.stringify(ASP_DATA_DEFAULT));
+  let cached = null;
+  try{ const s=localStorage.getItem('ks_asp_data'); cached=s?JSON.parse(s):null; }catch(e){}
+  if(cached){
+    Object.entries(d).forEach(([k,asp])=>{
+      const c=cached[k]; if(!c) return;
+      // 保留用戶在 UI 編輯的欄位
+      if(c.dlNote   !== undefined) asp.dlNote   = c.dlNote;
+      if(c.deadline !== undefined) asp.deadline = c.deadline;
+      // 保留 refs 的 done 狀態（以名稱對應）
+      if(Array.isArray(c.refs)){
+        const cmap={}; c.refs.forEach(r=>{ cmap[r.name]=r; });
+        asp.refs.forEach(r=>{ if(cmap[r.name]) r.done=cmap[r.name].done; });
+      }
+    });
+  }
   return d;
 }
 function saveAspData(d){localStorage.setItem('ks_asp_data',JSON.stringify(d));}
