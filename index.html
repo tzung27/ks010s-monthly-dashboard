@@ -6013,6 +6013,23 @@ function saveWtModal(id, isEdit){
 
     // --- State Management ---
     let apfT_isEditMode = false;
+    const APF_PANELS = ['apf-sub-fte','apf-sub-plan','apf-sub-timeline','apf-sub-arch','apf-sub-invest'];
+
+    function apfT_persistSubpanels() {
+        APF_PANELS.forEach(function(pid) {
+            var el = document.getElementById(pid);
+            if (el) localStorage.setItem('ks_spf_'+pid, el.innerHTML);
+        });
+    }
+    function apfT_restoreSubpanels() {
+        APF_PANELS.forEach(function(pid) {
+            var saved = localStorage.getItem('ks_spf_'+pid);
+            if (!saved) return;
+            var el = document.getElementById(pid);
+            if (el) el.innerHTML = saved;
+        });
+    }
+    apfT_restoreSubpanels();
 
     function apfT_toggleEditMode() {
         apfT_isEditMode = !apfT_isEditMode;
@@ -6041,6 +6058,8 @@ function saveWtModal(id, isEdit){
                 b.classList.remove('active');
             }
         });
+        // 退出編輯模式時自動存入 localStorage
+        if (!apfT_isEditMode) { apfT_persistSubpanels(); }
     }
 
     // --- Dynamic DOM Elements ---

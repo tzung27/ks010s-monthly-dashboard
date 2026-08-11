@@ -13,7 +13,9 @@ const WEBTOOLS_DEFAULT = [
   {id:'wt1780907305829', name:'AMM ASP 稽核 - 2026', url:'', cat:'ASP 稽核', desc:'', note:'Lucas'},
   {id:'wt1783327001124', name:'Microsoft Frontier Transform 黑客松', url:'https://microsoft.sharepoint.com/:f:/r/teams/OCP-China-PTA/Shared%20Documents/Forms/AllItems.aspx?id=%2fteams%2fOCP-China-PTA%2fShared+Documents%2fGeneral%2f1+-+FY26+WorkingDocs%2f1+-+GCR+AI+Agentic+Hackathon%2fPartner+Agent%2fLow+Code+Track%2f70-Weblink+International+Inc.-Product+InfoPilot+%E2%80%94+Product+Intelligence+%26+Technical+Weekly+Agent&p=true&share=cgqnjbdJ7lipTZIHD72sggO3EgUCqjK4zWWt9GfPvHZIenC-7Q', cat:'Copilot Studio', desc:'', note:'6/23'},
   {id:'wt1783327055318', name:'Adobe 續約總表管理系統', url:'http://allenchung168.pythonanywhere.com', cat:'', desc:'', note:''},
-  {id:'wt1783327550872', name:'Weblink M365 續約精準行銷 old', url:'https://weblink-m365-dashboar-eq23r59ryjiydohbnkgg54.streamlit.app/', cat:'', desc:'', note:''}
+  {id:'wt1783327550872', name:'Weblink M365 續約精準行銷 old', url:'https://weblink-m365-dashboar-eq23r59ryjiydohbnkgg54.streamlit.app/', cat:'', desc:'', note:''},
+  {id:'wt1784259944299', name:'動態權重與分紅 KPI 管理系統', url:'file:///D:/excel_dashboard13%20%E5%88%86%E7%B4%85%E7%B8%BE%E6%95%88/KPI_Dashboard_Summary.html', cat:'管理系統', desc:'', note:'Allen'},
+  {id:'wt1784859807355', name:'Apple Business 申請流程說明', url:'https://www.youtube.com/watch?v=WjgNnqOrkAg', cat:'線上教學', desc:'帳號：training.weblink@gmail.com\n密碼：Training.Weblink\n我們的都沒公開 得知道連結或是透過 KS010S KB才能看', note:'Denny & William'}
 ];
 
 function loadWebtools(){
