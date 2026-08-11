@@ -126,20 +126,30 @@ function savePartnerData(d){localStorage.setItem('ks_partner_data',JSON.stringif
 function resetPartnerData(){localStorage.removeItem('ks_partner_data');}
 
 function loadAspData(){
-  // DEFAULT 是 certs/refs 結構的唯一來源；localStorage 只保留用戶可編輯欄位
+  // DEFAULT 是結構來源（refsTitle、refs 清單、certs 清單）；localStorage 保留用戶可編輯狀態
   const d = JSON.parse(JSON.stringify(ASP_DATA_DEFAULT));
   let cached = null;
   try{ const s=localStorage.getItem('ks_asp_data'); cached=s?JSON.parse(s):null; }catch(e){}
   if(cached){
     Object.entries(d).forEach(([k,asp])=>{
       const c=cached[k]; if(!c) return;
-      // 保留用戶在 UI 編輯的欄位
+      // 保留文字欄位
       if(c.dlNote   !== undefined) asp.dlNote   = c.dlNote;
       if(c.deadline !== undefined) asp.deadline = c.deadline;
-      // 保留 refs 的 done 狀態（以名稱對應）
+      // 保留 refs done 狀態（以名稱對應）
       if(Array.isArray(c.refs)){
         const cmap={}; c.refs.forEach(r=>{ cmap[r.name]=r; });
-        asp.refs.forEach(r=>{ if(cmap[r.name]) r.done=cmap[r.name].done; });
+        asp.refs.forEach(r=>{ if(cmap[r.name]) r.done=!!cmap[r.name].done; });
+      }
+      // 保留 cert member 切換狀態（以 cert.id 對應，只覆蓋 DEFAULT 已知的成員）
+      if(Array.isArray(c.certs)){
+        const certMap={}; c.certs.forEach(cert=>{ certMap[cert.id]=cert; });
+        asp.certs.forEach(cert=>{
+          const cc=certMap[cert.id]; if(!cc||!cc.members) return;
+          Object.keys(cert.members).forEach(m=>{
+            if(cc.members[m]!==undefined) cert.members[m]=cc.members[m];
+          });
+        });
       }
     });
   }
