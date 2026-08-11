@@ -51,15 +51,15 @@ const ASP_DATA_DEFAULT = {
   copilotnew: {
     label:'Copilot ASP (New)', subtitle:'Microsoft Copilot 下一代專長方案',
     icon:'🤖', theme:'asp-copilotnew', deadline:'2026/09/30',
-    dlNote:'AB-100 全員尚未完成，請盡速備考；Module B 稽核由 Aaron 負責，截止日 2026/09/30。',
+    dlNote:'SC-401 與 AB-100 全員已完成；Audit / Module A / Module B 稽核進行中，Module B 由 Aaron 負責，截止日 2026/09/30。',
     refs:[
       {name:'Audit',    who:'',    date:'',           done:false},
       {name:'Module A', who:'',    date:'',           done:false},
       {name:'Module B', who:'Aaron', date:'2026/09/30', done:false},
     ],
     certs:[
-      {id:'cnew-sc401', code:'SC-401', name:'Information Security Administrator Associate', required:5, members:{Allen:1,Somebody:0,Lucas:1,Aaron:1,Guo:1}},
-      {id:'cnew-ab100', code:'AB-100', name:'Agentic AI Business Solutions Architect',       required:5, members:{Allen:1,Somebody:0,Lucas:1,Aaron:1,Guo:0}},
+      {id:'cnew-sc401', code:'SC-401', name:'Information Security Administrator Associate', required:5, members:{Allen:1,Somebody:1,Lucas:1,Aaron:1,Guo:1}},
+      {id:'cnew-ab100', code:'AB-100', name:'Agentic AI Business Solutions Architect',       required:5, members:{Allen:1,Somebody:1,Lucas:1,Aaron:1,Guo:1}},
     ]
   },
   datasecurity: {

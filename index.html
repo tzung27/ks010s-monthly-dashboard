@@ -4969,12 +4969,13 @@ function refreshPartner(){
 }
 
 function renderAspCard(key,asp){
-  // 計算整體進度
+  // 計算整體進度 (certs + refs 都算)
   let totalDone=0,totalReq=0;
   asp.certs.forEach(c=>{
     const done=Object.values(c.members).reduce((a,v)=>a+v,0);
     totalDone+=Math.min(done,c.required); totalReq+=c.required;
   });
+  asp.refs.forEach(r=>{ totalReq+=1; if(r.done) totalDone+=1; });
   const pct=totalReq?Math.round(totalDone/totalReq*100):0;
   const allDone=pct>=100;
   const badgeClass=pct>=90?'done':pct>=60?'warn':'danger';
