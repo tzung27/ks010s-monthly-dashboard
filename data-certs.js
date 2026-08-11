@@ -42,13 +42,18 @@ const CERT_DATA_DEFAULT = [
 ];
 // 驗證合計: Allen=12, Nick=11, Lucas=16, Aaron=15, Bruno=2 → 56
 
+function _mergeCertDefaults(d){
+  const ids=new Set(d.map(r=>r.id));
+  CERT_DATA_DEFAULT.forEach(function(row){ if(!ids.has(row.id)) d.push({...row}); });
+  return d;
+}
 function loadCertData(){
   const s=localStorage.getItem('ks_cert_data');
-  return s?JSON.parse(s):loadCertDefault();
+  return _mergeCertDefaults(s?JSON.parse(s):loadCertDefault());
 }
 function loadCertDefault(){
   const s=localStorage.getItem('ks_cert_data_default');
-  return s?JSON.parse(s):CERT_DATA_DEFAULT.map(r=>({...r}));
+  return _mergeCertDefaults(s?JSON.parse(s):CERT_DATA_DEFAULT.map(r=>({...r})));
 }
 function saveCertData(d){ localStorage.setItem('ks_cert_data',JSON.stringify(d)); }
 function saveCertDataAsDefault(d){ localStorage.setItem('ks_cert_data_default',JSON.stringify(d)); }
