@@ -2395,13 +2395,13 @@ tr:hover .iur-edit-btn{opacity:1}
 <div id="fte-badge-gallery" class="fte-bg-wrap">
   <div class="fte-bg-title">🏅 FTE Badge 獲得者</div>
   <div class="fte-bg-list" id="fte-bg-list">
-    <div class="fte-bg-card">
+    <div class="fte-bg-card" data-src="true">
       <button class="btn-del" onclick="apfT_removeEl(this,'.fte-bg-card')">✖</button>
       <div class="fte-bg-hex"><svg viewBox="0 0 100 115" xmlns="http://www.w3.org/2000/svg"><polygon points="50,4 96,28.5 96,86.5 50,111 4,86.5 4,28.5" fill="#0D2137"/><polygon points="50,95 96,70.5 96,86.5 50,111 4,86.5 4,70.5" fill="#00697A"/><polygon points="50,99 96,74.5 96,80 50,105 4,80 4,74.5" fill="#00838F"/><polygon points="50,103 96,78.5 96,86.5 50,111 4,86.5 4,78.5" fill="#26C6DA" opacity="0.5"/><rect x="38" y="16" width="10" height="10" fill="#F25022"/><rect x="49" y="16" width="10" height="10" fill="#7FBA00"/><rect x="38" y="27" width="10" height="10" fill="#00A4EF"/><rect x="49" y="27" width="10" height="10" fill="#FFB900"/><text x="50" y="50" text-anchor="middle" fill="#B8D4E8" font-size="7" font-family="Segoe UI,sans-serif">Frontier</text><text x="50" y="59" text-anchor="middle" fill="#B8D4E8" font-size="7" font-family="Segoe UI,sans-serif">Transformation</text><text x="50" y="68" text-anchor="middle" fill="#B8D4E8" font-size="7" font-family="Segoe UI,sans-serif">Engineer</text><line x1="22" y1="73" x2="78" y2="73" stroke="#26C6DA" stroke-width="0.8" opacity="0.5"/><text x="50" y="84" text-anchor="middle" fill="#26C6DA" font-size="9" font-weight="700" font-family="Segoe UI,sans-serif" letter-spacing="1.5">TITAN</text></svg></div>
       <div class="fte-bg-name" data-editable="true">Lucas</div>
       <div class="fte-bg-level" data-editable="true">TITAN · 2026-08</div>
     </div>
-    <div class="fte-bg-card">
+    <div class="fte-bg-card" data-src="true">
       <button class="btn-del" onclick="apfT_removeEl(this,'.fte-bg-card')">✖</button>
       <div class="fte-bg-hex"><svg viewBox="0 0 100 115" xmlns="http://www.w3.org/2000/svg"><polygon points="50,4 96,28.5 96,86.5 50,111 4,86.5 4,28.5" fill="#0D2137"/><polygon points="50,95 96,70.5 96,86.5 50,111 4,86.5 4,70.5" fill="#00697A"/><polygon points="50,99 96,74.5 96,80 50,105 4,80 4,74.5" fill="#00838F"/><polygon points="50,103 96,78.5 96,86.5 50,111 4,86.5 4,78.5" fill="#26C6DA" opacity="0.5"/><rect x="38" y="16" width="10" height="10" fill="#F25022"/><rect x="49" y="16" width="10" height="10" fill="#7FBA00"/><rect x="38" y="27" width="10" height="10" fill="#00A4EF"/><rect x="49" y="27" width="10" height="10" fill="#FFB900"/><text x="50" y="50" text-anchor="middle" fill="#B8D4E8" font-size="7" font-family="Segoe UI,sans-serif">Frontier</text><text x="50" y="59" text-anchor="middle" fill="#B8D4E8" font-size="7" font-family="Segoe UI,sans-serif">Transformation</text><text x="50" y="68" text-anchor="middle" fill="#B8D4E8" font-size="7" font-family="Segoe UI,sans-serif">Engineer</text><line x1="22" y1="73" x2="78" y2="73" stroke="#26C6DA" stroke-width="0.8" opacity="0.5"/><text x="50" y="84" text-anchor="middle" fill="#26C6DA" font-size="9" font-weight="700" font-family="Segoe UI,sans-serif" letter-spacing="1.5">TITAN</text></svg></div>
       <div class="fte-bg-name" data-editable="true">Aaron</div>
@@ -6110,42 +6110,53 @@ function saveWtModal(id, isEdit){
     // --- State Management ---
     let apfT_isEditMode = false;
     const APF_PANELS = ['apf-sub-fte','apf-sub-plan','apf-sub-timeline','apf-sub-arch','apf-sub-invest'];
+    var _fteBadgeSvg = '<svg viewBox="0 0 100 115" xmlns="http://www.w3.org/2000/svg"><polygon points="50,4 96,28.5 96,86.5 50,111 4,86.5 4,28.5" fill="#0D2137"/><polygon points="50,95 96,70.5 96,86.5 50,111 4,86.5 4,70.5" fill="#00697A"/><polygon points="50,99 96,74.5 96,80 50,105 4,80 4,74.5" fill="#00838F"/><polygon points="50,103 96,78.5 96,86.5 50,111 4,86.5 4,78.5" fill="#26C6DA" opacity="0.5"/><rect x="38" y="16" width="10" height="10" fill="#F25022"/><rect x="49" y="16" width="10" height="10" fill="#7FBA00"/><rect x="38" y="27" width="10" height="10" fill="#00A4EF"/><rect x="49" y="27" width="10" height="10" fill="#FFB900"/><text x="50" y="50" text-anchor="middle" fill="#B8D4E8" font-size="7" font-family="Segoe UI,sans-serif">Frontier</text><text x="50" y="59" text-anchor="middle" fill="#B8D4E8" font-size="7" font-family="Segoe UI,sans-serif">Transformation</text><text x="50" y="68" text-anchor="middle" fill="#B8D4E8" font-size="7" font-family="Segoe UI,sans-serif">Engineer</text><line x1="22" y1="73" x2="78" y2="73" stroke="#26C6DA" stroke-width="0.8" opacity="0.5"/><text x="50" y="84" text-anchor="middle" fill="#26C6DA" font-size="9" font-weight="700" font-family="Segoe UI,sans-serif" letter-spacing="1.5">TITAN</text></svg>';
 
     function apfT_persistSubpanels() {
-        // FTE: save gallery and wrap as separate keys so gallery is never wiped
-        var fteBg = document.getElementById('fte-badge-gallery');
-        if (fteBg) localStorage.setItem('ks_spf_fte-bg', fteBg.innerHTML);
+        // FTE wrap
         var fteWrap = document.querySelector('#apf-sub-fte .apf-fte-wrap');
         if (fteWrap) localStorage.setItem('ks_spf_apf-sub-fte-wrap', fteWrap.innerHTML);
-        // Other panels: save full innerHTML as before
+        // Gallery: only save user-added cards (no data-src), not source cards
+        var extraCards = [];
+        document.querySelectorAll('#fte-bg-list .fte-bg-card:not([data-src])').forEach(function(c) {
+            extraCards.push({
+                name: (c.querySelector('.fte-bg-name')||{}).textContent||'',
+                level: (c.querySelector('.fte-bg-level')||{}).textContent||''
+            });
+        });
+        localStorage.setItem('ks_spf_fte-bg-extra', JSON.stringify(extraCards));
+        // Other panels
         APF_PANELS.filter(function(p){return p!=='apf-sub-fte';}).forEach(function(pid) {
             var el = document.getElementById(pid);
             if (el) localStorage.setItem('ks_spf_'+pid, el.innerHTML);
         });
     }
     function apfT_restoreSubpanels() {
-        // Migrate legacy full-panel save → split keys (one-time, removes old key)
-        var legacyFte = localStorage.getItem('ks_spf_apf-sub-fte');
-        if (legacyFte && !localStorage.getItem('ks_spf_apf-sub-fte-wrap')) {
-            var tmp = document.createElement('div');
-            tmp.innerHTML = legacyFte;
-            var legWrap = tmp.querySelector('.apf-fte-wrap');
-            if (legWrap) localStorage.setItem('ks_spf_apf-sub-fte-wrap', legWrap.innerHTML);
-            var legBg = tmp.querySelector('#fte-badge-gallery');
-            if (legBg) localStorage.setItem('ks_spf_fte-bg', legBg.innerHTML);
-        }
-        if (legacyFte) localStorage.removeItem('ks_spf_apf-sub-fte');
-        // Restore FTE wrap (gallery stays from source HTML, never overwritten)
+        // Clean up stale keys from old versions
+        localStorage.removeItem('ks_spf_fte-bg');
+        localStorage.removeItem('ks_spf_apf-sub-fte');
+        // Restore FTE wrap (source cards in HTML are never touched)
         var savedWrap = localStorage.getItem('ks_spf_apf-sub-fte-wrap');
         if (savedWrap) {
             var wrap = document.querySelector('#apf-sub-fte .apf-fte-wrap');
             if (wrap) wrap.innerHTML = savedWrap;
         }
-        // Restore gallery state (user-added cards)
-        var savedBg = localStorage.getItem('ks_spf_fte-bg');
-        if (savedBg) {
-            var bg = document.getElementById('fte-badge-gallery');
-            if (bg) bg.innerHTML = savedBg;
+        // Append user-added extra cards
+        var extraRaw = localStorage.getItem('ks_spf_fte-bg-extra');
+        if (extraRaw) {
+            try {
+                var extras = JSON.parse(extraRaw);
+                var list = document.getElementById('fte-bg-list');
+                extras.forEach(function(e) {
+                    var card = document.createElement('div');
+                    card.className = 'fte-bg-card';
+                    card.innerHTML = '<button class="btn-del" onclick="apfT_removeEl(this,\'.fte-bg-card\')">✖</button>'
+                        + '<div class="fte-bg-hex">' + (_fteBadgeSvg||'') + '</div>'
+                        + '<div class="fte-bg-name" data-editable="true">' + (e.name||'') + '</div>'
+                        + '<div class="fte-bg-level" data-editable="true">' + (e.level||'') + '</div>';
+                    if (list) list.appendChild(card);
+                });
+            } catch(e) {}
         }
         // Restore other panels normally
         APF_PANELS.filter(function(p){return p!=='apf-sub-fte';}).forEach(function(pid) {
@@ -6315,8 +6326,6 @@ function saveWtModal(id, isEdit){
         apfFte_setupBadgeCycle(true);
         apfT_applyBadgeStyles();
     }
-
-    var _fteBadgeSvg = '<svg viewBox="0 0 100 115" xmlns="http://www.w3.org/2000/svg"><polygon points="50,4 96,28.5 96,86.5 50,111 4,86.5 4,28.5" fill="#0D2137"/><polygon points="50,95 96,70.5 96,86.5 50,111 4,86.5 4,70.5" fill="#00697A"/><polygon points="50,99 96,74.5 96,80 50,105 4,80 4,74.5" fill="#00838F"/><polygon points="50,103 96,78.5 96,86.5 50,111 4,86.5 4,78.5" fill="#26C6DA" opacity="0.5"/><rect x="38" y="16" width="10" height="10" fill="#F25022"/><rect x="49" y="16" width="10" height="10" fill="#7FBA00"/><rect x="38" y="27" width="10" height="10" fill="#00A4EF"/><rect x="49" y="27" width="10" height="10" fill="#FFB900"/><text x="50" y="50" text-anchor="middle" fill="#B8D4E8" font-size="7" font-family="Segoe UI,sans-serif">Frontier</text><text x="50" y="59" text-anchor="middle" fill="#B8D4E8" font-size="7" font-family="Segoe UI,sans-serif">Transformation</text><text x="50" y="68" text-anchor="middle" fill="#B8D4E8" font-size="7" font-family="Segoe UI,sans-serif">Engineer</text><line x1="22" y1="73" x2="78" y2="73" stroke="#26C6DA" stroke-width="0.8" opacity="0.5"/><text x="50" y="84" text-anchor="middle" fill="#26C6DA" font-size="9" font-weight="700" font-family="Segoe UI,sans-serif" letter-spacing="1.5">TITAN</text></svg>';
 
     function apfFte_addBadgeCard() {
         if (!apfT_isEditMode) return;
