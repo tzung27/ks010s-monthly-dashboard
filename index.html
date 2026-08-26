@@ -273,6 +273,9 @@ li:hover .partner-li-del{opacity:1}
 .asp-ref-dot.green{background:#22C55E}
 .asp-ref-who{margin-left:auto;background:#E0F2FE;color:#0369A1;font-size:.72rem;font-weight:700;padding:1px 7px;border-radius:10px;white-space:nowrap}
 .asp-ref-date{font-size:.72rem;color:#94A3B8;white-space:nowrap}
+.asp-ref-progress-row{display:flex;align-items:center;gap:8px;font-size:.82rem;color:#475569;margin-bottom:10px}
+.asp-ref-progress-row input{width:60px;padding:3px 6px;border:1px solid #CBD5E1;border-radius:6px;text-align:center;font-size:.85rem}
+.asp-ref-progress-row span{color:#64748B}
 .asp-deadline-box{display:flex;align-items:flex-start;gap:10px;background:#FFF;border:1px solid #E2E8F0;border-radius:10px;padding:14px}
 .asp-dl-icon{font-size:1.4rem;flex-shrink:0}
 .asp-dl-title{font-size:.85rem;font-weight:700;color:#334155;margin-bottom:3px}
@@ -4981,14 +4984,17 @@ function refreshPartner(){
 }
 
 function renderAspCard(key,asp){
-  // 計算整體進度 (certs + refs 都算)
-  let totalDone=0,totalReq=0;
+  // 計算整體進度：認證佔 60%，Audit 佔 40%
+  let certDone=0,certReq=0;
   asp.certs.forEach(c=>{
     const done=Object.values(c.members).reduce((a,v)=>a+v,0);
-    totalDone+=Math.min(done,c.required); totalReq+=c.required;
+    certDone+=Math.min(done,c.required); certReq+=c.required;
   });
-  asp.refs.forEach(r=>{ totalReq+=1; if(r.done) totalDone+=1; });
-  const pct=totalReq?Math.round(totalDone/totalReq*100):0;
+  let refDone=0,refReq=asp.refs.length;
+  asp.refs.forEach(r=>{ if(r.done) refDone+=1; });
+  const certPct=certReq?certDone/certReq:0;
+  const refPct=(asp.refProgress!=null)?asp.refProgress/100:(refReq?refDone/refReq:0);
+  const pct=Math.round(certPct*60 + refPct*40);
   const allDone=pct>=100;
   const badgeClass=pct>=90?'done':pct>=60?'warn':'danger';
   const badgeIcon=pct>=90?'✅':pct>=60?'⚠️':'🔴';
@@ -5043,7 +5049,7 @@ function renderAspCard(key,asp){
     ?`⚡ ${gapEntries.map(([m,c])=>`${m} 缺 ${c.join('、')}`).join('；')}。`
     :'✅ 所有認證均已達標。';
 
-  return `<div class="asp-card">
+  return `<div class="asp-card" id="asp-card-${key}">
     <div class="asp-card-header ${asp.theme}">
       <div class="asp-header-left">
         <div class="asp-icon">${asp.icon}</div>
@@ -5068,6 +5074,10 @@ function renderAspCard(key,asp){
         <div class="asp-section-title">🏆 ${asp.refsTitle||'客戶推薦資料'}</div>
         ${refsBadge}
         <div class="asp-ref-list">${refsHtml}</div>
+        <div class="asp-ref-progress-row">
+          <label>📊 ${asp.refsTitle||'Audit'} 進度</label>
+          <input type="number" min="0" max="100" value="${asp.refProgress??0}" data-aspkey="${key}" onchange="saveAspRefProgress(this)"> <span>%</span>
+        </div>
         <div class="asp-deadline-box">
           <div class="asp-dl-icon">📅</div>
           <div>
@@ -5097,6 +5107,17 @@ function saveAspDlNote(el){
   const data=loadAspData();
   data[key].dlNote=val;
   saveAspData(data);
+}
+
+function saveAspRefProgress(el){
+  const key=el.dataset.aspkey;
+  const val=Math.min(100,Math.max(0,parseInt(el.value)||0));
+  el.value=val;
+  const data=loadAspData();
+  data[key].refProgress=val;
+  saveAspData(data);
+  const card=document.getElementById('asp-card-'+key);
+  if(card){ const tmp=document.createElement('div'); tmp.innerHTML=renderAspCard(key,data[key]); card.replaceWith(tmp.firstElementChild); }
 }
 
 function toggleAspMember(aspKey, certId, member){

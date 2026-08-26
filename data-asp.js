@@ -35,7 +35,7 @@ const ASP_DATA_DEFAULT = {
   infra: {
     label:'Infra and Database Migration to Microsoft Azure ASP', subtitle:'Microsoft Azure 基礎架構與資料庫遷移專長方案',
     icon:'☁️', theme:'asp-infra', deadline:'2026/10/26',
-    refsTitle:'Audit',
+    refsTitle:'Audit', refProgress:40,
     dlNote:'評估期間 2026/07/28～2026/10/26，Module B 由 Lucas 與 Allen 共同負責，尚缺一人考取左列任一認證 (洽詢高雄趨勢工程師 AZ-104)。',
     refs:[
       {name:'Module A', who:'',              date:'',           done:false},
@@ -51,11 +51,10 @@ const ASP_DATA_DEFAULT = {
   copilotnew: {
     label:'Copilot ASP (New)', subtitle:'Microsoft Copilot 下一代專長方案',
     icon:'🤖', theme:'asp-copilotnew', deadline:'2026/09/30',
-    refsTitle:'Audit',
-    dlNote:'SC-401 與 AB-100 全員已完成；Audit / Module A / Module B 稽核進行中，Module B 由 Aaron 負責，截止日 2026/09/30。',
+    refsTitle:'Audit', refProgress:40,
+    dlNote:'',
     refs:[
-      {name:'Module A', who:'',    date:'',           done:false},
-      {name:'Module B', who:'Aaron', date:'2026/09/30', done:false},
+      {name:'稽核文件', who:'Aaron', date:'2026/09/30', done:false},
     ],
     certs:[
       {id:'cnew-sc401', code:'SC-401', name:'Information Security Administrator Associate', required:5, members:{Allen:1,Somebody:1,Lucas:1,Aaron:1,Guo:1}},
@@ -64,12 +63,11 @@ const ASP_DATA_DEFAULT = {
   },
   datasecurity: {
     label:'Data Security ASP', subtitle:'Microsoft 資料安全性專長方案',
-    icon:'🗄️', theme:'asp-datasecurity', deadline:'2026/08/31',
-    dlNote:'客戶推薦資料三件均由 Aaron 負責，截止日 2026/08/31，目前尚未完成，請盡速準備並上傳至合作夥伴入口網站。',
+    icon:'🗄️', theme:'asp-datasecurity', deadline:'2026/12/31',
+    refsTitle:'Audit',
+    dlNote:'',
     refs:[
-      {name:'客戶推薦資料 01', who:'Aaron', date:'2026/08/31', done:false},
-      {name:'客戶推薦資料 02', who:'Aaron', date:'2026/08/31', done:false},
-      {name:'客戶推薦資料 03', who:'Aaron', date:'2026/08/31', done:false},
+      {name:'稽核文件', who:'Aaron', date:'2026/12/31', done:false},
     ],
     certs:[
       {id:'ds-sc401',  code:'SC-401',        name:'Information Security Administrator Associate',                       required:6, members:{Allen:1,Somebody01:0,Lucas:1,Aaron:1,Guo:1,Eric:0}},
@@ -133,9 +131,10 @@ function loadAspData(){
   if(cached){
     Object.entries(d).forEach(([k,asp])=>{
       const c=cached[k]; if(!c) return;
-      // 保留文字欄位
-      if(c.dlNote   !== undefined) asp.dlNote   = c.dlNote;
+      // 保留文字欄位（若 DEFAULT 已清空 dlNote，不從快取還原舊值）
+      if(c.dlNote !== undefined && asp.dlNote !== '') asp.dlNote = c.dlNote;
       if(c.deadline !== undefined) asp.deadline = c.deadline;
+      if(c.refProgress !== undefined) asp.refProgress = c.refProgress;
       // 保留 refs done 狀態（以名稱對應）
       if(Array.isArray(c.refs)){
         const cmap={}; c.refs.forEach(r=>{ cmap[r.name]=r; });
