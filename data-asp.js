@@ -42,10 +42,10 @@ const ASP_DATA_DEFAULT = {
       {name:'Module B', who:'Lucas / Allen', date:'2026/10/26', done:false},
     ],
     certs:[
-      {id:'infra-az104', code:'AZ-104', name:'Microsoft Azure Administrator Associate', required:1, members:{Allen:1,Somebody01:0,Lucas:1,Aaron:1}},
-      {id:'infra-az500', code:'AZ-500', name:'Azure Security Engineer Associate',        required:1, members:{Allen:0,Somebody01:0,Lucas:1,Aaron:1}},
-      {id:'infra-dp300', code:'DP-300', name:'Azure 資料庫管理師助理',                   required:1, members:{Allen:0,Somebody01:0,Lucas:0,Aaron:0}},
-      {id:'infra-az400', code:'AZ-400', name:'DevOps Engineer Expert',                   required:1, members:{Allen:1,Somebody01:0,Lucas:0,Aaron:0}},
+      {id:'infra-az104', code:'AZ-104', name:'Microsoft Azure Administrator Associate', required:1, members:{Allen:1,Alex:0,Lucas:1,Aaron:1}},
+      {id:'infra-az500', code:'AZ-500', name:'Azure Security Engineer Associate',        required:1, members:{Allen:0,Alex:0,Lucas:1,Aaron:1}},
+      {id:'infra-dp300', code:'DP-300', name:'Azure 資料庫管理師助理',                   required:1, members:{Allen:0,Alex:0,Lucas:0,Aaron:0}},
+      {id:'infra-az400', code:'AZ-400', name:'DevOps Engineer Expert',                   required:1, members:{Allen:1,Alex:0,Lucas:0,Aaron:0}},
     ]
   },
   copilotnew: {
@@ -57,8 +57,8 @@ const ASP_DATA_DEFAULT = {
       {name:'稽核文件', who:'Aaron', date:'2026/09/30', done:false},
     ],
     certs:[
-      {id:'cnew-sc401', code:'SC-401', name:'Information Security Administrator Associate', required:5, members:{Allen:1,Somebody:1,Lucas:1,Aaron:1,Guo:1}},
-      {id:'cnew-ab100', code:'AB-100', name:'Agentic AI Business Solutions Architect',       required:5, members:{Allen:1,Somebody:1,Lucas:1,Aaron:1,Guo:1}},
+      {id:'cnew-sc401', code:'SC-401', name:'Information Security Administrator Associate', required:5, members:{Allen:1,Alex:1,Lucas:1,Aaron:1,Guo:1}},
+      {id:'cnew-ab100', code:'AB-100', name:'Agentic AI Business Solutions Architect',       required:5, members:{Allen:1,Alex:1,Lucas:1,Aaron:1,Guo:1}},
     ]
   },
   datasecurity: {
@@ -70,7 +70,7 @@ const ASP_DATA_DEFAULT = {
       {name:'稽核文件', who:'Aaron', date:'2026/12/31', done:false},
     ],
     certs:[
-      {id:'ds-sc401',  code:'SC-401',        name:'Information Security Administrator Associate',                       required:6, members:{Allen:1,Somebody01:0,Lucas:1,Aaron:1,Guo:1,Eric:0}},
+      {id:'ds-sc401',  code:'SC-401',        name:'Information Security Administrator Associate',                       required:6, members:{Allen:1,Alex:0,Lucas:1,Aaron:1,Guo:1,Eric:0}},
       {id:'ds-as-pur', code:'Applied Skills', name:'使用 Microsoft Purview 實作資訊保護和資料外洩防護', required:4, members:{Allen:1,Lucas:1,Aaron:1,Guo:1}},
     ]
   }
