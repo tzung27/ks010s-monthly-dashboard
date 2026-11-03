@@ -5041,9 +5041,12 @@ function renderAspCard(key,asp){
     </div>`:'<div class="asp-note" style="background:#F0FDF4;border-color:#86EFAC;color:#166534">🎉 所有成員認證均已完成！</div>';
 
   const refsAllDone=asp.refs.every(r=>r.done);
+  const _aspObtained=asp.dlNote&&asp.dlNote.includes('已取得');
   const refsBadge=refsAllDone
     ?`<div class="asp-ref-status done-big"><div class="asp-ref-icon">✅</div><div class="asp-ref-label">已 100% 完成</div></div>`
-    :`<div class="asp-ref-status warn-big"><div class="asp-ref-icon">⏳</div><div class="asp-ref-label">進行中</div></div>`;
+    :(_aspObtained
+      ?`<div class="asp-ref-status done-big"><div class="asp-ref-icon">🎉</div><div class="asp-ref-label">${asp.dlNote.trim()}</div></div>`
+      :`<div class="asp-ref-status warn-big"><div class="asp-ref-icon">⏳</div><div class="asp-ref-label">進行中</div></div>`);
   const refsHtml=asp.refs.map(r=>
     `<div class="asp-ref-item"><span class="asp-ref-dot ${r.done?'green':'gray'}"></span><span>${r.name}</span><span class="asp-ref-who">${r.who}</span><span class="asp-ref-date">${r.date}</span></div>`
   ).join('');
