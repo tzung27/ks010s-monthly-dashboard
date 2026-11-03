@@ -35,8 +35,8 @@ const ASP_DATA_DEFAULT = {
   infra: {
     label:'Infra and Database Migration to Microsoft Azure ASP', subtitle:'Microsoft Azure 基礎架構與資料庫遷移專長方案',
     icon:'☁️', theme:'asp-infra', deadline:'2026/10/26',
-    refsTitle:'Audit', refProgress:40,
-    dlNote:'評估期間 2026/07/28～2026/10/26，Module B 由 Lucas 與 Allen 共同負責，尚缺一人考取左列任一認證 (洽詢高雄趨勢工程師 AZ-104)。',
+    refsTitle:'Audit', refProgress:90,
+    dlNote:'評估期間 2026/07/28～2026/10/26，Module B 由 Lucas 與 Allen 共同負責，AZ-104 尚缺 Alex，DP-300 Allen/Lucas/Aaron 待考。',
     refs:[
       {name:'Module A', who:'',              date:'',           done:false},
       {name:'Module B', who:'Lucas / Allen', date:'2026/10/26', done:false},
@@ -44,15 +44,15 @@ const ASP_DATA_DEFAULT = {
     certs:[
       {id:'infra-az104', code:'AZ-104', name:'Microsoft Azure Administrator Associate', required:1, members:{Allen:1,Alex:0,Lucas:1,Aaron:1}},
       {id:'infra-az500', code:'AZ-500', name:'Azure Security Engineer Associate',        required:1, members:{Allen:0,Alex:0,Lucas:1,Aaron:1}},
-      {id:'infra-dp300', code:'DP-300', name:'Azure 資料庫管理師助理',                   required:1, members:{Allen:0,Alex:0,Lucas:0,Aaron:0}},
+      {id:'infra-dp300', code:'DP-300', name:'Azure 資料庫管理師助理',                   required:1, members:{Allen:0,Alex:1,Lucas:0,Aaron:0}},
       {id:'infra-az400', code:'AZ-400', name:'DevOps Engineer Expert',                   required:1, members:{Allen:1,Alex:0,Lucas:0,Aaron:0}},
     ]
   },
   copilotnew: {
     label:'Copilot ASP (New)', subtitle:'Microsoft Copilot 下一代專長方案',
     icon:'🤖', theme:'asp-copilotnew', deadline:'2026/09/30',
-    refsTitle:'Audit', refProgress:40,
-    dlNote:'',
+    refsTitle:'Audit', refProgress:100,
+    dlNote:'已取得此ASP',
     refs:[
       {name:'稽核文件', who:'Aaron', date:'2026/09/30', done:false},
     ],
@@ -85,6 +85,7 @@ const PARTNER_DATA_DEFAULT = {
   specializations: [
     {id:'sp1', text:'【Without GAP】AI Platform on Microsoft Azure'},
     {id:'sp2', text:'【Without GAP】Infra and Database Migration to Microsoft Azure'},
+    {id:'sp3', text:'【Without GAP】AI Business Solution Microsoft 365 Copilot (2026/10/12)'},
   ],
   solutionDesignations: {
     total: 6,
@@ -98,8 +99,9 @@ const PARTNER_DATA_DEFAULT = {
     ]
   },
   partnerCards: [
-    {id:'pc1', area:'Data & AI',     sub:'Azure', specialist:'AI Platform on Microsoft Azure'},
-    {id:'pc2', area:'Infrastructure',sub:'Azure', specialist:'Infra and Database Migration'},
+    {id:'pc1', area:'Data & AI',           sub:'Azure', specialist:'AI Platform on Microsoft Azure'},
+    {id:'pc2', area:'Infrastructure',      sub:'Azure', specialist:'Infra and Database Migration'},
+    {id:'pc3', area:'AI Business Solutions',sub:'',     specialist:'Microsoft 365 Copilot'},
   ]
 };
 
