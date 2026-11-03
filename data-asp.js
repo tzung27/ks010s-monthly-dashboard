@@ -5,17 +5,17 @@ const ASP_DATA_DEFAULT = {
   copilot: {
     label:'Copilot ASP', subtitle:'Microsoft 365 Copilot 專長方案',
     icon:'🤖', theme:'asp-copilot', deadline:'2026/03/31',
-    dlNote:'MS-102 (Guo) 須於此日期前完成以符合專長資格。',
+    dlNote:'MS-102 (Denny) 須於此日期前完成以符合專長資格。',
     refs:[
       {name:'角色型 Copilot 導入專案', who:'Nick', date:'2026/02/28', done:true},
       {name:'Copilot 延伸模組實作',     who:'Nick', date:'2026/02/28', done:true},
       {name:'自訂 Copilot 實作',         who:'Nick', date:'2026/02/28', done:true},
     ],
     certs:[
-      {id:'cop-sc401', code:'SC-401',        name:'Administering Information Security in M365',       required:5, members:{Allen:1,Nick:1,Lucas:1,Aaron:1,Guo:1}},
-      {id:'cop-ms102', code:'MS-102',        name:'Microsoft 365 Administrator Expert',               required:5, members:{Allen:1,Nick:1,Lucas:1,Aaron:1,Guo:0}},
-      {id:'cop-as1',   code:'Applied Skills',name:'準備安全性和合規性以支援 M365 Copilot',            required:5, members:{Allen:1,Nick:1,Lucas:1,Aaron:1,Guo:1}},
-      {id:'cop-as2',   code:'Applied Skills',name:'在 Microsoft Copilot Studio 中建立代理程式',       required:5, members:{Allen:1,Nick:1,Lucas:1,Aaron:1,Guo:1}},
+      {id:'cop-sc401', code:'SC-401',        name:'Administering Information Security in M365',       required:5, members:{Allen:1,Nick:1,Lucas:1,Aaron:1,Denny:1}},
+      {id:'cop-ms102', code:'MS-102',        name:'Microsoft 365 Administrator Expert',               required:5, members:{Allen:1,Nick:1,Lucas:1,Aaron:1,Denny:0}},
+      {id:'cop-as1',   code:'Applied Skills',name:'準備安全性和合規性以支援 M365 Copilot',            required:5, members:{Allen:1,Nick:1,Lucas:1,Aaron:1,Denny:1}},
+      {id:'cop-as2',   code:'Applied Skills',name:'在 Microsoft Copilot Studio 中建立代理程式',       required:5, members:{Allen:1,Nick:1,Lucas:1,Aaron:1,Denny:1}},
     ]
   },
   security: {
@@ -28,8 +28,8 @@ const ASP_DATA_DEFAULT = {
       {name:'客戶推薦資料 03', who:'Lucas', date:'2026/03/31', done:true},
     ],
     certs:[
-      {id:'sec-az500', code:'AZ-500', name:'Microsoft Azure Security Engineer',    required:6, members:{Allen:0,Nick:0,Lucas:1,Aaron:1,Guo:0,Eric:0}},
-      {id:'sec-sc200', code:'SC-200', name:'Microsoft Security Operations Analyst',required:5, members:{Allen:0,Nick:1,Lucas:1,Aaron:1,Guo:0}},
+      {id:'sec-az500', code:'AZ-500', name:'Microsoft Azure Security Engineer',    required:6, members:{Allen:0,Nick:0,Lucas:1,Aaron:1,Denny:0,Jimmy:0}},
+      {id:'sec-sc200', code:'SC-200', name:'Microsoft Security Operations Analyst',required:5, members:{Allen:0,Nick:1,Lucas:1,Aaron:1,Denny:0}},
     ]
   },
   infra: {
@@ -57,8 +57,8 @@ const ASP_DATA_DEFAULT = {
       {name:'稽核文件', who:'Aaron', date:'2026/09/30', done:false},
     ],
     certs:[
-      {id:'cnew-sc401', code:'SC-401', name:'Information Security Administrator Associate', required:5, members:{Allen:1,Jimmy:1,Lucas:1,Aaron:1,Guo:1}},
-      {id:'cnew-ab100', code:'AB-100', name:'Agentic AI Business Solutions Architect',       required:5, members:{Allen:1,Jimmy:1,Lucas:1,Aaron:1,Guo:1}},
+      {id:'cnew-sc401', code:'SC-401', name:'Information Security Administrator Associate', required:5, members:{Allen:1,Jimmy:1,Lucas:1,Aaron:1,Denny:1}},
+      {id:'cnew-ab100', code:'AB-100', name:'Agentic AI Business Solutions Architect',       required:5, members:{Allen:1,Jimmy:1,Lucas:1,Aaron:1,Denny:1}},
     ]
   },
   datasecurity: {
@@ -70,8 +70,8 @@ const ASP_DATA_DEFAULT = {
       {name:'稽核文件', who:'Aaron', date:'2026/12/31', done:false},
     ],
     certs:[
-      {id:'ds-sc401',  code:'SC-401',        name:'Information Security Administrator Associate',                       required:6, members:{Allen:1,Jimmy:0,Lucas:1,Aaron:1,Guo:1,Eric:0}},
-      {id:'ds-as-pur', code:'Applied Skills', name:'使用 Microsoft Purview 實作資訊保護和資料外洩防護', required:4, members:{Allen:1,Lucas:1,Aaron:1,Guo:1}},
+      {id:'ds-sc401',  code:'SC-401',        name:'Information Security Administrator Associate',                       required:6, members:{Allen:1,Jimmy:0,Lucas:1,Aaron:1,Denny:1,Eric:0}},
+      {id:'ds-as-pur', code:'Applied Skills', name:'使用 Microsoft Purview 實作資訊保護和資料外洩防護', required:4, members:{Allen:1,Lucas:1,Aaron:1,Denny:1}},
     ]
   }
 };
