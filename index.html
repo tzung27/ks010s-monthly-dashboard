@@ -3432,9 +3432,6 @@ function init(){
   buildFilterMemberSelect();
   buildCompareMemberSelect();
   renderAll();
-  // 預設顯示月報資料分頁
-  const mrBtn=document.querySelector('.tab-btn[onclick*="monthlyreport"]');
-  if(mrBtn){ switchTab('monthlyreport',mrBtn); renderMonthlyReportTab(); }
 }
 
 function buildPeriodPills(){
@@ -6935,6 +6932,12 @@ function apfSvgDownload() {
   a.click();
   URL.revokeObjectURL(a.href);
 }
+
+// 所有函式載入完成後，切換至月報資料並渲染
+(function(){
+  const mrBtn=document.querySelector('.tab-btn[onclick*="monthlyreport"]');
+  if(mrBtn){ switchTab('monthlyreport',mrBtn); renderMonthlyReportTab(); }
+})();
 
 </script>
 </body>
