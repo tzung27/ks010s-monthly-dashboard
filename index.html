@@ -589,8 +589,8 @@ tr:hover .iur-edit-btn{opacity:1}
 </header>
 
 <nav>
-  <button class="tab-btn" onclick="switchTab('monthlyreport',this);renderMonthlyReportTab()">📋 月報資料</button>
-  <button class="tab-btn active" onclick="switchTab('overview',this)">📊 部門總覽</button>
+  <button class="tab-btn active" onclick="switchTab('monthlyreport',this);renderMonthlyReportTab()">📋 月報資料</button>
+  <button class="tab-btn" onclick="switchTab('overview',this)">📊 部門總覽</button>
   <button class="tab-btn" onclick="switchTab('members',this)">👥 個人報告</button>
   <button class="tab-btn" onclick="switchTab('cases',this)">📋 案件明細</button>
   <button class="tab-btn" onclick="switchTab('nextmonth',this)">🎯 下月重點</button>
@@ -3415,8 +3415,8 @@ function getHighlightsAndImprovements(period){
 // ─────────────────────────────────────────────────────────────
 // State
 // ─────────────────────────────────────────────────────────────
-let selectedPeriods=['2026-07'];
-let currentPeriod='2026-07'; // always = selectedPeriods last element
+let selectedPeriods=['2026-09'];
+let currentPeriod='2026-09'; // always = selectedPeriods last element
 let filteredCases=[];
 let currentPage=1;
 const PAGE_SIZE=50;
@@ -3432,6 +3432,9 @@ function init(){
   buildFilterMemberSelect();
   buildCompareMemberSelect();
   renderAll();
+  // 預設顯示月報資料分頁
+  const mrBtn=document.querySelector('.tab-btn[onclick*="monthlyreport"]');
+  if(mrBtn){ switchTab('monthlyreport',mrBtn); renderMonthlyReportTab(); }
 }
 
 function buildPeriodPills(){
@@ -3440,7 +3443,7 @@ function buildPeriodPills(){
   const hint=document.getElementById('period-pill-hint');
   const periods=Object.keys(data).sort();
   // short label: "1月" "2月" etc.
-  const shortLbl=p=>(data[p].label||p).replace('2026年','');
+  const shortLbl=p=>(data[p].label||p).replace(/2026\s*年\s*/,'');
   container.innerHTML=periods.map(p=>{
     const active=selectedPeriods.includes(p);
     return `<button class="period-pill${active?' active':''}" onclick="togglePeriod('${p}')">${shortLbl(p)}</button>`;
