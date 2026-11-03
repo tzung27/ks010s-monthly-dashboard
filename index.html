@@ -14,6 +14,7 @@
 <script src="data-202606.js"></script>
 <script src="data-202607.js"></script>
 <script src="data-202608.js"></script>
+<script src="data-202609.js"></script>
 <script src="data-certs.js"></script>
 <script src="data-asp.js"></script>
 <script src="data-iur.js"></script>
@@ -3262,6 +3263,7 @@ function getAllData(){
   stored['2026-06']=DATA_202606;
   stored['2026-07']=DATA_202607;
   stored['2026-08']=DATA_202608;
+  stored['2026-09']=DATA_202609;
   return stored;
 }
 
@@ -5828,6 +5830,23 @@ const MR3_DEFAULTS = {
       Adobe:['Firefly AI Assistant 教學影片製作與 YouTube 發布','Admin Console / Acrobat / Sign 技術支援 60+','ChatGPT + Firefly AI 教材製作效率提升','客戶端產品介紹 3 件（AI 功能推廣）'],
     }
   },
+  '2026-09':{
+    aiItems:[
+      {icon:'🏅',title:'四人認證里程碑',sub:'Aaron GH-300 新取得+SC-200 Renew、Lucas SC-500 新取得+AZ-700 Renew',desc:'本月 Aaron 取得 GH-300 GitHub Copilot 新認證並完成 SC-200 續約；Lucas 取得 SC-500 雲端與 AI 安全工程師助理新認證並完成 AZ-700 續約，合計認證虛擬產值 NT$120,000。'},
+      {icon:'📝',title:'Adobe 企業服務深化',sub:'東元電機、德翔海運 Acrobat Sign + 農業部、空軍司令部 FRL 設定',desc:'Adobe(Jimmy) 完成 4 件重點企業服務：東元電機與德翔海運 Acrobat Sign Solution 企業授權介紹、農業部 Creative Cloud 授權設定、空軍司令部 FRL 不連網授權續約，企業技術服務 50+ 件，虛擬產值 NT$125,000。'},
+      {icon:'💰',title:'雙收費里程碑',sub:'Denny NT$33,333 + William NT$25,000',desc:'Denny 本月達成實際收費 NT$33,333（Apple MDM 核心客戶）；William 達成 NT$25,000（卡巴斯基收費服務），合計實際收費 NT$58,333。'},
+      {icon:'⚙️',title:'William ManageEngine 新服務',sub:'新增端點管理產品線 5 件',desc:'William 本月新增 ManageEngine 服務項目 5 件，拓展端點管理產品線，結合既有 Kaspersky 31 件技術支援，強化端點安全整合服務能量。'},
+      {icon:'🌐',title:'Cloudiway 遷移持續推進',sub:'壽險公會、廷昇系統 M365 遷移',desc:'Aaron 持續推進 Cloudiway 遷移專案，協助壽險公會 Tenant to Tenant 遷移及廷昇系統 Hibox 遷移，深化 M365 雲端遷移服務能量。'},
+    ],
+    memberTasks:{
+      Aaron:['76 件 Microsoft CSP / Cloudiway 技術支援', 'GH-300 新取得 + SC-200 Renew（認證虛擬產值 NT$60,000）', 'Cloudiway 遷移 2 件（壽險公會 T2T + 廷昇系統 Hibox）', 'Copilot 導入諮詢持續推進'],
+      Denny:['Apple MDM 33 件（彰銀、華航、凱基人壽、日藥本舖）', 'Trend Micro 8 件技術支援', '實際收費 NT$33,333', 'Apple Business 教育訓練 2 場（展碁國際）'],
+      William:['Kaspersky 31 件技術支援（收費 NT$25,000）', 'ManageEngine 新服務項目 5 件', 'Apple Business 平台介紹與 MDM 功能說明 NT$12,000', '端點安全整合服務能量持續強化'],
+      Lucas:['Azure 30 件技術支援（VM / 網路 / Sentinel / Fabric）', 'SC-500 新取得 + AZ-700 Renew（認證虛擬產值 NT$60,000）', 'SC-500 認證強化 Azure 資安顧問服務', 'GCP→Azure 遷移評估與 Copilot 配額管理持續推進'],
+      Nick:['本月暫無案件紀錄','','',''],
+      Adobe:['東元電機、德翔海運 Acrobat Sign Solution 企業介紹（2 件）', '農業部 Creative Cloud 設定、空軍司令部 FRL 不連網授權續約（2 件）', '企業技術案件 50+ 件（Admin Console / Acrobat Sign / Firefly AI）', '累積企業服務案例，建立 Adobe 技術服務知識庫'],
+    }
+  },
   '2026-08':{
     aiItems:[
       {icon:'🏅',title:'認證能量爆發',sub:'Aaron AB-100 新取得 + MS-102 Renew、Lucas AB-100 新取得 + FTE 徽章',desc:'本月 Aaron 取得 AB-100 Agentic AI Business Solutions Architect 新認證並完成 MS-102 Renew；Lucas 同步取得 AB-100 與 Frontier Transformation Engineer 徽章，合計認證虛擬產值 NT$120,000。'},
@@ -5873,6 +5892,7 @@ const MR3_ACTUAL_LABELS = {
   '2026-06':{Denny:'和泰+華航',William:'卡巴斯基+Apple',Lucas:'翻頁國際+海能風力'},
   '2026-07':{Denny:'中華賓士+華航+彰銀',William:'台設院健診+量趨科技'},
   '2026-08':{Denny:'華航+彰銀+凱基+永紐',William:'台中關稅局+台設院+量趨'},
+  '2026-09':{Denny:'Apple MDM 核心客戶',William:'卡巴斯基收費服務'},
 };
 
 let mr3EditMode=false;
