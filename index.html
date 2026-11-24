@@ -15,6 +15,7 @@
 <script src="data-202607.js"></script>
 <script src="data-202608.js"></script>
 <script src="data-202609.js"></script>
+<script src="data-202610.js"></script>
 <script src="data-certs.js"></script>
 <script src="data-asp.js"></script>
 <script src="data-iur.js"></script>
@@ -3264,6 +3265,7 @@ function getAllData(){
   stored['2026-07']=DATA_202607;
   stored['2026-08']=DATA_202608;
   stored['2026-09']=DATA_202609;
+  stored['2026-10']=DATA_202610;
   return stored;
 }
 
@@ -3415,8 +3417,8 @@ function getHighlightsAndImprovements(period){
 // ─────────────────────────────────────────────────────────────
 // State
 // ─────────────────────────────────────────────────────────────
-let selectedPeriods=['2026-09'];
-let currentPeriod='2026-09'; // always = selectedPeriods last element
+let selectedPeriods=['2026-10'];
+let currentPeriod='2026-10'; // always = selectedPeriods last element
 let filteredCases=[];
 let currentPage=1;
 const PAGE_SIZE=50;
