@@ -1,6 +1,6 @@
 // ─────────────────────────────────────────────────────────────
 // Microsoft 認證追蹤資料（依 2026-11 更新）
-// Allen=14, Nick=11, Lucas=18, Aaron=16, Jimmy=3 → 合計62
+// Allen=14, Nick=11, Lucas=18, Aaron=16, Jimmy=4 → 合計63
 // ─────────────────────────────────────────────────────────────
 const CERT_MEMBERS_LIST = ['Allen', 'Nick', 'Lucas', 'Aaron', 'Jimmy'];
 
@@ -40,7 +40,7 @@ const CERT_DATA_DEFAULT = [
   { id:'CR770063', name:'GitHub Copilot Certification',                       code:'GH-300', expiry:'',           csa:'Cloud & AI Platforms',  cat1:'Data and AI',        cat2:'Copilot',                                         note:'',             Allen:1, Nick:0, Lucas:1, Aaron:1, Jimmy:0 },
   { id:'CR832320', name:'Developing AI-Enabled Database Solutions',           code:'DP-800', expiry:'',           csa:'Cloud & AI Platforms',  cat1:'Data and AI',        cat2:'Database AI',                                     note:'',             Allen:0, Nick:0, Lucas:1, Aaron:0, Jimmy:0 },
 ];
-// 驗證合計: Allen=14, Nick=11, Lucas=18, Aaron=16, Jimmy=3 → 62
+// 驗證合計: Allen=14, Nick=11, Lucas=18, Aaron=16, Jimmy=4 → 63
 
 function _mergeCertDefaults(d){
   const ids=new Set(d.map(r=>r.id));
