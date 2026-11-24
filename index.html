@@ -3180,11 +3180,11 @@ tr:hover .iur-edit-btn{opacity:1}
           <th>CSA 分類</th>
           <th>分類 1</th>
           <th>分類 2</th>
-          <th style="text-align:center">Allen</th>
-          <th style="text-align:center">Nick</th>
-          <th style="text-align:center">Lucas</th>
-          <th style="text-align:center">Aaron</th>
-          <th style="text-align:center">Jimmy</th>
+          <th style="text-align:center" id="cert-th-Allen">Allen</th>
+          <th style="text-align:center" id="cert-th-Nick">Nick</th>
+          <th style="text-align:center" id="cert-th-Lucas">Lucas</th>
+          <th style="text-align:center" id="cert-th-Aaron">Aaron</th>
+          <th style="text-align:center" id="cert-th-Jimmy">Jimmy</th>
           <th style="text-align:center">合計</th>
           <th style="text-align:center">操作</th>
         </tr>
@@ -4663,6 +4663,12 @@ function renderCertTab(){
   renderCertCharts(data);
   renderCertTimeline(data);
   renderCertTable();
+  CERT_MEMBERS_LIST.forEach(m=>{
+    const th=document.getElementById('cert-th-'+m);
+    if(!th) return;
+    const cnt=data.reduce((s,r)=>s+(r[m]||0),0);
+    th.innerHTML=`<span style="font-size:.72em;color:#94A3B8;font-weight:500">(${cnt})</span><br>${m}`;
+  });
 }
 
 function renderCertTimeline(data){
