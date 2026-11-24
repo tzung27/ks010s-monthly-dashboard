@@ -39,8 +39,8 @@ const DATA_202610 = {
     William:{
       name:"William",role:"Kaspersky & ManageEngine 技術工程師",color:"#7C3AED",
       summary:{cases:0,virtual:0,actual:0},
-      highlights:["本月暫無案件紀錄"],
-      nextMonth:["持續卡巴斯基續約名單客戶維護與技術支援"]
+      highlights:["🌱 育嬰留職停薪中（2026/10/12 – 2026/12/31）"],
+      nextMonth:["育嬰留職停薪期間，預計 2027/01 復職後恢復服務"]
     },
     Lucas:{
       name:"Lucas",role:"Azure 雲端架構師 · Surestep 認證",color:"#F59E0B",
