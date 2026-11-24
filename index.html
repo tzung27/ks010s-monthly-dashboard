@@ -4676,8 +4676,13 @@ function renderCertTimeline(data){
     'Modern Work':'Modern Work','Power Platform':'Power Platform','Security':'Security',
     'Dynamics 365/Data & AI':'Dynamics 365 / Data & AI'};
 
-  // 群組鍵：csa + cat1（只含有人持有且非取代方案）
-  const active=data.filter(r=>getCertStatus(r)!=='new' && CERT_MEMBERS_LIST.some(m=>r[m]>0));
+  // 被取代的認證代號（從取代認證的 note 提取，如 '取代 AI-102' → 'AI-102'）
+  const replacedCodes=new Set(
+    data.filter(r=>r.note&&r.note.startsWith('取代')).map(r=>r.note.replace('取代 ','').trim())
+  );
+
+  // 群組鍵：csa + cat1（含取代認證，只排除無人持有）
+  const active=data.filter(r=>CERT_MEMBERS_LIST.some(m=>r[m]>0));
   const groups={};
   active.forEach(r=>{
     const prefix=csaShort[r.csa]||r.csa;
@@ -4685,7 +4690,8 @@ function renderCertTimeline(data){
     const key= prefix==='Security' ? 'Security' : `${prefix} - ${cl}`;
     if(!groups[key]) groups[key]=[];
     const total=CERT_MEMBERS_LIST.reduce((a,m)=>a+(r[m]||0),0);
-    groups[key].push({code:r.code, total});
+    const isReplaced=replacedCodes.has(r.code);
+    groups[key].push({code:r.code, total, isReplaced});
   });
 
   // 固定排序順序
@@ -4695,7 +4701,10 @@ function renderCertTimeline(data){
 
   el.innerHTML=keys.map(key=>{
     const items=groups[key].sort((a,b)=>b.total-a.total);
-    const listHtml=items.map(i=>`<li>${i.code} <span class="tl-count">x${i.total}</span></li>`).join('');
+    const listHtml=items.map(i=>i.isReplaced
+      ? `<li style="text-decoration:line-through;opacity:.45;color:#94A3B8">${i.code} <span class="tl-count" style="color:#94A3B8">x${i.total}</span></li>`
+      : `<li>${i.code} <span class="tl-count">x${i.total}</span></li>`
+    ).join('');
     // 換行：在 " - " 後加換行
     const label=key.replace(' - ','\n');
     return `<div class="cert-tl-group">
